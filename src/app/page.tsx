@@ -94,7 +94,16 @@ export default function Home() {
         </Text>
 
         {/* Grid */}
-        <Grid flex={1} templateRows="repeat(2, 1fr)" templateColumns="repeat(3, 1fr)" gap={6}>
+        <Grid
+          flex={1}
+          templateRows="repeat(2, 1fr)"
+          templateColumns={{
+            sm: "repeat(1, 1fr)",
+            md: "repeat(2, 1fr)",
+            lg: "repeat(3, 1fr)",
+          }}
+          gap={6}
+        >
           <Card.Root>
             <Card.Body>
               <Text fontSize="lg" fontWeight="semibold">
@@ -102,6 +111,7 @@ export default function Home() {
               </Text>
             </Card.Body>
           </Card.Root>
+
           <Card.Root>
             <Card.Body>
               <Text fontSize="lg" fontWeight="semibold">
@@ -109,6 +119,7 @@ export default function Home() {
               </Text>
             </Card.Body>
           </Card.Root>
+
           <Card.Root>
             <Card.Body>
               <Text fontSize="lg" fontWeight="semibold">
