@@ -1,1 +1,6 @@
 @import "tailwindcss";
+
+:root {
+  --background-app: #dfdcf7;
+  background-color: var(--background-app);
+}

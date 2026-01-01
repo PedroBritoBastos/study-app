@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 
+import { Provider } from "@/components/ui/provider"
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -9,8 +11,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body>
-        {children}
+      <body className="">
+        <Provider>
+          {children}
+        </Provider>
       </body>
     </html>
   );
