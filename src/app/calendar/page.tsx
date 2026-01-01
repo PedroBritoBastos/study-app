@@ -1,31 +1,24 @@
 'use client'
 
 import { Flex, Text, Grid, Card } from "@chakra-ui/react";
+import { Header } from "../../components/Header";
 
 export default function CalendarPage() {
   return (
     <Flex
       flex="1"
-      p={8}
       bg="#c4bff1"
       minH="100vh"
       flexDirection="column"
     >
-      <Text
-        fontSize="2xl"
-        fontWeight="bold"
-        color="gray.800"
-        mb={6}
-      >
-        Calendário
-      </Text>
-
+      <Header title={"Calendário"} />
       {/* Grid do calendário */}
       <Grid
         flex={1}
         templateColumns="repeat(8, 1fr)"
         templateRows="repeat(4, 1fr)"
         gap={4}
+        p={8}
       >
         {/* Dias do mês */}
         <Card.Root><Card.Body><Text>1</Text></Card.Body></Card.Root>
