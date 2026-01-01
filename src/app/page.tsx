@@ -1,6 +1,15 @@
 'use client'
 
-import { Box, Flex, VStack, Button, Text, Image } from "@chakra-ui/react";
+import {
+  Box,
+  Flex,
+  VStack,
+  Button,
+  Text,
+  Image,
+  Grid,
+  Card,
+} from "@chakra-ui/react";
 
 export default function Home() {
   return (
@@ -13,7 +22,7 @@ export default function Home() {
         p={6}
       >
         <Text
-          fontSize="2xl"
+          fontSize="xl"
           fontWeight="bold"
           mb={8}
           letterSpacing="wide"
@@ -69,19 +78,46 @@ export default function Home() {
       </Box>
 
       {/* Conteúdo principal */}
-      <Box
+      <Flex
         flex="1"
         p={8}
         bg="#c4bff1"
+        direction="column"
       >
         <Text
           fontSize="2xl"
           fontWeight="bold"
           color="gray.800"
+          mb={6}
         >
           Home
         </Text>
-      </Box>
+
+        {/* Grid */}
+        <Grid flex={1} templateRows="repeat(2, 1fr)" templateColumns="repeat(3, 1fr)" gap={6}>
+          <Card.Root>
+            <Card.Body>
+              <Text fontSize="lg" fontWeight="semibold">
+                Título do Card
+              </Text>
+            </Card.Body>
+          </Card.Root>
+          <Card.Root>
+            <Card.Body>
+              <Text fontSize="lg" fontWeight="semibold">
+                Título do Card
+              </Text>
+            </Card.Body>
+          </Card.Root>
+          <Card.Root>
+            <Card.Body>
+              <Text fontSize="lg" fontWeight="semibold">
+                Título do Card
+              </Text>
+            </Card.Body>
+          </Card.Root>
+        </Grid>
+      </Flex>
     </Flex>
   );
 }
