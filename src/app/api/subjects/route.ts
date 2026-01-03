@@ -19,18 +19,16 @@ export async function GET() {
   }
 }
 
-interface DataTest {
-  title: string;
-  content: string;
-}
-
 // POST /api/subjects
-export async function POST(data: DataTest) {
+export async function POST(request: Request) {
   try {
+    const body = await request.json();
+    const { title, content } = body;
+
     const subject = await prisma.subject.create({
       data: {
-        title: data.title,
-        content: data.content,
+        title,
+        content,
       },
     });
 
