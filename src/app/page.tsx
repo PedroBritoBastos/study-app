@@ -8,6 +8,7 @@ import {
 } from "@chakra-ui/react";
 
 import { Header } from "../components/Header";
+import { Subject } from "../components/Subject";
 
 export default function Home() {
   return (
@@ -30,29 +31,10 @@ export default function Home() {
         }}
         gap={6}
       >
-        <Card.Root>
-          <Card.Body>
-            <Text fontSize="lg" fontWeight="semibold">
-              Título do Card
-            </Text>
-          </Card.Body>
-        </Card.Root>
-
-        <Card.Root>
-          <Card.Body>
-            <Text fontSize="lg" fontWeight="semibold">
-              Título do Card
-            </Text>
-          </Card.Body>
-        </Card.Root>
-
-        <Card.Root>
-          <Card.Body>
-            <Text fontSize="lg" fontWeight="semibold">
-              Título do Card
-            </Text>
-          </Card.Body>
-        </Card.Root>
+        <Subject subjectName="Portugues" />
+        <Subject subjectName="Matematica" />
+        <Subject subjectName="Historia" />
+        <Subject subjectName="Geografia" />
       </Grid>
     </Flex>
   );
