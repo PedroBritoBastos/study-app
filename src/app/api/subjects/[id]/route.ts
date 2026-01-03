@@ -69,11 +69,15 @@ export async function PUT(
  * DELETE /api/subjects/[id]
  * Remove um subject
  */
-export async function DELETE(request: Request, { params }: SubjectGetById) {
+export async function DELETE(
+  request: Request,
+  { params }: { params: Promise<{ id: string }> }
+) {
   try {
+    const { id } = await params;
     await prisma.subject.delete({
       where: {
-        id: params.id,
+        id: id,
       },
     });
 
