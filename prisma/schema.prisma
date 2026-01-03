@@ -10,7 +10,12 @@ datasource db {
   provider = "sqlite"
 }
 
-model Content {
-   id    Int     @id @default(autoincrement())
-   title String
+model Subject {
+  id          String   @id @default(cuid())
+  title       String
+  content     String
+  currentDate DateTime @default(now())
+
+  @@map("subjects")
 }
+

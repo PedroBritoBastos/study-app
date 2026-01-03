@@ -7,7 +7,9 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "migration": "npx prisma migrate dev",
+    "generate": "npx prisma generate"
   },
   "dependencies": {
     "@chakra-ui/react": "^3.30.0",
