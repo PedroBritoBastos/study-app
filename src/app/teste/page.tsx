@@ -1,22 +1,12 @@
 'use client';
 
-export default function TestePage() {
-  async function handleTest() {
-    try {
-      const response = await fetch('/api/subjects');
-      const data = await response.json();
+import { Modal } from "@/src/components/Modal";
 
-      console.log('Resposta da API (GET):', data);
-    } catch (error) {
-      console.error('Erro ao testar GET:', error);
-    }
-  }
+export default function TestePage() {
 
   return (
     <div>
-      <button onClick={handleTest}>
-        teste
-      </button>
+      <Modal />
     </div>
   );
 }

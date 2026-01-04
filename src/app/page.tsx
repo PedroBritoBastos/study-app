@@ -2,12 +2,12 @@ import {
   Flex,
   Grid,
   Text,
-  Button,
   Image
 } from "@chakra-ui/react";
 
 import { Header } from "../components/Header";
 import { Subject } from "../components/Subject";
+import { Button as CreateButton } from "../components/Button";
 
 export default function Home() {
   return (
@@ -19,10 +19,7 @@ export default function Home() {
     >
       <Flex align="center" mb={8} gap={6}>
         <Text fontSize="3xl" fontWeight="medium" color="purple.800">Conteúdos</Text>
-        <Button bgColor="purple.400" px={8} py={4} d="flex" alignItems="center">
-          <Image src="/add-icon.png" alt="Adicionar" />
-          Adicionar
-        </Button>
+        <CreateButton />
       </Flex>
 
       <Grid
