@@ -24,8 +24,8 @@ export function Subject({
         >
           <Text
             fontSize="lg"
-            fontWeight="bold"
-            color="gray.800"
+            fontWeight="medium"
+            color="purple.700"
           >
             {subjectName}
           </Text>

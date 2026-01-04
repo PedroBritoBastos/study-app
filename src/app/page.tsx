@@ -1,6 +1,9 @@
 import {
   Flex,
   Grid,
+  Text,
+  Button,
+  Image
 } from "@chakra-ui/react";
 
 import { Header } from "../components/Header";
@@ -10,15 +13,20 @@ export default function Home() {
   return (
     <Flex
       flex="1"
-
-      bg="#c4bff1"
+      p={8}
+      bg="#ecebf3ff"
       direction="column"
     >
-      <Header title={"Conteúdos"} />
+      <Flex align="center" mb={5} gap={6}>
+        <Text fontSize="3xl" fontWeight="medium" color="purple.800">Conteúdos</Text>
+        <Button bgColor="purple.400" px={8} py={4} d="flex" alignItems="center">
+          <Image src="/add-icon.png" alt="Adicionar" />
+          Adicionar
+        </Button>
+      </Flex>
 
       <Grid
         flex={1}
-        p={8}
         templateRows="repeat(2, 1fr)"
         templateColumns={{
           sm: "repeat(1, 1fr)",

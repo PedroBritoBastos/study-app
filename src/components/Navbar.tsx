@@ -11,7 +11,7 @@ export function Navbar() {
   return (
     <Flex
       w="250px"
-      bg="purple.900"
+      bg="purple.800"
       color="whiteAlpha.900"
       p={6}
       flexDirection="column"
