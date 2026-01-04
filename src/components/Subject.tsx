@@ -1,4 +1,6 @@
+
 import { Card, Text, Flex, Image, Box } from "@chakra-ui/react";
+import { Tooltip } from "./ui/tooltip";
 import { SubjectType } from "../types/Subject";
 
 export function Subject({
@@ -34,13 +36,15 @@ export function Subject({
         {/* Data */}
         <Flex align="center" gap={2} mb={3}>
           <Image
-            src="/subject-calendar-icon.png"
+            src="/createdAt.png"
             boxSize="16px"
             opacity={0.7}
           />
-          <Text fontSize="sm" color="gray.500">
-            {createdAt}
-          </Text>
+          <Tooltip content={`Criado em ${createdAt}`} showArrow contentProps={{ css: { "--tooltip-bg": "colors.purple.700", "padding": "2" } }}>
+            <Text fontSize="sm" color="gray.500">
+              {createdAt}
+            </Text>
+          </Tooltip>
         </Flex>
 
         {/* Conteúdo */}

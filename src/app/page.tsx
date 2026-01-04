@@ -17,7 +17,7 @@ export default function Home() {
       bg="#ecebf3ff"
       direction="column"
     >
-      <Flex align="center" mb={5} gap={6}>
+      <Flex align="center" mb={8} gap={6}>
         <Text fontSize="3xl" fontWeight="medium" color="purple.800">Conteúdos</Text>
         <Button bgColor="purple.400" px={8} py={4} d="flex" alignItems="center">
           <Image src="/add-icon.png" alt="Adicionar" />
@@ -27,11 +27,11 @@ export default function Home() {
 
       <Grid
         flex={1}
-        templateRows="repeat(2, 1fr)"
+        templateRows="repeat(3, 1fr)"
         templateColumns={{
           sm: "repeat(1, 1fr)",
-          md: "repeat(2, 1fr)",
-          lg: "repeat(3, 1fr)",
+          md: "repeat(3, 1fr)",
+          lg: "repeat(4, 1fr)",
         }}
         gap={6}
       >
