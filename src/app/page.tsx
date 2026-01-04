@@ -1,10 +1,6 @@
-'use client'
-
 import {
   Flex,
-  Text,
   Grid,
-  Card,
 } from "@chakra-ui/react";
 
 import { Header } from "../components/Header";
@@ -31,10 +27,10 @@ export default function Home() {
         }}
         gap={6}
       >
-        <Subject subjectName="Portugues" />
-        <Subject subjectName="Matematica" />
-        <Subject subjectName="Historia" />
-        <Subject subjectName="Geografia" />
+        <Subject subjectName="Portugues" subjectContent="Colocação pronominal" createdAt="22/11/2025" />
+        <Subject subjectName="Matematica" subjectContent="Álgebra básica" createdAt="23/11/2025" />
+        <Subject subjectName="Historia" subjectContent="Revolução Francesa" createdAt="24/11/2025" />
+        <Subject subjectName="Geografia" subjectContent="Climas do Brasil" createdAt="25/11/2025" />
       </Grid>
     </Flex>
   );
