@@ -14,7 +14,7 @@ export default function Home() {
       bg="#c4bff1"
       direction="column"
     >
-      <Header title={"Conteúdo estudado"} />
+      <Header title={"Conteúdos"} />
 
       <Grid
         flex={1}
