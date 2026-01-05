@@ -50,7 +50,7 @@ export default function Home() {
 
       {/* modal só aparece quando o botão de criar for pressionado */}
       <Presence present={open}>
-        <Modal />
+        <Modal handleClick={updateModalState} />
       </Presence>
     </Flex>
   );

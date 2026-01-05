@@ -1,14 +1,18 @@
 'use client'
 
-import { Fieldset, Stack, Field, Input, Textarea } from "@chakra-ui/react"
+import { Fieldset, Field, Input, Textarea, Flex } from "@chakra-ui/react"
 import { Button } from "./Button"
+import { CloseButton } from "./CloseButton"
 
-export function Modal() {
+import { ButtonProps } from "../types/Button"
+
+export function Modal({ handleClick }: ButtonProps) {
   return (
     <Fieldset.Root size="lg" w={550} h={600} ml={100} mt={100} bgColor="white" p={10} borderRadius="md" boxShadow="md" d="flex" flexDirection="column" position="absolute" bottom={10} left={40}>
-      <Stack>
+      <Flex align="center" justify="space-between">
         <Fieldset.Legend fontSize="xl" color="purple.700" fontWeight="bold">Novo conteúdo</Fieldset.Legend>
-      </Stack>
+        <CloseButton handleClick={handleClick} />
+      </Flex>
 
       {/* conteudo */}
       <Field.Root gap={5}>
