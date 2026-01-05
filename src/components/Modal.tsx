@@ -1,7 +1,6 @@
 'use client'
 
-import { Fieldset, Field, Input, Textarea, Flex } from "@chakra-ui/react"
-import { Button } from "./Button"
+import { Fieldset, Field, Input, Textarea, Flex, Button } from "@chakra-ui/react"
 import { CloseButton } from "./CloseButton"
 
 import { ButtonProps } from "../types/Button"
@@ -25,7 +24,10 @@ export function Modal({ handleClick }: ButtonProps) {
         <Textarea name="description" placeholder="Descrição" size="sm" flex={1} />
       </Field.Root>
 
-      <Button />
+      <Button bgColor="purple.400" px={8} py={4}>
+        Criar
+      </Button>
+
     </Fieldset.Root>
   )
 }
