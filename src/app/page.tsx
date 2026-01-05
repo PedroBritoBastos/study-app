@@ -4,11 +4,9 @@ import {
   Flex,
   Grid,
   Text,
-  Image,
   Presence
 } from "@chakra-ui/react";
 
-import { Header } from "../components/Header";
 import { Subject } from "../components/Subject";
 import { Modal } from "../components/Modal";
 import { Button as CreateButton } from "../components/Button";
