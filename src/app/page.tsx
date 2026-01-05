@@ -2,7 +2,8 @@ import {
   Flex,
   Grid,
   Text,
-  Image
+  Image,
+  Presence
 } from "@chakra-ui/react";
 
 import { Header } from "../components/Header";
@@ -39,7 +40,11 @@ export default function Home() {
         <Subject subjectName="Historia" subjectContent="Revolução Francesa" createdAt="24/11/2025" />
         <Subject subjectName="Geografia" subjectContent="Climas do Brasil" createdAt="25/11/2025" />
       </Grid>
-      <Modal />
+
+      {/* modal só aparece quando o botão de criar for pressionado */}
+      <Presence present={false}>
+        <Modal />
+      </Presence>
     </Flex>
   );
 }
