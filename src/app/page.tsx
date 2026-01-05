@@ -13,7 +13,12 @@ import { Subject } from "../components/Subject";
 import { Modal } from "../components/Modal";
 import { Button as CreateButton } from "../components/Button";
 
+import { useModal } from "../hooks/useModal";
+
 export default function Home() {
+  // recuperando a funcao para atualizar a visibilidade do modal
+  const { open, updateModalState } = useModal();
+
   return (
     <Flex
       flex="1"
@@ -24,7 +29,7 @@ export default function Home() {
     >
       <Flex align="center" mb={8} gap={6}>
         <Text fontSize="3xl" fontWeight="medium" color="purple.800">Conteúdos</Text>
-        <CreateButton />
+        <CreateButton handleClick={updateModalState} />
       </Flex>
 
       <Grid
@@ -44,7 +49,7 @@ export default function Home() {
       </Grid>
 
       {/* modal só aparece quando o botão de criar for pressionado */}
-      <Presence present={false}>
+      <Presence present={open}>
         <Modal />
       </Presence>
     </Flex>
