@@ -7,7 +7,7 @@ import { ButtonProps } from "../types/Button"
 
 export function Modal({ handleClick }: ButtonProps) {
   return (
-    <Fieldset.Root size="lg" w={550} h={600} ml={100} mt={100} bgColor="white" p={10} borderRadius="md" boxShadow="md" d="flex" flexDirection="column" position="absolute" bottom={10} left={40}>
+    <Fieldset.Root size="lg" w={550} h={600} ml={100} mt={100} bgColor="white" p={10} borderRadius="md" boxShadow="md" d="flex" flexDirection="column" position="absolute" bottom={10} left={40} zIndex={1}>
       <Flex align="center" justify="space-between">
         <Fieldset.Legend fontSize="xl" color="purple.700" fontWeight="bold">Novo conteúdo</Fieldset.Legend>
         <CloseButton handleClick={handleClick} />
