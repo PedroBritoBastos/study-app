@@ -7,6 +7,7 @@ import {
 
 import { Header } from "../components/Header";
 import { Subject } from "../components/Subject";
+import { Modal } from "../components/Modal";
 import { Button as CreateButton } from "../components/Button";
 
 export default function Home() {
@@ -16,6 +17,7 @@ export default function Home() {
       p={8}
       bg="#ecebf3ff"
       direction="column"
+      position="relative"
     >
       <Flex align="center" mb={8} gap={6}>
         <Text fontSize="3xl" fontWeight="medium" color="purple.800">Conteúdos</Text>
@@ -37,6 +39,7 @@ export default function Home() {
         <Subject subjectName="Historia" subjectContent="Revolução Francesa" createdAt="24/11/2025" />
         <Subject subjectName="Geografia" subjectContent="Climas do Brasil" createdAt="25/11/2025" />
       </Grid>
+      <Modal />
     </Flex>
   );
 }

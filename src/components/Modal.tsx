@@ -1,9 +1,11 @@
+'use client'
+
 import { Fieldset, Stack, Field, Input, Textarea } from "@chakra-ui/react"
 import { Button } from "./Button"
 
 export function Modal() {
   return (
-    <Fieldset.Root size="lg" w={550} h={600} ml={100} mt={100} bgColor="white" p={10} borderRadius="md" boxShadow="md" d="flex" flexDirection="column">
+    <Fieldset.Root size="lg" w={550} h={600} ml={100} mt={100} bgColor="white" p={10} borderRadius="md" boxShadow="md" d="flex" flexDirection="column" position="absolute" bottom={10} left={40}>
       <Stack>
         <Fieldset.Legend fontSize="xl" color="purple.700" fontWeight="bold">Novo conteúdo</Fieldset.Legend>
       </Stack>
