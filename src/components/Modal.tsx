@@ -16,12 +16,12 @@ export function Modal({ handleClick }: ButtonProps) {
       {/* conteudo */}
       <Field.Root gap={5}>
         <Field.Label color="gray.500" fontSize="md">Conteúdo</Field.Label>
-        <Input name="title" />
+        <Input name="title" bg="gray.100" />
       </Field.Root>
 
       <Field.Root flex={1} d="flex" flexDirection="column" gap={5}>
         <Field.Label color="gray.500" fontSize="md">Descrição</Field.Label>
-        <Textarea name="description" placeholder="Descrição" size="sm" flex={1} />
+        <Textarea name="description" placeholder="Descrição" size="sm" flex={1} bg="gray.100" />
       </Field.Root>
 
       <Button bgColor="purple.400" px={8} py={4}>
