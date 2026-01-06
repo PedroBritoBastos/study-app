@@ -10,16 +10,14 @@ import {
   Presence
 } from "@chakra-ui/react";
 import { CloseButton } from "./CloseButton";
-import { ButtonProps } from "../types/Button";
-import { useState, useContext } from "react";
+import { useState } from "react";
 import { useRouter } from "next/navigation";
-
-import { ModalContext } from "../context/ModalContext";
+import { useModalContext } from "../hooks/useModalContext";
 
 export function Modal() {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
-  const { open, updateModalState } = useContext(ModalContext);
+  const { open, updateModalState } = useModalContext();
   const router = useRouter();
 
   async function handleSubmit(

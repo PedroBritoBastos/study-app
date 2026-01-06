@@ -1,11 +1,8 @@
 import { Button, Image } from "@chakra-ui/react";
-
-import { ButtonProps } from "../types/Button";
-import { useContext } from "react";
-import { ModalContext } from "../context/ModalContext";
+import { useModalContext } from "../hooks/useModalContext";
 
 export function CloseButton() {
-  const { updateModalState } = useContext(ModalContext);
+  const { updateModalState } = useModalContext();
 
   return (
     <Button onClick={updateModalState} d="flex" bg="transparent">
