@@ -11,10 +11,13 @@ import {
 import { CloseButton } from "./CloseButton";
 import { ButtonProps } from "../types/Button";
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 
 export function Modal({ handleClick }: ButtonProps) {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
+
+  const router = useRouter();
 
   async function handleSubmit(
     e: React.MouseEvent<HTMLButtonElement>
@@ -38,6 +41,8 @@ export function Modal({ handleClick }: ButtonProps) {
     setTitle("");
     setContent("");
 
+    // 🔥 atualiza todos os Server Components (Subjects)
+    router.refresh();
   }
 
   return (
