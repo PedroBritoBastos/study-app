@@ -19,7 +19,7 @@ import { ModalContext } from "../context/ModalContext";
 export function Modal() {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
-
+  const { open, updateModalState } = useContext(ModalContext);
   const router = useRouter();
 
   async function handleSubmit(
@@ -44,11 +44,10 @@ export function Modal() {
     setTitle("");
     setContent("");
 
-    // atualiza todos os Server Components (Subjects)
+    // atualiza pagina
     router.refresh();
+    updateModalState();
   }
-
-  const { open } = useContext(ModalContext);
 
   return (
     <Presence present={open}>
