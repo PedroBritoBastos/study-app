@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import { prisma } from "../../../../prisma/prisma";
 
-// GET /api/subjects
+// api/subjects get
 export async function GET() {
   try {
     const subjects = await prisma.subject.findMany({
@@ -19,7 +19,7 @@ export async function GET() {
   }
 }
 
-// POST /api/subjects
+// api/subjects post
 export async function POST(request: Request) {
   try {
     const body = await request.json();
