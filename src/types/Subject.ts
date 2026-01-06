@@ -3,3 +3,8 @@ export type SubjectType = {
   subjectContent?: string;
   createdAt?: string;
 };
+
+export type SubjectDataType = {
+  title: string;
+  content: string;
+};
