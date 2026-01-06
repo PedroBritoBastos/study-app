@@ -13,11 +13,13 @@ import { CloseButton } from "./CloseButton";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { useModalContext } from "../hooks/useModalContext";
+import { useCreateSubject } from "../hooks/useCreateSubject";
 
 export function Modal() {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
   const { open, updateModalState } = useModalContext();
+  const { createSubject } = useCreateSubject();
   const router = useRouter();
 
   async function handleSubmit(
@@ -27,16 +29,8 @@ export function Modal() {
 
     if (!title || !content) return;
 
-    await fetch("/api/subjects", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        title,
-        content,
-      }),
-    });
+    const subjectData = { title, content };
+    await createSubject(subjectData);
 
     // limpa os campos
     setTitle("");
