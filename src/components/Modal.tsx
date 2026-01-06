@@ -6,14 +6,17 @@ import {
   Input,
   Textarea,
   Flex,
-  Button
+  Button,
+  Presence
 } from "@chakra-ui/react";
 import { CloseButton } from "./CloseButton";
 import { ButtonProps } from "../types/Button";
-import { useState } from "react";
+import { useState, useContext } from "react";
 import { useRouter } from "next/navigation";
 
-export function Modal({ handleClick }: ButtonProps) {
+import { ModalContext } from "../context/ModalContext";
+
+export function Modal() {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
 
@@ -41,82 +44,86 @@ export function Modal({ handleClick }: ButtonProps) {
     setTitle("");
     setContent("");
 
-    // 🔥 atualiza todos os Server Components (Subjects)
+    // atualiza todos os Server Components (Subjects)
     router.refresh();
   }
 
+  const { open } = useContext(ModalContext);
+
   return (
-    <Fieldset.Root
-      size="lg"
-      w={550}
-      h={600}
-      ml={100}
-      mt={100}
-      bgColor="white"
-      p={10}
-      borderRadius="md"
-      boxShadow="md"
-      d="flex"
-      flexDirection="column"
-      position="absolute"
-      bottom={10}
-      left={40}
-      zIndex={1}
-    >
-      <Flex align="center" justify="space-between">
-        <Fieldset.Legend
-          fontSize="xl"
-          color="purple.700"
-          fontWeight="bold"
-        >
-          Novo conteúdo
-        </Fieldset.Legend>
-
-        <CloseButton handleClick={handleClick} />
-      </Flex>
-
-      {/* Título */}
-      <Field.Root gap={5}>
-        <Field.Label color="gray.500">
-          Conteúdo
-        </Field.Label>
-        <Input
-          name="title"
-          bg="gray.100"
-          fontWeight="semibold"
-          value={title}
-          onChange={(e) => setTitle(e.target.value)}
-        />
-      </Field.Root>
-
-      {/* Descrição */}
-      <Field.Root
-        flex={1}
+    <Presence present={open}>
+      <Fieldset.Root
+        size="lg"
+        w={550}
+        h={600}
+        ml={100}
+        mt={100}
+        bgColor="white"
+        p={10}
+        borderRadius="md"
+        boxShadow="md"
         d="flex"
         flexDirection="column"
-        gap={5}
+        position="absolute"
+        bottom={10}
+        left={40}
+        zIndex={1}
       >
-        <Field.Label color="gray.500">
-          Descrição
-        </Field.Label>
-        <Textarea
-          name="description"
-          placeholder="Descrição"
-          flex={1}
-          bg="gray.100"
-          value={content}
-          onChange={(e) => setContent(e.target.value)}
-        />
-      </Field.Root>
+        <Flex align="center" justify="space-between">
+          <Fieldset.Legend
+            fontSize="xl"
+            color="purple.700"
+            fontWeight="bold"
+          >
+            Novo conteúdo
+          </Fieldset.Legend>
 
-      <Button
-        bgColor="purple.400"
-        px={8}
-        py={4}
-        onClick={handleSubmit}
-      >
-        Criar
-      </Button>
-    </Fieldset.Root>
+          <CloseButton />
+        </Flex>
+
+        {/* Título */}
+        <Field.Root gap={5}>
+          <Field.Label color="gray.500">
+            Conteúdo
+          </Field.Label>
+          <Input
+            name="title"
+            bg="gray.100"
+            fontWeight="semibold"
+            value={title}
+            onChange={(e) => setTitle(e.target.value)}
+          />
+        </Field.Root>
+
+        {/* Descrição */}
+        <Field.Root
+          flex={1}
+          d="flex"
+          flexDirection="column"
+          gap={5}
+        >
+          <Field.Label color="gray.500">
+            Descrição
+          </Field.Label>
+          <Textarea
+            name="description"
+            placeholder="Descrição"
+            flex={1}
+            bg="gray.100"
+            value={content}
+            onChange={(e) => setContent(e.target.value)}
+          />
+        </Field.Root>
+
+        <Button
+          bgColor="purple.400"
+          px={8}
+          py={4}
+          onClick={handleSubmit}
+        >
+          Criar
+        </Button>
+      </Fieldset.Root>
+    </Presence>
   );
 }
