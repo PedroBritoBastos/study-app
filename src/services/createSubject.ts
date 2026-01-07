@@ -1,5 +1,6 @@
 import { SubjectDataType } from "../types/Subject";
 
+// envia os dados para a api criar uma matéria no banco
 export async function createSubject(data: SubjectDataType) {
   const response = await fetch("/api/subjects", {
     method: "POST",

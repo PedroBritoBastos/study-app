@@ -13,7 +13,7 @@ export async function GET() {
     return NextResponse.json(subjects);
   } catch (error) {
     return NextResponse.json(
-      { error: "Erro ao buscar subjects" },
+      { error: "Erro ao buscar conteúdos" },
       { status: 500 }
     );
   }
@@ -35,7 +35,7 @@ export async function POST(request: Request) {
     return NextResponse.json(subject, { status: 201 });
   } catch (error) {
     return NextResponse.json(
-      { error: "Erro ao criar subject" },
+      { error: "Erro ao criar o conteúdo" },
       { status: 500 }
     );
   }

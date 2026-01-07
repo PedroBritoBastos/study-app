@@ -1,13 +1,8 @@
 import { NextResponse } from "next/server";
 import { prisma } from "../../../../../prisma/prisma";
-
 import { SubjectGetById } from "@/src/types/Params";
-import { SubjectId } from "@/src/types/Params";
 
-/**
- * GET /api/subjects/[id]
- * Busca um subject pelo id
- */
+// api/subjects/:id get
 export async function GET(request: Request, { params }: SubjectGetById) {
   try {
     const subject = await prisma.subject.findUnique({
@@ -19,7 +14,7 @@ export async function GET(request: Request, { params }: SubjectGetById) {
     // validações
     if (!subject) {
       return NextResponse.json(
-        { error: "Subject não encontrado" },
+        { error: "Conteúdo não encontrado" },
         { status: 404 }
       );
     }
@@ -27,16 +22,13 @@ export async function GET(request: Request, { params }: SubjectGetById) {
     return NextResponse.json(subject);
   } catch (error) {
     return NextResponse.json(
-      { error: "Erro ao buscar subject" },
+      { error: "Erro ao buscar conteúdo" },
       { status: 500 }
     );
   }
 }
 
-/**
- * PUT /api/subjects/[id]
- * Atualiza um subject
- */
+// api/subjects/:id put
 export async function PUT(
   request: Request,
   { params }: { params: Promise<{ id: string }> }
@@ -65,10 +57,7 @@ export async function PUT(
   }
 }
 
-/**
- * DELETE /api/subjects/[id]
- * Remove um subject
- */
+// api/subjects/:id delete
 export async function DELETE(
   request: Request,
   { params }: { params: Promise<{ id: string }> }
@@ -82,12 +71,12 @@ export async function DELETE(
     });
 
     return NextResponse.json(
-      { message: "Subject removido com sucesso" },
+      { message: "Conteúdo removido com sucesso" },
       { status: 200 }
     );
   } catch (error) {
     return NextResponse.json(
-      { error: "Erro ao deletar subject" },
+      { error: "Erro ao deletar conteúdo" },
       { status: 500 }
     );
   }

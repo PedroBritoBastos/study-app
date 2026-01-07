@@ -1,6 +1,5 @@
 import {
   createContext,
-  useState,
 } from "react";
 
 import { ModalContextType } from "../types/Modal";
