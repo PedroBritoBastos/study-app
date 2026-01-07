@@ -4,6 +4,7 @@ export type SubjectProps = {
   subjectName: string;
   subjectContent?: string;
   createdAt?: string;
+  id?: string;
 };
 
 export type SubjectGridProps = {
@@ -25,6 +26,8 @@ export type SubjectResponse = {
 export type SubjectContextType = {
   open: boolean;
   updateSubjectSidebarState: Dispatch<SetStateAction<boolean>>;
+  selectedSubject: SubjectResponse | null;
+  setSelectedSubject: Dispatch<SetStateAction<SubjectResponse | null>>;
 };
 
 export type SubjectContextProviderProps = {

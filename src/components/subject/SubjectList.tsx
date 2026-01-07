@@ -23,6 +23,7 @@ export function SubjectList({ subjects }: SubjectGridProps) {
       {subjects.map((subject) => (
         <Subject
           key={subject.id}
+          id={subject.id}
           subjectName={subject.title}
           subjectContent={subject.content}
           createdAt={new Date(subject.currentDate).toLocaleDateString("pt-BR")}

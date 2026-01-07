@@ -6,11 +6,11 @@ import { useSubjectContext } from "@/src/hooks/useSubjectContext";
 
 // client component responsavel por exibir os dados do componente Subject
 export function SubjectSidebar() {
-  const { open } = useSubjectContext(); // desestruturando o contexto
+  const { open, selectedSubject } = useSubjectContext(); // desestruturando o contexto
   return (
     <Presence present={open}>
       <Box w={300} bg={"red.200"} h={"100vh"} pos={"absolute"} top={0} right={0}>
-        Sidebar
+        <h1>{selectedSubject.title}</h1>
       </Box>
     </Presence>
   )

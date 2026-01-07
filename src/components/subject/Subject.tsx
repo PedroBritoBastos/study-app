@@ -12,12 +12,17 @@ export function Subject({
   subjectName,
   subjectContent,
   createdAt,
+  id
 }: SubjectProps) {
 
   // usa a função para abrir/fechar o componente SubjectSidebar
   // altera o state de open quando clicado
-  const { updateSubjectSidebarState } = useSubjectContext();
-  const handleClick = () => updateSubjectSidebarState();
+  const { updateSubjectSidebarState, setSelectedSubject } = useSubjectContext();
+
+  function handleClick() {
+    setSelectedSubject({ id: id, title: subjectName, content: subjectContent, currentDate: createdAt });
+    updateSubjectSidebarState();
+  }
 
   return (
     <Card.Root
