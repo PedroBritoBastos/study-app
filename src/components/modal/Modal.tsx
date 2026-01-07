@@ -108,6 +108,7 @@ export function Modal() {
 
         <Button
           bgColor="purple.400"
+          _hover={{ bg: "purple.300" }}
           px={8}
           py={4}
           onClick={handleSubmit}
