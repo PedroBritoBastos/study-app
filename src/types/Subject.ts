@@ -1,6 +1,6 @@
 import { Dispatch, ReactNode, SetStateAction } from "react";
 
-export type SubjectType = {
+export type SubjectProps = {
   subjectName: string;
   subjectContent?: string;
   createdAt?: string;
@@ -20,7 +20,7 @@ export type SubjectResponse = {
 
 export type SubjectContextType = {
   open: boolean;
-  setOpen: Dispatch<SetStateAction<boolean>>;
+  updateSubjectSidebarState: Dispatch<SetStateAction<boolean>>;
 };
 
 export type SubjectContextProviderProps = {
