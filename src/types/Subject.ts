@@ -26,6 +26,7 @@ export type SubjectResponse = {
 export type SubjectContextType = {
   open: boolean;
   updateSubjectSidebarState: Dispatch<SetStateAction<boolean>>;
+  closeSubjectSidebar: Dispatch<SetStateAction<boolean>>;
   selectedSubject: SubjectResponse | null;
   setSelectedSubject: Dispatch<SetStateAction<SubjectResponse | null>>;
 };

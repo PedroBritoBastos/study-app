@@ -14,10 +14,16 @@ export function useSubjectSidebar() {
     if (!open) setOpen(true);
   }
 
+  // funcao que fecha a sidebar
+  function closeSubjectSidebar() {
+    setOpen(false);
+  }
+
   return {
     open,
     updateSubjectSidebarState,
     selectedSubject,
     setSelectedSubject,
+    closeSubjectSidebar,
   };
 }

@@ -1,17 +1,83 @@
-"use client"
-import { Box, Presence } from "@chakra-ui/react";
+"use client";
+import {
+  Box,
+  Text,
+  Flex,
+  IconButton,
+} from "@chakra-ui/react";
+import { X } from "lucide-react";
 
 // hook
 import { useSubjectContext } from "@/src/hooks/useSubjectContext";
 
-// client component responsavel por exibir os dados do componente Subject
 export function SubjectSidebar() {
-  const { open, selectedSubject } = useSubjectContext(); // desestruturando o contexto
+  const {
+    open,
+    selectedSubject,
+    closeSubjectSidebar,
+  } = useSubjectContext();
+
+  if (!selectedSubject) return null;
+
   return (
-    <Presence present={open}>
-      <Box w={300} bg={"red.200"} h={"100vh"} pos={"absolute"} top={0} right={0}>
-        <h1>{selectedSubject.title}</h1>
-      </Box>
-    </Presence>
-  )
+    <Box
+      w={{ base: "100%", md: "380px" }}
+      h="100vh"
+      bg="white"
+      pos="fixed"
+      top={0}
+      right={0}
+      zIndex={10}
+      boxShadow="xl"
+      borderLeft="1px solid"
+      borderColor="gray.200"
+      px={6}
+      py={5}
+      transform={open ? "translateX(0)" : "translateX(100%)"}
+      opacity={open ? 1 : 0}
+      transition="
+        transform 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+        opacity 0.2s ease-in-out
+      "
+      pointerEvents={open ? "auto" : "none"}
+      willChange="transform, opacity"
+    >
+      {/* Header */}
+      <Flex direction="column" gap={1} mb={6}>
+        <Flex align="center" justify="space-between">
+          <Text
+            fontSize="lg"
+            fontWeight="semibold"
+            color="purple.700"
+          >
+            {selectedSubject.title}
+          </Text>
+
+          <IconButton
+            aria-label="Fechar"
+            size="sm"
+            variant="ghost"
+            onClick={closeSubjectSidebar}
+          >
+            <X size={18} />
+          </IconButton>
+        </Flex>
+
+        {/* Data */}
+        <Text fontSize="xs" color="gray.500">
+          Criado em {selectedSubject.currentDate}
+        </Text>
+      </Flex>
+
+      {/* Conteúdo */}
+      <Text
+        fontSize="sm"
+        color="gray.600"
+        lineHeight="tall"
+        whiteSpace="pre-wrap"
+      >
+        {selectedSubject.content}
+      </Text>
+    </Box>
+  );
 }

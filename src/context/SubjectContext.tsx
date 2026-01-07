@@ -16,10 +16,10 @@ export const SubjectContext = createContext<SubjectContextType | null>(null);
 export function SubjectContextProvider({
   children,
 }: SubjectContextProviderProps) {
-  const { open, updateSubjectSidebarState, selectedSubject, setSelectedSubject } = useSubjectSidebar();
+  const { open, updateSubjectSidebarState, selectedSubject, setSelectedSubject, closeSubjectSidebar } = useSubjectSidebar();
 
   return (
-    <SubjectContext.Provider value={{ open, updateSubjectSidebarState, selectedSubject, setSelectedSubject }}>
+    <SubjectContext.Provider value={{ open, updateSubjectSidebarState, selectedSubject, setSelectedSubject, closeSubjectSidebar }}>
       {children}
     </SubjectContext.Provider>
   );
