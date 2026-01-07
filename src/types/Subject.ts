@@ -11,6 +11,13 @@ export type SubjectDataType = {
   content: string;
 };
 
+export type SubjectResponse = {
+  id: string;
+  title: string;
+  content: string;
+  currentDate: string;
+};
+
 export type SubjectContextType = {
   open: boolean;
   setOpen: Dispatch<SetStateAction<boolean>>;

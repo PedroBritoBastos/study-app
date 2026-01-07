@@ -1,12 +1,8 @@
 import { Grid } from "@chakra-ui/react";
 import { Subject } from "./Subject";
 
-type SubjectResponse = {
-  id: string;
-  title: string;
-  content: string;
-  currentDate: string;
-};
+// types
+import { SubjectResponse } from "../types/Subject";
 
 export async function Subjects() {
   const res = await fetch("http://localhost:3000/api/subjects", {
