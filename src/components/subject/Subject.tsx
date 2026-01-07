@@ -5,11 +5,20 @@ import { Tooltip } from "../ui/tooltip";
 // types
 import { SubjectProps } from "../../types/Subject";
 
+// hook
+import { useSubjectContext } from "@/src/hooks/useSubjectContext";
+
 export function Subject({
   subjectName,
   subjectContent,
   createdAt,
 }: SubjectProps) {
+
+  // usa a função para abrir/fechar o componente SubjectSidebar
+  // altera o state de open quando clicado
+  const { updateSubjectSidebarState } = useSubjectContext();
+  const handleClick = () => updateSubjectSidebarState();
+
   return (
     <Card.Root
       bg="white"
@@ -18,6 +27,7 @@ export function Subject({
       borderColor="gray.200"
       boxShadow="sm"
       cursor="pointer"
+      onClick={handleClick}
     >
       <Card.Body p={5}>
         {/* Header / Título */}
