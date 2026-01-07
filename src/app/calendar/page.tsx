@@ -1,7 +1,7 @@
 'use client'
 
 import { Flex, Text, Grid, Card } from "@chakra-ui/react";
-import { Header } from "../../components/Header";
+import { Header } from "../../components/header/Header";
 
 export default function CalendarPage() {
   return (

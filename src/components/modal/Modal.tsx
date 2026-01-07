@@ -9,11 +9,11 @@ import {
   Button,
   Presence
 } from "@chakra-ui/react";
-import { CloseButton } from "./CloseButton";
+import { CloseButton } from "../button/CloseButton";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { useModalContext } from "../hooks/useModalContext";
-import { useCreateSubject } from "../hooks/useCreateSubject";
+import { useModalContext } from "../../hooks/useModalContext";
+import { useCreateSubject } from "../../hooks/useCreateSubject";
 
 export function Modal() {
   const [title, setTitle] = useState("");

@@ -1,16 +1,14 @@
-import { Grid } from "@chakra-ui/react";
-import { Subject } from "./Subject";
+"use client"
+
+import { Grid } from "@chakra-ui/react"
+import { Subject } from "./Subject"
 
 // types
-import { SubjectResponse } from "../types/Subject";
+import { SubjectGridProps } from "@/src/types/Subject"
 
-export async function Subjects() {
-  const res = await fetch("http://localhost:3000/api/subjects", {
-    cache: "no-store",
-  });
-
-  const subjects: SubjectResponse[] = await res.json();
-
+// grid para armazenar os conteudos
+// recebe a lista de conteudos
+export function SubjectList({ subjects }: SubjectGridProps) {
   return (
     <Grid
       flex={1}
@@ -31,5 +29,5 @@ export async function Subjects() {
         />
       ))}
     </Grid>
-  );
+  )
 }

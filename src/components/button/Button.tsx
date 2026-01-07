@@ -1,5 +1,5 @@
 import { Button as ChakraButton, Image } from "@chakra-ui/react";
-import { useModalContext } from "../hooks/useModalContext";
+import { useModalContext } from "../../hooks/useModalContext";
 
 export function Button() {
   // pegando a função para abrir o modal do context

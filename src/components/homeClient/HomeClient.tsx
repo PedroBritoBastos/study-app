@@ -1,10 +1,10 @@
 'use client';
 
 import { Flex, Text, Box } from "@chakra-ui/react";
-import { Modal } from "./Modal";
-import { Button as CreateButton } from "./Button";
+import { Modal } from "../modal/Modal";
+import { Button as CreateButton } from "../button/Button";
 
-import { ModalContextProvider } from "../context/ModalContext";
+import { ModalContextProvider } from "@/src/context/ModalContext";
 
 export function HomeClient() {
 

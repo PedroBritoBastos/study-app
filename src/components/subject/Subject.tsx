@@ -1,25 +1,15 @@
 "use client"
-
-import { Card, Text, Image, Flex, Box } from "@chakra-ui/react"
-import { Tooltip } from "./ui/tooltip"
+import { Card, Text, Box, Flex, Image } from "@chakra-ui/react";
+import { Tooltip } from "../ui/tooltip";
 
 // types
-import { SubjectProps } from "../types/Subject"
+import { SubjectProps } from "../../types/Subject";
 
-// hook
-import { useSubjectContext } from "../hooks/useSubjectContext"
-
-export function SubjectCard({
+export function Subject({
   subjectName,
   subjectContent,
   createdAt,
 }: SubjectProps) {
-  const { updateSubjectSidebarState } = useSubjectContext();
-
-  function handleClick() {
-    updateSubjectSidebarState();
-  }
-
   return (
     <Card.Root
       bg="white"
@@ -28,7 +18,6 @@ export function SubjectCard({
       borderColor="gray.200"
       boxShadow="sm"
       cursor="pointer"
-      onClick={handleClick}
     >
       <Card.Body p={5}>
         {/* Header / Título */}
@@ -71,5 +60,5 @@ export function SubjectCard({
         </Text>
       </Card.Body>
     </Card.Root>
-  )
+  );
 }

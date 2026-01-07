@@ -1,7 +1,6 @@
 import { Flex } from "@chakra-ui/react";
-import { Subjects } from "../components/Subjects";
-import { SubjectSidebar } from "../components/SubjectSidebar";
-import { HomeClient } from "../components/HomeClient";
+import { HomeClient } from "../components/homeClient/HomeClient";
+import { SubjectSection } from "../components/subject/SubjectSection";
 
 export default function Home() {
   return (
@@ -14,12 +13,7 @@ export default function Home() {
     >
       {/* Parte interativa */}
       <HomeClient />
-
-      {/* Dados vindos do servidor */}
-      <Subjects />
-
-      {/* Sidebar */}
-      <SubjectSidebar />
+      <SubjectSection />
     </Flex>
   );
 }

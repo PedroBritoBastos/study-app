@@ -1,6 +1,6 @@
 import { Button, Image } from "@chakra-ui/react";
 
-import { NavbarOptionProps } from "../types/Navbar";
+import { NavbarOptionProps } from "@/src/types/Navbar";
 
 export function NavbarOption({ image, text }: NavbarOptionProps) {
   return (

@@ -6,6 +6,10 @@ export type SubjectProps = {
   createdAt?: string;
 };
 
+export type SubjectGridProps = {
+  subjects: SubjectResponse[];
+};
+
 export type SubjectDataType = {
   title: string;
   content: string;
