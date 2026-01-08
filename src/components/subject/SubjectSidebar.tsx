@@ -4,13 +4,18 @@ import {
   Text,
   Flex,
   IconButton,
+  Button
 } from "@chakra-ui/react";
 import { X } from "lucide-react";
 
 // hook
 import { useSubjectContext } from "@/src/hooks/useSubjectContext";
+import { useDeleteSubject } from "@/src/hooks/useDeleteSubject";
+import { useRouter } from "next/navigation";
 
 export function SubjectSidebar() {
+  const { deleteSubject } = useDeleteSubject();
+  const router = useRouter();
   const {
     open,
     selectedSubject,
@@ -18,6 +23,12 @@ export function SubjectSidebar() {
   } = useSubjectContext();
 
   if (!selectedSubject) return null;
+
+  async function handleClick() {
+    await deleteSubject(selectedSubject.id);
+    router.refresh();
+    closeSubjectSidebar();
+  }
 
   return (
     <Box
@@ -78,6 +89,11 @@ export function SubjectSidebar() {
       >
         {selectedSubject.content}
       </Text>
+
+      <Button onClick={handleClick}>
+        Deletar
+      </Button>
     </Box>
   );
 }
+

@@ -26,3 +26,14 @@ export async function getSubjectById(id: string): Promise<SubjectDataType> {
   const data: SubjectDataType = await response.json();
   return data;
 }
+
+// deleta o conteudo atual
+export async function deleteSubject(id: string): Promise<void> {
+  const response = await fetch(`/api/subjects/${id}`, {
+    method: "DELETE",
+  });
+
+  if (!response.ok) {
+    throw new Error("Erro ao deletar conteúdo");
+  }
+}
