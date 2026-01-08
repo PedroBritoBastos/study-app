@@ -11,23 +11,22 @@ import { X } from "lucide-react";
 // hook
 import { useSubjectContext } from "@/src/hooks/useSubjectContext";
 import { useDeleteSubject } from "@/src/hooks/useDeleteSubject";
-import { useRouter } from "next/navigation";
+
 
 export function SubjectSidebar() {
   const { deleteSubject } = useDeleteSubject();
-  const router = useRouter();
   const {
     open,
     selectedSubject,
     closeSubjectSidebar,
+    openConfirmModal
   } = useSubjectContext();
 
   if (!selectedSubject) return null;
 
+  // abre o modal
   async function handleClick() {
-    await deleteSubject(selectedSubject.id);
-    router.refresh();
-    closeSubjectSidebar();
+    openConfirmModal();
   }
 
   return (
