@@ -29,6 +29,9 @@ export type SubjectContextType = {
   closeSubjectSidebar: Dispatch<SetStateAction<boolean>>;
   selectedSubject: SubjectResponse | null;
   setSelectedSubject: Dispatch<SetStateAction<SubjectResponse | null>>;
+  openConfirmModal: Dispatch<SetStateAction<boolean>>;
+  closeConfirmModal: Dispatch<SetStateAction<boolean>>;
+  getConfirmModalState: () => boolean;
 };
 
 export type SubjectContextProviderProps = {

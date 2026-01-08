@@ -3,6 +3,7 @@
 // components
 import { SubjectList } from "./SubjectList"
 import { SubjectSidebar } from "./SubjectSidebar"
+import { ConfirmModal } from "../modal/ConfirmModal"
 
 // types
 import { SubjectGridProps } from "@/src/types/Subject"
@@ -16,6 +17,7 @@ export function SubjectGrid({ subjects }: SubjectGridProps) {
     <SubjectContextProvider>
       <SubjectList subjects={subjects} />
       <SubjectSidebar />
+      <ConfirmModal />
     </SubjectContextProvider>
   </>
 }
