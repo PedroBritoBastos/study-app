@@ -10,7 +10,7 @@ import { NavbarOption } from "./NavbarOption";
 export function Navbar() {
   return (
     <Flex
-      w="250px"
+      w="200px"
       bg="purple.800"
       color="whiteAlpha.900"
       p={6}

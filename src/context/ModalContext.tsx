@@ -14,10 +14,10 @@ export const ModalContext = createContext<ModalContextType | null>(null);
 export function ModalContextProvider({
   children,
 }: ModalContextProviderProps) {
-  const { open, updateModalState } = useModal();
+  const { open, updateModalState, verifyIfTitleIsValid, verifyIfContentIsValid, isTitleValid, isContentValid, refreshVerifications } = useModal();
 
   return (
-    <ModalContext.Provider value={{ open, updateModalState }}>
+    <ModalContext.Provider value={{ open, updateModalState, verifyIfTitleIsValid, verifyIfContentIsValid, isTitleValid, isContentValid, refreshVerifications }}>
       {children}
     </ModalContext.Provider>
   );

@@ -1,9 +1,9 @@
-import { NextResponse } from "next/server";
+import { NextResponse, NextRequest } from "next/server";
 import { prisma } from "../../../../../prisma/prisma";
 import { SubjectGetById } from "@/src/types/Params";
 
 // api/subjects/:id get
-export async function GET(request: Request, { params }: SubjectGetById) {
+export async function GET(request: NextRequest, { params }: SubjectGetById) {
   try {
     const subject = await prisma.subject.findUnique({
       where: {
@@ -30,7 +30,7 @@ export async function GET(request: Request, { params }: SubjectGetById) {
 
 // api/subjects/:id put
 export async function PUT(
-  request: Request,
+  request: NextRequest,
   { params }: { params: Promise<{ id: string }> }
 ) {
   try {

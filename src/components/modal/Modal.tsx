@@ -10,6 +10,8 @@ import {
   Presence
 } from "@chakra-ui/react";
 import { CloseButton } from "../button/CloseButton";
+
+// hooks
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { useModalContext } from "../../hooks/useModalContext";
@@ -18,7 +20,7 @@ import { useCreateSubject } from "../../hooks/useCreateSubject";
 export function Modal() {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
-  const { open, updateModalState } = useModalContext();
+  const { open, updateModalState, verifyIfTitleIsValid, verifyIfContentIsValid, isTitleValid, isContentValid } = useModalContext();
   const { createSubject } = useCreateSubject();
   const router = useRouter();
 
@@ -27,8 +29,14 @@ export function Modal() {
   ) {
     e.preventDefault();
 
-    if (!title || !content) return;
+    // checa se o titulo e descricao estao preenchidas
+    verifyIfTitleIsValid(title);
+    verifyIfContentIsValid(content);
 
+    // vai impedir o prosseguimento do fluxo caso estejam invalidos
+    if (!content || !title) return;
+
+    // cria o objeto com titulo e descricao e envia para a api
     const subjectData = { title, content };
     await createSubject(subjectData);
 
@@ -73,7 +81,7 @@ export function Modal() {
         </Flex>
 
         {/* Título */}
-        <Field.Root gap={5}>
+        <Field.Root gap={5} invalid={isTitleValid()}>
           <Field.Label color="gray.500">
             Conteúdo
           </Field.Label>
@@ -84,6 +92,7 @@ export function Modal() {
             value={title}
             onChange={(e) => setTitle(e.target.value)}
           />
+          <Field.ErrorText>Escreva um título</Field.ErrorText>
         </Field.Root>
 
         {/* Descrição */}
@@ -92,6 +101,7 @@ export function Modal() {
           d="flex"
           flexDirection="column"
           gap={5}
+          invalid={isContentValid()}
         >
           <Field.Label color="gray.500">
             Descrição
@@ -104,6 +114,7 @@ export function Modal() {
             value={content}
             onChange={(e) => setContent(e.target.value)}
           />
+          <Field.ErrorText>Escreva uma descrição</Field.ErrorText>
         </Field.Root>
 
         <Button

@@ -4,14 +4,14 @@ import {
   Text,
   Flex,
   IconButton,
-  Button
+  Button, Image, Stack
 } from "@chakra-ui/react";
-import { X } from "lucide-react";
+import { MoveRight, Trash2 } from "lucide-react";
+
 
 // hook
 import { useSubjectContext } from "@/src/hooks/useSubjectContext";
 import { useDeleteSubject } from "@/src/hooks/useDeleteSubject";
-
 
 export function SubjectSidebar() {
   const { deleteSubject } = useDeleteSubject();
@@ -30,7 +30,7 @@ export function SubjectSidebar() {
   }
 
   return (
-    <Box
+    <Stack
       w={{ base: "100%", md: "380px" }}
       h="100vh"
       bg="white"
@@ -51,48 +51,58 @@ export function SubjectSidebar() {
       "
       pointerEvents={open ? "auto" : "none"}
       willChange="transform, opacity"
+      justify={"space-between"}
     >
-      {/* Header */}
-      <Flex direction="column" gap={1} mb={6}>
-        <Flex align="center" justify="space-between">
-          <Text
-            fontSize="lg"
-            fontWeight="semibold"
-            color="purple.700"
-          >
-            {selectedSubject.title}
-          </Text>
+      <Box>
+        {/* Header */}
+        <Flex direction="column" gap={1} mb={6}>
+          <Flex align="center" justify="space-between">
+            <Text
+              fontSize="2xl"
+              fontWeight="semibold"
+              color="purple.700"
+            >
+              {selectedSubject.title}
+            </Text>
 
-          <IconButton
-            aria-label="Fechar"
-            size="sm"
-            variant="ghost"
-            onClick={closeSubjectSidebar}
-          >
-            <X size={18} />
-          </IconButton>
+            <IconButton
+              aria-label="Fechar"
+              size="lg"
+              variant="ghost"
+              onClick={closeSubjectSidebar}
+            >
+              <MoveRight size={25} />
+            </IconButton>
+          </Flex>
+
+          {/* Data */}
+          <Flex align={"center"} gap={1} mt={3}>
+            <Image src={"/createdAt.png"} alt="created at" />
+            <Text fontSize="sm" color="gray.500">
+              Criado em {selectedSubject.currentDate}
+            </Text>
+          </Flex>
+
         </Flex>
 
-        {/* Data */}
-        <Text fontSize="xs" color="gray.500">
-          Criado em {selectedSubject.currentDate}
+        {/* Conteúdo */}
+        <Text fontSize={"lg"} color={"purple.700"}>Descrição</Text>
+        <Text
+          fontSize="sm"
+          color="gray.600"
+          lineHeight="tall"
+          whiteSpace="pre-wrap"
+          mt={5}
+        >
+          {selectedSubject.content}
         </Text>
-      </Flex>
+      </Box>
 
-      {/* Conteúdo */}
-      <Text
-        fontSize="sm"
-        color="gray.600"
-        lineHeight="tall"
-        whiteSpace="pre-wrap"
-      >
-        {selectedSubject.content}
-      </Text>
-
-      <Button onClick={handleClick}>
-        Deletar
+      <Button onClick={handleClick} w={"fit-content"} mb={5} bg={"red.500"} _hover={{ bg: "red.400" }}>
+        <Trash2 />
+        Excluir
       </Button>
-    </Box>
+    </Stack >
   );
 }
 
