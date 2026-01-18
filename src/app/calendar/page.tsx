@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 // components
 import { Flex, Text, Grid, Button } from "@chakra-ui/react";
@@ -9,13 +9,40 @@ import { CalendarDay } from "@/src/components/calendar/CalendarDay";
 // utils
 import { getDaysOfMonth } from "@/src/utilities/dateUtils";
 
-export default function CalendarPage() {
+// types
+import { SubjectProps } from "@/src/types/Subject";
 
-  // Estado único controlando mês e ano
+export default function CalendarPage() {
+  // 🔹 todas as subjects
+  const [subjects, setSubjects] = useState<SubjectProps[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  // 🔹 Estado único controlando mês e ano
   const [currentDate, setCurrentDate] = useState(() => {
     const today = new Date();
     return new Date(today.getFullYear(), today.getMonth(), 1);
   });
+
+  useEffect(() => {
+    async function fetchSubjects() {
+      try {
+        const response = await fetch("/api/subjects");
+
+        if (!response.ok) {
+          throw new Error("Erro ao buscar subjects");
+        }
+
+        const data = await response.json();
+        setSubjects(data);
+      } catch (error) {
+        console.error(error);
+      } finally {
+        setLoading(false);
+      }
+    }
+
+    fetchSubjects();
+  }, []);
 
   function handlePrevMonth() {
     setCurrentDate((prev) =>
@@ -40,8 +67,11 @@ export default function CalendarPage() {
   });
 
   const year = currentDate.getFullYear();
-
   const monthLabel = `${monthName}, ${year}`;
+
+  if (loading) {
+    return <Text>Carregando...</Text>;
+  }
 
   const styles = {
     container: {
@@ -91,6 +121,7 @@ export default function CalendarPage() {
           <CalendarDay
             key={day.toISOString()}
             date={day}
+            subjects={subjects} // dados já disponíveis
           />
         ))}
       </Grid>

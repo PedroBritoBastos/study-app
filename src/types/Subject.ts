@@ -5,6 +5,7 @@ export type SubjectProps = {
   subjectContent?: string;
   createdAt?: string;
   id?: string;
+  currentDate?: string;
 };
 
 export type SubjectGridProps = {
