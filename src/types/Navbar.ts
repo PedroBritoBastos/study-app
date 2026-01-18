@@ -6,6 +6,7 @@ export type NavbarOptionProps = {
   index: number;
   active: number;
   setActive: Dispatch<SetStateAction<number>>;
+  url: string;
 };
 
 export type NavbarContextType = {

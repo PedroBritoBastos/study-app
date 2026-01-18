@@ -1,61 +1,98 @@
 'use client'
 
-import { Flex, Text, Grid, Card } from "@chakra-ui/react";
-import { Header } from "../../components/header/Header";
+import { useState } from "react";
+
+// components
+import { Flex, Text, Grid, Button } from "@chakra-ui/react";
+import { CalendarDay } from "@/src/components/calendar/CalendarDay";
+
+// utils
+import { getDaysOfMonth } from "@/src/utilities/dateUtils";
 
 export default function CalendarPage() {
+
+  // Estado único controlando mês e ano
+  const [currentDate, setCurrentDate] = useState(() => {
+    const today = new Date();
+    return new Date(today.getFullYear(), today.getMonth(), 1);
+  });
+
+  function handlePrevMonth() {
+    setCurrentDate((prev) =>
+      new Date(prev.getFullYear(), prev.getMonth() - 1, 1)
+    );
+  }
+
+  function handleNextMonth() {
+    setCurrentDate((prev) =>
+      new Date(prev.getFullYear(), prev.getMonth() + 1, 1)
+    );
+  }
+
+  const currentYear = currentDate.getFullYear();
+  const currentMonth = currentDate.getMonth();
+
+  const days = getDaysOfMonth(currentYear, currentMonth);
+
+  // 🔹 Formato: "Mês, Ano"
+  const monthName = currentDate.toLocaleDateString("pt-BR", {
+    month: "long",
+  });
+
+  const year = currentDate.getFullYear();
+
+  const monthLabel = `${monthName}, ${year}`;
+
+  const styles = {
+    container: {
+      flex: 1,
+      minH: "100vh",
+      flexDirection: "column",
+      bg: "#ecebf3ff",
+    },
+    buttonsContainer: {
+      justify: "space-evenly",
+      align: "center",
+
+      text: {
+        fontSize: "3xl",
+        fontWeight: "medium",
+        color: "purple.800",
+        textAlign: "center",
+        pt: 5,
+        textTransform: "capitalize",
+      },
+    },
+    grid: {
+      flex: 1,
+      templateColumns: "repeat(8, 1fr)",
+      gap: 4,
+      p: 8,
+    },
+  };
+
   return (
-    <Flex
-      flex="1"
-      bg="#c4bff1"
-      minH="100vh"
-      flexDirection="column"
-    >
-      <Header title={"Calendário"} />
+    <Flex {...styles.container}>
+
+      {/* Botões e mês */}
+      <Flex {...styles.buttonsContainer}>
+        <Button onClick={handlePrevMonth}>Prev</Button>
+
+        <Text {...styles.buttonsContainer.text}>
+          {monthLabel}
+        </Text>
+
+        <Button onClick={handleNextMonth}>Next</Button>
+      </Flex>
+
       {/* Grid do calendário */}
-      <Grid
-        flex={1}
-        templateColumns="repeat(8, 1fr)"
-        templateRows="repeat(4, 1fr)"
-        gap={4}
-        p={8}
-      >
-        {/* Dias do mês */}
-        <Card.Root><Card.Body><Text>1</Text></Card.Body></Card.Root>
-        <Card.Root><Card.Body><Text>2</Text></Card.Body></Card.Root>
-        <Card.Root><Card.Body><Text>3</Text></Card.Body></Card.Root>
-        <Card.Root><Card.Body><Text>4</Text></Card.Body></Card.Root>
-        <Card.Root><Card.Body><Text>5</Text></Card.Body></Card.Root>
-        <Card.Root><Card.Body><Text>6</Text></Card.Body></Card.Root>
-        <Card.Root><Card.Body><Text>7</Text></Card.Body></Card.Root>
-
-        <Card.Root><Card.Body><Text>8</Text></Card.Body></Card.Root>
-        <Card.Root><Card.Body><Text>9</Text></Card.Body></Card.Root>
-        <Card.Root><Card.Body><Text>10</Text></Card.Body></Card.Root>
-        <Card.Root><Card.Body><Text>11</Text></Card.Body></Card.Root>
-        <Card.Root><Card.Body><Text>12</Text></Card.Body></Card.Root>
-        <Card.Root><Card.Body><Text>13</Text></Card.Body></Card.Root>
-        <Card.Root><Card.Body><Text>14</Text></Card.Body></Card.Root>
-
-        <Card.Root><Card.Body><Text>15</Text></Card.Body></Card.Root>
-        <Card.Root><Card.Body><Text>16</Text></Card.Body></Card.Root>
-        <Card.Root><Card.Body><Text>17</Text></Card.Body></Card.Root>
-        <Card.Root><Card.Body><Text>18</Text></Card.Body></Card.Root>
-        <Card.Root><Card.Body><Text>19</Text></Card.Body></Card.Root>
-        <Card.Root><Card.Body><Text>20</Text></Card.Body></Card.Root>
-        <Card.Root><Card.Body><Text>21</Text></Card.Body></Card.Root>
-
-        <Card.Root><Card.Body><Text>22</Text></Card.Body></Card.Root>
-        <Card.Root><Card.Body><Text>23</Text></Card.Body></Card.Root>
-        <Card.Root><Card.Body><Text>24</Text></Card.Body></Card.Root>
-        <Card.Root><Card.Body><Text>25</Text></Card.Body></Card.Root>
-        <Card.Root><Card.Body><Text>26</Text></Card.Body></Card.Root>
-        <Card.Root><Card.Body><Text>27</Text></Card.Body></Card.Root>
-        <Card.Root><Card.Body><Text>28</Text></Card.Body></Card.Root>
-
-        <Card.Root><Card.Body><Text>29</Text></Card.Body></Card.Root>
-        <Card.Root><Card.Body><Text>30</Text></Card.Body></Card.Root>
-        <Card.Root><Card.Body><Text>31</Text></Card.Body></Card.Root>
+      <Grid {...styles.grid}>
+        {days.map((day) => (
+          <CalendarDay
+            key={day.toISOString()}
+            date={day}
+          />
+        ))}
       </Grid>
     </Flex>
   );

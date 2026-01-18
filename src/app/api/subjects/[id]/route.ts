@@ -15,7 +15,7 @@ export async function GET(request: NextRequest, { params }: SubjectGetById) {
     if (!subject) {
       return NextResponse.json(
         { error: "Conteúdo não encontrado" },
-        { status: 404 }
+        { status: 404 },
       );
     }
 
@@ -23,7 +23,7 @@ export async function GET(request: NextRequest, { params }: SubjectGetById) {
   } catch (error) {
     return NextResponse.json(
       { error: "Erro ao buscar conteúdo" },
-      { status: 500 }
+      { status: 500 },
     );
   }
 }
@@ -31,7 +31,7 @@ export async function GET(request: NextRequest, { params }: SubjectGetById) {
 // api/subjects/:id put
 export async function PUT(
   request: NextRequest,
-  { params }: { params: Promise<{ id: string }> }
+  { params }: { params: Promise<{ id: string }> },
 ) {
   try {
     const { id } = await params;
@@ -52,7 +52,7 @@ export async function PUT(
   } catch (error) {
     return NextResponse.json(
       { error: "Erro ao atualizar subject" },
-      { status: 500 }
+      { status: 500 },
     );
   }
 }
@@ -60,7 +60,7 @@ export async function PUT(
 // api/subjects/:id delete
 export async function DELETE(
   request: Request,
-  { params }: { params: Promise<{ id: string }> }
+  { params }: { params: Promise<{ id: string }> },
 ) {
   try {
     const { id } = await params;
@@ -72,12 +72,12 @@ export async function DELETE(
 
     return NextResponse.json(
       { message: "Conteúdo removido com sucesso" },
-      { status: 200 }
+      { status: 200 },
     );
   } catch (error) {
     return NextResponse.json(
       { error: "Erro ao deletar conteúdo" },
-      { status: 500 }
+      { status: 500 },
     );
   }
 }
