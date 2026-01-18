@@ -13,16 +13,20 @@ import { getDaysOfMonth } from "@/src/utilities/dateUtils";
 import { SubjectProps } from "@/src/types/Subject";
 
 export default function CalendarPage() {
-  // 🔹 todas as subjects
+  // 🔹 subjects
   const [subjects, setSubjects] = useState<SubjectProps[]>([]);
   const [loading, setLoading] = useState(true);
 
-  // 🔹 Estado único controlando mês e ano
-  const [currentDate, setCurrentDate] = useState(() => {
-    const today = new Date();
-    return new Date(today.getFullYear(), today.getMonth(), 1);
-  });
+  // 🔹 data atual (inicialmente null para evitar hydration error)
+  const [currentDate, setCurrentDate] = useState<Date | null>(null);
 
+  // 🔹 define data SOMENTE no client
+  useEffect(() => {
+    const today = new Date();
+    setCurrentDate(new Date(today.getFullYear(), today.getMonth(), 1));
+  }, []);
+
+  // 🔹 busca subjects
   useEffect(() => {
     async function fetchSubjects() {
       try {
@@ -44,15 +48,19 @@ export default function CalendarPage() {
     fetchSubjects();
   }, []);
 
+  if (loading || !currentDate) {
+    return <Text>Carregando...</Text>;
+  }
+
   function handlePrevMonth() {
-    setCurrentDate((prev) =>
-      new Date(prev.getFullYear(), prev.getMonth() - 1, 1)
+    setCurrentDate(prev =>
+      prev ? new Date(prev.getFullYear(), prev.getMonth() - 1, 1) : prev
     );
   }
 
   function handleNextMonth() {
-    setCurrentDate((prev) =>
-      new Date(prev.getFullYear(), prev.getMonth() + 1, 1)
+    setCurrentDate(prev =>
+      prev ? new Date(prev.getFullYear(), prev.getMonth() + 1, 1) : prev
     );
   }
 
@@ -61,17 +69,12 @@ export default function CalendarPage() {
 
   const days = getDaysOfMonth(currentYear, currentMonth);
 
-  // 🔹 Formato: "Mês, Ano"
   const monthName = currentDate.toLocaleDateString("pt-BR", {
     month: "long",
   });
 
-  const year = currentDate.getFullYear();
+  const year = currentYear;
   const monthLabel = `${monthName}, ${year}`;
-
-  if (loading) {
-    return <Text>Carregando...</Text>;
-  }
 
   const styles = {
     container: {
@@ -83,7 +86,6 @@ export default function CalendarPage() {
     buttonsContainer: {
       justify: "space-evenly",
       align: "center",
-
       text: {
         fontSize: "3xl",
         fontWeight: "medium",
@@ -103,8 +105,6 @@ export default function CalendarPage() {
 
   return (
     <Flex {...styles.container}>
-
-      {/* Botões e mês */}
       <Flex {...styles.buttonsContainer}>
         <Button onClick={handlePrevMonth}>Prev</Button>
 
@@ -115,13 +115,12 @@ export default function CalendarPage() {
         <Button onClick={handleNextMonth}>Next</Button>
       </Flex>
 
-      {/* Grid do calendário */}
       <Grid {...styles.grid}>
-        {days.map((day) => (
+        {days.map(day => (
           <CalendarDay
             key={day.toISOString()}
             date={day}
-            subjects={subjects} // dados já disponíveis
+            subjects={subjects}
           />
         ))}
       </Grid>

@@ -1,26 +1,14 @@
-import { useState } from "react";
-
-// utils
-import { daysSinceCreation } from "../utilities/dateUtils";
-
+// useCalendar.ts
 export function useCalendar() {
-  const [lastRevision, setLastRevision] = useState<null | Date>(null);
+  function isRevisionDay(days: number): boolean {
+    const fixedRevisions = [1, 4, 11, 25, 55];
 
-  // returns a boolean that indicates if there is a revision in this day
-  function isRevisionDay(days: number, currentDate: Date): boolean {
-    if (days === 1 || days === 3 || days === 7 || days === 14) {
+    if (fixedRevisions.includes(days)) {
       return true;
     }
 
-    if (days === 30) {
-      setLastRevision(currentDate);
+    if (days > 55 && (days - 55) % 30 === 0) {
       return true;
-    }
-
-    if (days > 30) {
-      if (daysSinceCreation(lastRevision, currentDate) === 30) {
-        return true;
-      }
     }
 
     return false;
