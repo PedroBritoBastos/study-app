@@ -6,6 +6,9 @@ import { useCalendar } from "@/src/hooks/useCalendar";
 // components
 import { Label } from "./Label";
 
+// hooks
+import { useDaySidebarContext } from "@/src/hooks/useDaySidebarContext";
+
 type Props = {
   date: Date;
   subjects: SubjectProps[];
@@ -13,6 +16,14 @@ type Props = {
 
 export function CalendarDay({ date, subjects }: Props) {
   const { isRevisionDay } = useCalendar();
+
+  // recuperando o valor do context da sidebar
+  const { sidebarHook } = useDaySidebarContext();
+
+  // vai abrir a sidebar quando o componente for pressionado
+  function handleClick() {
+    sidebarHook.open();
+  }
 
   const reviews = subjects
     .map(subject => {
@@ -34,8 +45,11 @@ export function CalendarDay({ date, subjects }: Props) {
   return (
     <Card.Root
       bg="white"
-      h="100%"              // 🔒 respeita a Grid
-      overflow="hidden"     // 🔒 nada vaza
+      h="100%"
+      overflow="hidden"
+      cursor="pointer"
+      _hover={{ outline: "2px solid purple" }}
+      onClick={handleClick}
     >
       <Card.Header
         as={Flex}
