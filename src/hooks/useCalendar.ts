@@ -1,5 +1,10 @@
-// useCalendar.ts
+import { useState } from "react";
+
 export function useCalendar() {
+  // state para indicar qual data foi pressionada no calendario
+  const [activeDay, setActiveDay] = useState<Date>(new Date());
+
+  // retorna um booleano indicando se deve ter revisao nesta data
   function isRevisionDay(days: number): boolean {
     const fixedRevisions = [1, 4, 11, 25, 55];
 
@@ -14,5 +19,5 @@ export function useCalendar() {
     return false;
   }
 
-  return { isRevisionDay };
+  return { isRevisionDay, activeDay, setActiveDay };
 }

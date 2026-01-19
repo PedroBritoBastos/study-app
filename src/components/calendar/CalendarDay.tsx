@@ -8,23 +8,28 @@ import { Label } from "./Label";
 
 // hooks
 import { useDaySidebarContext } from "@/src/hooks/useDaySidebarContext";
+import { Dispatch, SetStateAction } from "react";
 
 type Props = {
   date: Date;
   subjects: SubjectProps[];
+  activeDay: Date;
+  setActiveDay: Dispatch<SetStateAction<Date>>;
 };
 
-export function CalendarDay({ date, subjects }: Props) {
+export function CalendarDay({
+  date,
+  subjects,
+  activeDay,
+  setActiveDay,
+}: Props) {
   const { isRevisionDay } = useCalendar();
-
-  // recuperando o valor do context da sidebar
   const { sidebarHook } = useDaySidebarContext();
 
-  // vai abrir a sidebar quando o componente for pressionado
-  function handleClick() {
-    sidebarHook.open();
-    sidebarHook.setReviews(reviews);
-  }
+  const isActive =
+    activeDay.getFullYear() === date.getFullYear() &&
+    activeDay.getMonth() === date.getMonth() &&
+    activeDay.getDate() === date.getDate();
 
   const reviews = subjects
     .map(subject => {
@@ -43,14 +48,21 @@ export function CalendarDay({ date, subjects }: Props) {
     })
     .filter(Boolean);
 
+  function handleClick() {
+    setActiveDay(date);
+    sidebarHook.open();
+    sidebarHook.setReviews(reviews);
+  }
+
   return (
     <Card.Root
       bg="white"
       h="100%"
       overflow="hidden"
       cursor="pointer"
-      _hover={{ outline: "2px solid purple" }}
       onClick={handleClick}
+      outline={isActive ? "2px solid purple" : "none"}
+      _hover={{ outline: "2px solid purple" }}
     >
       <Card.Header
         as={Flex}
@@ -71,3 +83,4 @@ export function CalendarDay({ date, subjects }: Props) {
     </Card.Root>
   );
 }
+

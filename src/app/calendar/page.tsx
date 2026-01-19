@@ -16,21 +16,27 @@ import { SubjectProps } from "@/src/types/Subject";
 // provider
 import { DaySidebarContextProvider } from "@/src/context/DaySidebarContext";
 
+// hooks
+import { useCalendar } from "@/src/hooks/useCalendar";
+
 export default function CalendarPage() {
-  // 🔹 subjects
+  // recuperando os estados para manter a data pressionada ativa
+  const { activeDay, setActiveDay } = useCalendar();
+
+  // subjects
   const [subjects, setSubjects] = useState<SubjectProps[]>([]);
   const [loading, setLoading] = useState(true);
 
-  // 🔹 data atual (inicialmente null para evitar hydration error)
+  // data atual (inicialmente null para evitar hydration error)
   const [currentDate, setCurrentDate] = useState<Date | null>(null);
 
-  // 🔹 define data SOMENTE no client
+  // define data SOMENTE no client
   useEffect(() => {
     const today = new Date();
     setCurrentDate(new Date(today.getFullYear(), today.getMonth(), 1));
   }, []);
 
-  // 🔹 busca subjects
+  // busca subjects
   useEffect(() => {
     async function fetchSubjects() {
       try {
@@ -128,6 +134,8 @@ export default function CalendarPage() {
               key={day.toISOString()}
               date={day}
               subjects={subjects}
+              activeDay={activeDay}
+              setActiveDay={setActiveDay}
             />
           ))}
         </Grid>
