@@ -1,4 +1,4 @@
-import { createContext, ReactNode, useState } from "react";
+import { createContext, Dispatch, JSX, ReactNode, SetStateAction } from "react";
 
 // hooks
 import { useDateSidebar } from "../hooks/useDateSidebar";
@@ -8,11 +8,12 @@ type daySidebarContexttype = {
     isOpen: boolean;
     open: () => void;
     close: () => void;
+    setReviews: Dispatch<SetStateAction<(JSX.Element | null)[]>>;
+    reviews: (JSX.Element | null)[];
   };
 };
 
-
-const initialValue = { sidebarHook: { isOpen: false, open: () => null, close: () => null } };
+const initialValue = { sidebarHook: { isOpen: false, open: () => { }, close: () => { }, setReviews: () => { }, reviews: [] } };
 export const daySidebarContext = createContext<daySidebarContexttype>(initialValue);
 
 type daySidebarContextProviderProps = {

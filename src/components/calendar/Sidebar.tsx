@@ -1,4 +1,4 @@
-import { Stack } from "@chakra-ui/react";
+import { Stack, Button } from "@chakra-ui/react";
 import { useDaySidebarContext } from "@/src/hooks/useDaySidebarContext";
 
 export function Sidebar() {
@@ -22,7 +22,12 @@ export function Sidebar() {
       py={5}
       overflowY="auto"
     >
-      {/* Conteúdo */}
+      <ul className="list-none">
+        {sidebarHook.reviews}
+      </ul>
+      <Button onClick={() => sidebarHook.close()}>
+        Close
+      </Button>
     </Stack>
   );
 }

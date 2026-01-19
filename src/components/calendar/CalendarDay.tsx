@@ -23,6 +23,7 @@ export function CalendarDay({ date, subjects }: Props) {
   // vai abrir a sidebar quando o componente for pressionado
   function handleClick() {
     sidebarHook.open();
+    sidebarHook.setReviews(reviews);
   }
 
   const reviews = subjects
