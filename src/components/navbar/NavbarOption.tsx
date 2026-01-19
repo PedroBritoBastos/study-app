@@ -5,7 +5,6 @@ import { NavbarOptionProps } from "@/src/types/Navbar";
 import Link from "next/link";
 
 export function NavbarOption({ image, text, index, active, setActive, url }: NavbarOptionProps) {
-
   return (
     <>
       <Link href={url}>

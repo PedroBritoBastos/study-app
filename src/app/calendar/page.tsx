@@ -5,12 +5,16 @@ import { useEffect, useState } from "react";
 // components
 import { Flex, Text, Grid, Button } from "@chakra-ui/react";
 import { CalendarDay } from "@/src/components/calendar/CalendarDay";
+import { Sidebar } from "@/src/components/calendar/Sidebar";
 
 // utils
 import { getDaysOfMonth } from "@/src/utilities/dateUtils";
 
 // types
 import { SubjectProps } from "@/src/types/Subject";
+
+// provider
+import { DaySidebarContextProvider } from "@/src/context/DaySidebarContext";
 
 export default function CalendarPage() {
   // 🔹 subjects
@@ -79,7 +83,7 @@ export default function CalendarPage() {
   const styles = {
     container: {
       flex: 1,
-      minH: "100vh",
+      maxH: "100vh",
       flexDirection: "column",
       bg: "#ecebf3ff",
     },
@@ -98,32 +102,37 @@ export default function CalendarPage() {
     grid: {
       flex: 1,
       templateColumns: "repeat(8, 1fr)",
+      templateRows: "repeat(4, 1fr)",
       gap: 4,
       p: 8,
+      minH: 0,
     },
   };
 
   return (
-    <Flex {...styles.container}>
-      <Flex {...styles.buttonsContainer}>
-        <Button onClick={handlePrevMonth}>Prev</Button>
+    <DaySidebarContextProvider>
+      <Flex {...styles.container}>
+        <Flex {...styles.buttonsContainer}>
+          <Button onClick={handlePrevMonth}>Prev</Button>
 
-        <Text {...styles.buttonsContainer.text}>
-          {monthLabel}
-        </Text>
+          <Text {...styles.buttonsContainer.text}>
+            {monthLabel}
+          </Text>
 
-        <Button onClick={handleNextMonth}>Next</Button>
+          <Button onClick={handleNextMonth}>Next</Button>
+        </Flex>
+
+        <Grid {...styles.grid}>
+          {days.map(day => (
+            <CalendarDay
+              key={day.toISOString()}
+              date={day}
+              subjects={subjects}
+            />
+          ))}
+        </Grid>
+        <Sidebar />
       </Flex>
-
-      <Grid {...styles.grid}>
-        {days.map(day => (
-          <CalendarDay
-            key={day.toISOString()}
-            date={day}
-            subjects={subjects}
-          />
-        ))}
-      </Grid>
-    </Flex>
+    </DaySidebarContextProvider>
   );
 }
