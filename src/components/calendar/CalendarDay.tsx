@@ -1,4 +1,4 @@
-import { Card, Text, Flex } from "@chakra-ui/react";
+import { Card, Text, Flex, Stack } from "@chakra-ui/react";
 import { SubjectProps } from "@/src/types/Subject";
 import { daysSinceCreation } from "@/src/utilities/dateUtils";
 import { useCalendar } from "@/src/hooks/useCalendar";
@@ -70,14 +70,14 @@ export function CalendarDay({
         h="100%"
         p={3}
       >
-        <Text fontWeight="bold" mb={2}>
+        <Text fontWeight="bold" fontSize="md" mb={2} color="purple.700">
           {date.getDate()}
         </Text>
 
         <Flex flex={1} overflow="hidden">
-          <ul className="overflow-hidden w-full">
+          <Stack gap={2} w="full">
             {reviews}
-          </ul>
+          </Stack>
         </Flex>
       </Card.Header>
     </Card.Root>

@@ -1,4 +1,6 @@
 import { Flex } from "@chakra-ui/react";
+
+// components
 import { HomeClient } from "../components/homeClient/HomeClient";
 import { SubjectSection } from "../components/subject/SubjectSection";
 

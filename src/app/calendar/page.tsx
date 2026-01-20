@@ -2,10 +2,6 @@
 
 import { useEffect, useState } from "react";
 
-// styles
-import styles from "./animation.module.css";
-
-
 // components
 import { Flex, Text, Grid, Button, Icon } from "@chakra-ui/react";
 import { CalendarDay } from "@/src/components/calendar/CalendarDay";

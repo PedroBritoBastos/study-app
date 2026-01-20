@@ -1,4 +1,5 @@
 import { SubjectDataType } from "../types/Subject";
+import { SubjectResponse } from "../types/Subject";
 
 // cria uma matéria
 export async function createSubject(data: SubjectDataType): Promise<void> {
@@ -36,4 +37,15 @@ export async function deleteSubject(id: string): Promise<void> {
   if (!response.ok) {
     throw new Error("Erro ao deletar conteúdo");
   }
+}
+
+// retorna todas as materias
+export async function getSubjects() {
+  const res = await fetch("http://localhost:3000/api/subjects", {
+    cache: "no-store",
+  });
+
+  // armazenando os dados do banco
+  const subjects: SubjectResponse[] = await res.json();
+  return subjects;
 }
