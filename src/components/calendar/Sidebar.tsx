@@ -1,10 +1,20 @@
 import { Stack, Button } from "@chakra-ui/react";
+
+// hooks
 import { useDaySidebarContext } from "@/src/hooks/useDaySidebarContext";
+import { useCalendar } from "@/src/hooks/useCalendar";
 
 export function Sidebar() {
   const { sidebarHook } = useDaySidebarContext();
+  const { setActiveDay } = useCalendar();
 
   if (!sidebarHook.isOpen) return null;
+
+  // fecha a sidebar e desmarca a data ativa
+  function handleClick() {
+    setActiveDay(new Date());
+    sidebarHook.close();
+  }
 
   return (
     <Stack
@@ -25,7 +35,7 @@ export function Sidebar() {
       <ul className="list-none">
         {sidebarHook.reviews}
       </ul>
-      <Button onClick={() => sidebarHook.close()}>
+      <Button onClick={handleClick}>
         Close
       </Button>
     </Stack>

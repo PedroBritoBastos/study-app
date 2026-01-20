@@ -2,8 +2,12 @@
 
 import { useEffect, useState } from "react";
 
+// styles
+import styles from "./animation.module.css";
+
+
 // components
-import { Flex, Text, Grid, Button } from "@chakra-ui/react";
+import { Flex, Text, Grid, Button, Icon } from "@chakra-ui/react";
 import { CalendarDay } from "@/src/components/calendar/CalendarDay";
 import { Sidebar } from "@/src/components/calendar/Sidebar";
 
@@ -18,6 +22,7 @@ import { DaySidebarContextProvider } from "@/src/context/DaySidebarContext";
 
 // hooks
 import { useCalendar } from "@/src/hooks/useCalendar";
+import { ChevronsLeft, ChevronsRight } from "lucide-react";
 
 export default function CalendarPage() {
   // recuperando os estados para manter a data pressionada ativa
@@ -96,12 +101,12 @@ export default function CalendarPage() {
     buttonsContainer: {
       justify: "space-evenly",
       align: "center",
+      pt: 5,
       text: {
         fontSize: "3xl",
         fontWeight: "medium",
         color: "purple.800",
         textAlign: "center",
-        pt: 5,
         textTransform: "capitalize",
       },
     },
@@ -119,13 +124,21 @@ export default function CalendarPage() {
     <DaySidebarContextProvider>
       <Flex {...styles.container}>
         <Flex {...styles.buttonsContainer}>
-          <Button onClick={handlePrevMonth}>Prev</Button>
+          <Button onClick={handlePrevMonth} bg="transparent" rounded="full" _hover={{ bg: "purple.300" }}>
+            <Icon size="2xl" color="purple.800" _hover={{ color: "white" }}>
+              <ChevronsLeft />
+            </Icon>
+          </Button>
 
           <Text {...styles.buttonsContainer.text}>
             {monthLabel}
           </Text>
 
-          <Button onClick={handleNextMonth}>Next</Button>
+          <Button onClick={handleNextMonth} bg="transparent" rounded="full" _hover={{ bg: "purple.300" }}>
+            <Icon size="2xl" color="purple.800" _hover={{ color: "white" }}>
+              <ChevronsRight />
+            </Icon>
+          </Button>
         </Flex>
 
         <Grid {...styles.grid}>
