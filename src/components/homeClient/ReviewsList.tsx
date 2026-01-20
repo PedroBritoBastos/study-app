@@ -49,17 +49,21 @@ export function ReviewsList() {
   }, [])
 
   return (
-    <Accordion.Root ml={10} collapsible w={14} pos={"absolute"} top={0} right={20} zIndex={5}>
-      <Accordion.Item value="1">
-        <Accordion.ItemTrigger>
-          <Icon cursor="pointer">
+    <Accordion.Root collapsible w={150} pos={"absolute"} top={0} right={20} zIndex={5}>
+      <Accordion.Item value="1" border={"none"} px={1}>
+        <Accordion.ItemTrigger position={"relative"}>
+          <Icon cursor="pointer" position={"absolute"} right={0}>
             <Bell />
           </Icon>
         </Accordion.ItemTrigger>
         <Accordion.ItemContent>
           <Accordion.ItemBody>
-            <Stack>
+            <Stack gap={3}>
               {reviews}
+              <Review subjectName="teste" />
+              <Review subjectName="teste" />
+              <Review subjectName="teste" />
+              <Review subjectName="teste" />
             </Stack>
           </Accordion.ItemBody>
         </Accordion.ItemContent>
