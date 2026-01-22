@@ -7,6 +7,12 @@ export function useDateSidebar() {
   // state para atualizar os conteudos que serao mostrados de acordo com cada data
   const [reviews, setReviews] = useState<(JSX.Element | null)[]>([]);
 
+  // state para salvar a data clicada no calendario
+  const [selectedDay, setSelectedDay] = useState<Date>();
+
+  // state para salvar as descricoes das revisoes
+  const [reviewsDescriptions, setReviewsDescriptions] = useState<[]>([]);
+
   // abre a sidebar
   function open() {
     setIsOpen(true);
@@ -17,5 +23,15 @@ export function useDateSidebar() {
     setIsOpen(false);
   }
 
-  return { isOpen, open, close, setReviews, reviews };
+  return {
+    isOpen,
+    open,
+    close,
+    setReviews,
+    reviews,
+    selectedDay,
+    setSelectedDay,
+    reviewsDescriptions,
+    setReviewsDescriptions,
+  };
 }

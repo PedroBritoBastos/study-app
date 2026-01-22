@@ -23,14 +23,18 @@ export function CalendarDay({
   activeDay,
   setActiveDay,
 }: Props) {
+
+  // recuperando o hook contendo os states e recuperando a funcao para saber se existe revisoes para este dia do calendario
   const { isRevisionDay } = useCalendar();
   const { sidebarHook } = useDaySidebarContext();
 
+  /* se o dia clicado for o mesmo dia do calendario, ele fica ativado  */
   const isActive =
     activeDay.getFullYear() === date.getFullYear() &&
     activeDay.getMonth() === date.getMonth() &&
     activeDay.getDate() === date.getDate();
 
+  /* percorre todo o array de subjects e retorna todas as materias que devem ser revisadas neste dia */
   const reviews = subjects
     .map(subject => {
       const days = daysSinceCreation(
@@ -48,15 +52,30 @@ export function CalendarDay({
     })
     .filter(Boolean);
 
+  /* percorre todo o array de subjects e retorna as descricoes das materias que devem ser revisadas neste dia */
+  const reviewsDescriptions = subjects.map((subject) => {
+    const days = daysSinceCreation(
+      new Date(subject.currentDate),
+      date
+    );
+
+    if (isRevisionDay(days)) {
+      return { reviewName: subject.title, reviewDescription: subject.content }
+    }
+  }).filter(Boolean);
+
+  /* ativa a data pressionada no calendario e mostra as informacoes na sidebar */
   function handleClick() {
     setActiveDay(date);
+    sidebarHook.setSelectedDay(date);
+    sidebarHook.setReviewsDescriptions(reviewsDescriptions);
     sidebarHook.open();
     sidebarHook.setReviews(reviews);
   }
 
   return (
     <Card.Root
-      bg="white"
+      bg={isActive ? "purple.100" : "white"}
       h="100%"
       overflow="hidden"
       cursor="pointer"

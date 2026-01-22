@@ -10,10 +10,26 @@ type daySidebarContexttype = {
     close: () => void;
     setReviews: Dispatch<SetStateAction<(JSX.Element | null)[]>>;
     reviews: (JSX.Element | null)[];
+    selectedDay: Date;
+    setSelectedDay: Dispatch<SetStateAction<Date>>;
+    reviewsDescriptions: [];
+    setReviewsDescriptions: Dispatch<SetStateAction<[]>>;
   };
 };
 
-const initialValue = { sidebarHook: { isOpen: false, open: () => { }, close: () => { }, setReviews: () => { }, reviews: [] } };
+const initialValue = {
+  sidebarHook: {
+    isOpen: false,
+    open: () => { },
+    close: () => { },
+    setReviews: () => { },
+    reviews: [], selectedDay: {},
+    setSelectedDay: () => { },
+    reviewsDescriptions: [],
+    setReviewsDescriptions: []
+  }
+};
+
 export const daySidebarContext = createContext<daySidebarContexttype>(initialValue);
 
 type daySidebarContextProviderProps = {
