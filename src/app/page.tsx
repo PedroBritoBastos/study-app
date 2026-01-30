@@ -1,21 +1,13 @@
-import { Flex } from "@chakra-ui/react";
-
 // components
-import { HomeClient } from "../components/homeClient/HomeClient";
-import { SubjectSection } from "../components/subject/SubjectSection";
+import { HomeClient } from "../components/home/HomeClient";
 
-export default function Home() {
-  return (
-    <Flex
-      flex="1"
-      p={8}
-      bg="#ecebf3ff"
-      direction="column"
-      position="relative"
-    >
-      {/* Parte interativa */}
-      <HomeClient />
-      <SubjectSection />
-    </Flex>
-  );
+// services
+import { getSubjects } from "../services/subjectService";
+
+export default async function Home() {
+  const subjects = await getSubjects();
+
+  return <>
+    <HomeClient subjects={subjects} />
+  </>
 }

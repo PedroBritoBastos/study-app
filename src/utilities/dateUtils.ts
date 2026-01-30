@@ -52,3 +52,8 @@ export function daysSinceCreation(
 
   return Math.floor((end.getTime() - start.getTime()) / msPerDay);
 }
+
+export function formatDate(fullDate: string): string {
+  const date = new Date(fullDate);
+  return date.toLocaleDateString();
+}

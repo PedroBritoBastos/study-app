@@ -49,7 +49,7 @@ export async function PUT(
     });
 
     return NextResponse.json(subject);
-  } catch (error) {
+  } catch {
     return NextResponse.json(
       { error: "Erro ao atualizar subject" },
       { status: 500 },
@@ -74,7 +74,7 @@ export async function DELETE(
       { message: "Conteúdo removido com sucesso" },
       { status: 200 },
     );
-  } catch (error) {
+  } catch {
     return NextResponse.json(
       { error: "Erro ao deletar conteúdo" },
       { status: 500 },

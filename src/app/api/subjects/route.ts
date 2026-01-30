@@ -14,7 +14,7 @@ export async function GET() {
   } catch (error) {
     return NextResponse.json(
       { error: "Erro ao buscar conteúdos" },
-      { status: 500 }
+      { status: 500 },
     );
   }
 }
@@ -33,10 +33,10 @@ export async function POST(request: NextRequest) {
     });
 
     return NextResponse.json(subject, { status: 201 });
-  } catch (error) {
+  } catch {
     return NextResponse.json(
       { error: "Erro ao criar o conteúdo" },
-      { status: 500 }
+      { status: 500 },
     );
   }
 }

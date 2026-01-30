@@ -2,31 +2,30 @@
 
 import {
   Flex,
-  VStack,
+  Stack,
 } from "@chakra-ui/react";
 
-import { NavbarOption } from "./NavbarOption";
+import { styles } from "../../styles/navbar/navbar.styles";
 
-// hooks
-import { useState } from "react";
+// components
+import { NavbarOption } from "../navbar/NavbarOption";
+import { Calendar, ChartColumnDecreasing, Goal, Pencil } from "lucide-react";
 
 export function Navbar() {
-  const [active, setActive] = useState<number>(1); // starts with content option active
-
-  return (
-    <Flex
-      w="200px"
-      bg="purple.800"
-      color="whiteAlpha.900"
-      p={6}
-      flexDirection="column"
-    >
-      <VStack gap={4} align="stretch" mt={20}>
-        <NavbarOption image="/pencil.png" text="Conteúdos" index={1} active={active} setActive={setActive} url="/" />
-        <NavbarOption image="/subject-calendar-icon.png" text="Calendário" index={2} active={active} setActive={setActive} url="/calendar" />
-        <NavbarOption image="/achievements-trophy-icon.png" text="Metas" index={3} active={active} setActive={setActive} url="/goals" />
-        <NavbarOption image="/chart.png" text="Dashboards" index={4} active={active} setActive={setActive} url="/" />
-      </VStack>
-    </Flex>
-  );
+  return <Flex {...styles.container}>
+    <Stack {...styles.optionsContainer}>
+      <NavbarOption name="Conteúdos" url="/">
+        <Pencil />
+      </NavbarOption>
+      <NavbarOption name="Calendário" url="/calendar">
+        <Calendar />
+      </NavbarOption>
+      <NavbarOption name="Metas" url="/">
+        <Goal />
+      </NavbarOption>
+      <NavbarOption name="Dashboards" url="/">
+        <ChartColumnDecreasing />
+      </NavbarOption>
+    </Stack>
+  </Flex>
 }

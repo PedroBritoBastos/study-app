@@ -1,14 +1,17 @@
-import { Button as ChakraButton, Image } from "@chakra-ui/react";
-import { useModalContext } from "../../hooks/useModalContext";
+import { Button as ChakraButton } from "@chakra-ui/react";
+import { styles } from "../../styles/button/button.styles";
 
-export function Button() {
-  // pegando a função para abrir o modal do context
-  const { updateModalState } = useModalContext();
+type Props = {
+  children?: React.ReactNode;
+  name: string;
+  handleClick: () => void;
+  variant?: "base" | "delete";
+}
 
-  return (
-    <ChakraButton bgColor="purple.600" _hover={{ bg: "purple.500" }} px={8} py={4} d="flex" alignItems="center" onClick={updateModalState}>
-      <Image src="/add-icon.png" alt="Adicionar" />
-      Adicionar
-    </ChakraButton>
-  )
+export function Button({ children, name, handleClick, variant }: Props) {
+  return <ChakraButton {...styles.button} {...styles.variants[variant || "base"]}
+    onClick={() => handleClick()}>
+    {children}
+    {name}
+  </ChakraButton>
 }

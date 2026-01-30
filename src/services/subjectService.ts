@@ -1,8 +1,12 @@
-import { SubjectDataType } from "../types/Subject";
-import { SubjectResponse } from "../types/Subject";
+import { SubjectType } from "@/types/subject";
+
+type SubjectData = {
+  title: string;
+  content: string;
+};
 
 // cria uma matéria
-export async function createSubject(data: SubjectDataType): Promise<void> {
+export async function createSubject(data: SubjectData): Promise<void> {
   const response = await fetch("/api/subjects", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
@@ -15,7 +19,7 @@ export async function createSubject(data: SubjectDataType): Promise<void> {
 }
 
 // pega a matéria pelo id
-export async function getSubjectById(id: string): Promise<SubjectDataType> {
+export async function getSubjectById(id: string): Promise<SubjectType> {
   const response = await fetch(`/api/subjects/${id}`, {
     method: "GET",
   });
@@ -24,7 +28,7 @@ export async function getSubjectById(id: string): Promise<SubjectDataType> {
     throw new Error("Erro ao buscar conteúdo");
   }
 
-  const data: SubjectDataType = await response.json();
+  const data: SubjectType = await response.json();
   return data;
 }
 
@@ -46,6 +50,6 @@ export async function getSubjects() {
   });
 
   // armazenando os dados do banco
-  const subjects: SubjectResponse[] = await res.json();
+  const subjects: SubjectType[] = await res.json();
   return subjects;
 }

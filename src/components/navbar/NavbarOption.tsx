@@ -1,28 +1,21 @@
-import { Button, Image } from "@chakra-ui/react";
-
-import { NavbarOptionProps } from "@/src/types/Navbar";
-
+import { Button as ChakraButton } from "@chakra-ui/react";
 import Link from "next/link";
 
-export function NavbarOption({ image, text, index, active, setActive, url }: NavbarOptionProps) {
-  return (
-    <>
-      <Link href={url}>
-        <Button
-          bg={active === index ? "purple.500" : "transparent"}
-          _hover={{ bg: "purple.500" }}
-          display="flex"
-          justifyContent="flex-start"
-          gap={3}
-          onClick={() => setActive(index)}
-          w={"100%"}
-        >
-          <Image src={image} boxSize="20px" />
-          {text}
-        </Button>
-      </Link>
-    </>
+import { styles } from "@/src/styles/navbar/navbarOption.styles";
 
-  );
+type Props = {
+  name: string;
+  url: string;
+  children?: React.ReactNode;
 }
 
+export function NavbarOption({ children, name, url }: Props) {
+  return <>
+    <Link href={url}>
+      <ChakraButton  {...styles.button} >
+        {children}
+        {name}
+      </ChakraButton>
+    </Link>
+  </>
+}

@@ -1,79 +1,52 @@
-"use client"
-import { Card, Text, Box, Flex, Image } from "@chakra-ui/react";
+import { Card, Box, Text, Flex } from "@chakra-ui/react";
+
+import { styles } from "@/styles/subject/subject.styles";
+import { Calendar1 } from "lucide-react";
 import { Tooltip } from "../ui/tooltip";
 
+// utils
+import { formatDate } from "@/utilities/dateUtils";
+
 // types
-import { SubjectProps } from "../../types/Subject";
+import { SubjectType } from "@/src/types/subject";
+import { Dispatch, SetStateAction } from "react";
 
-// hook
-import { useSubjectContext } from "@/src/hooks/useSubjectContext";
+type Props = {
+  subject: SubjectType;
+  openSidebar: () => void;
+  setSelectedSubject: Dispatch<SetStateAction<SubjectType>>;
+}
 
-export function Subject({
-  subjectName,
-  subjectContent,
-  createdAt,
-  id
-}: SubjectProps) {
+export function Subject({ subject, openSidebar, setSelectedSubject }: Props) {
 
-  // usa a função para abrir/fechar o componente SubjectSidebar
-  // altera o state de open quando clicado
-  const { updateSubjectSidebarState, setSelectedSubject } = useSubjectContext();
-
+  // abre a sidebar e atualiza a materia selecionada
   function handleClick() {
-    setSelectedSubject({ id: id, title: subjectName, content: subjectContent, currentDate: createdAt });
-    updateSubjectSidebarState();
+    openSidebar();
+    setSelectedSubject(subject);
   }
 
-  return (
-    <Card.Root
-      bg="white"
-      borderRadius="xl"
-      border="1px solid"
-      borderColor="gray.200"
-      boxShadow="sm"
-      cursor="pointer"
-      onClick={handleClick}
-    >
-      <Card.Body p={5}>
-        {/* Header / Título */}
-        <Box
-          pb={3}
-          mb={3}
-          borderBottom="1px solid"
-          borderColor="gray.200"
-        >
-          <Text
-            fontSize="lg"
-            fontWeight="medium"
-            color="purple.700"
-          >
-            {subjectName}
-          </Text>
-        </Box>
-
-        {/* Data */}
-        <Flex align="center" gap={2} mb={3}>
-          <Image
-            src="/createdAt.png"
-            boxSize="16px"
-            opacity={0.7}
-          />
-          <Tooltip content={`Criado em ${createdAt}`} showArrow contentProps={{ css: { "--tooltip-bg": "colors.purple.700", "padding": "2" } }}>
-            <Text fontSize="sm" color="gray.500">
-              {createdAt}
-            </Text>
-          </Tooltip>
-        </Flex>
-
-        {/* Conteúdo */}
-        <Text
-          fontSize="sm"
-          color="gray.600"
-          lineHeight="tall"
-        >
-          {subjectContent}
+  return <Card.Root {...styles.card.root} onClick={handleClick}>
+    <Card.Body {...styles.card.body}>
+      <Box {...styles.header.container}>
+        <Text {...styles.header.title}>
+          {subject.title}
         </Text>
-      </Card.Body>
-    </Card.Root>
-  );
+      </Box>
+
+      {/* data */}
+      <Flex {...styles.date.container}>
+        <Calendar1 />
+        <Tooltip content={`Criado em ${formatDate(subject.currentDate)}`} showArrow contentProps={{ css: { "--tooltip-bg": "colors.purple.700", "padding": "2" } }}>
+          <Text {...styles.date.text}>
+            {formatDate(subject.currentDate)}
+          </Text>
+        </Tooltip>
+      </Flex>
+
+      {/* conteudo */}
+      <Text {...styles.content.text}>
+        {subject.content}
+      </Text>
+    </Card.Body>
+  </Card.Root>
 }
