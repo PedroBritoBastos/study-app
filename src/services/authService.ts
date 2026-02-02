@@ -30,3 +30,33 @@ export async function login(username: string, password: string) {
     throw error;
   }
 }
+
+export async function register(username: string, password: string) {
+  try {
+    const response = await fetch("/api/auth/register", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ username, password }),
+    });
+
+    if (!response.ok) {
+      const errorData = await response.json();
+      throw new Error(errorData.error || "Registration failed");
+    }
+
+    const data = await response.json();
+    const { user } = data;
+
+    return user;
+  } catch (error) {
+    console.error("Registration error:", error);
+    throw error;
+  }
+}
+
+export function logout() {
+  // Remove token from localStorage
+  localStorage.removeItem("token");
+}
