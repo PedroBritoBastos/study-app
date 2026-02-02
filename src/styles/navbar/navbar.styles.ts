@@ -5,10 +5,15 @@ export const styles = {
     color: "whiteAlpha.900",
     p: 6,
     flexDirection: "column",
+    justify: "space-between",
   },
   optionsContainer: {
     gap: 4,
     align: "stretch",
     mt: 20,
+  },
+  logoutButton: {
+    bg: "purple.500",
+    _hover: { bg: "purple.300" },
   },
 };
