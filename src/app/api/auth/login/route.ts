@@ -1,4 +1,5 @@
 import { NextResponse, NextRequest } from "next/server";
+import jwt from "jsonwebtoken";
 import { prisma } from "../../../../../prisma/prisma";
 
 export async function POST(request: NextRequest) {
@@ -32,10 +33,14 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // Exclude password from response
-    const { password: _, ...userWithoutPassword } = user;
+    // Generate JWT token
+    const token = jwt.sign(
+      { id: user.id, username: user.username },
+      process.env.JWT_SECRET || "your-secret-key", // Use environment variable or fallback
+      { expiresIn: "1h" },
+    );
 
-    return NextResponse.json({ user: userWithoutPassword }, { status: 200 });
+    return NextResponse.json({ token }, { status: 200 });
   } catch (error) {
     return NextResponse.json(
       { error: "Internal server error" },
