@@ -12,12 +12,14 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const auth = false;
   return (
     <html lang="en">
       <body>
         <Provider>
           <div style={{ display: "flex", minHeight: "100vh" }}>
-            <Navbar />
+            {auth && <Navbar />}
+
             {children}
           </div>
         </Provider>
