@@ -1,5 +1,6 @@
 import { NextResponse, NextRequest } from "next/server";
 import { prisma } from "../../../../../prisma/prisma";
+import { createPasswordHash } from "@/app/api/_helpers/createPasswordHash";
 
 export async function POST(request: NextRequest) {
   try {
@@ -13,9 +14,18 @@ export async function POST(request: NextRequest) {
       );
     }
 
+    const hashedPassword = await createPasswordHash(password);
+
     const user = await prisma.user.create({
-      data: { username, password, subjects: { create: [] } },
-      select: { id: true, username: true }, // Exclude password from response
+      data: {
+        username,
+        password: hashedPassword,
+        subjects: { create: [] },
+      },
+      select: {
+        id: true,
+        username: true,
+      },
     });
 
     return NextResponse.json({ user }, { status: 201 });
@@ -26,6 +36,7 @@ export async function POST(request: NextRequest) {
         { status: 400 },
       );
     }
+
     return NextResponse.json(
       { error: "Internal server error" },
       { status: 500 },

@@ -58,6 +58,7 @@ export default function LoginPage() {
 
         <Flex {...styles.submitButtonContainer}>
           <Button {...styles.submitButton} onClick={handleSubmit}>Enviar</Button>
+          <Button {...styles.registerButton}>Registrar</Button>
         </Flex>
 
       </form>

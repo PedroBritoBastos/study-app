@@ -22,9 +22,15 @@ export const styles = {
   submitButtonContainer: {
     align: "center",
     justify: "center",
+    gap: 4,
   },
   submitButton: {
     bg: "purple.700",
     _hover: { bg: "purple.500" },
+  },
+  registerButton: {
+    bg: "white",
+    color: "gray.700",
+    _hover: { bg: "purple.500", color: "white" },
   },
 };
