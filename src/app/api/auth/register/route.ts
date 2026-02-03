@@ -4,9 +4,11 @@ import { createPasswordHash } from "@/app/api/_helpers/createPasswordHash";
 
 export async function POST(request: NextRequest) {
   try {
+    // pegando dados da requisicao
     const body = await request.json();
     const { username, password } = body;
 
+    // validando dados
     if (!username || !password) {
       return NextResponse.json(
         { error: "Username and password are required" },
@@ -14,8 +16,10 @@ export async function POST(request: NextRequest) {
       );
     }
 
+    // criando hash de senha
     const hashedPassword = await createPasswordHash(password);
 
+    // criando usuario no banco
     const user = await prisma.user.create({
       data: {
         username,
