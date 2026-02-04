@@ -1,13 +1,17 @@
 import { NextResponse, NextRequest } from "next/server";
 import { prisma } from "../../../../../prisma/prisma";
-import { SubjectGetById } from "@/src/types/Params";
+import { getUserFromToken } from "../../_helpers/getUserByToken";
 
 // api/subjects/:id get
-export async function GET(request: NextRequest, { params }: SubjectGetById) {
+export async function GET(
+  request: NextRequest,
+  { params }: { params: Promise<{ id: string }> },
+) {
   try {
+    const { id } = await params;
     const subject = await prisma.subject.findUnique({
       where: {
-        id: params.id,
+        id: id,
       },
     });
 
@@ -64,6 +68,29 @@ export async function DELETE(
 ) {
   try {
     const { id } = await params;
+    const user = await getUserFromToken();
+
+    // valida o usuário
+    if (!user || !user.id) {
+      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+    }
+
+    // procura a subject no banco
+    const subject = await prisma.subject.findUnique({
+      where: {
+        id: id,
+      },
+    });
+
+    // valida se a subject existe
+    if (!subject) {
+      return NextResponse.json(
+        { error: "Conteúdo não encontrado ou não pertence ao usuário" },
+        { status: 404 },
+      );
+    }
+
+    // deleta a subject do banco
     await prisma.subject.delete({
       where: {
         id: id,
@@ -74,9 +101,9 @@ export async function DELETE(
       { message: "Conteúdo removido com sucesso" },
       { status: 200 },
     );
-  } catch {
+  } catch (error) {
     return NextResponse.json(
-      { error: "Erro ao deletar conteúdo" },
+      { error: "Erro ao deletar conteúdo", msg: error },
       { status: 500 },
     );
   }

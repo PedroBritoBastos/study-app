@@ -45,11 +45,14 @@ export async function deleteSubject(id: string): Promise<void> {
 
 // retorna todas as materias
 export async function getSubjects() {
-  const res = await fetch("http://localhost:3000/api/subjects", {
+  const res = await fetch("/api/subjects", {
     cache: "no-store",
   });
 
-  // armazenando os dados do banco
+  if (!res.ok) {
+    throw new Error("Erro ao buscar subjects");
+  }
+
   const subjects: SubjectType[] = await res.json();
   return subjects;
 }

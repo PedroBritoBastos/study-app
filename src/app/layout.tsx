@@ -6,9 +6,6 @@ import "./globals.css";
 
 import { Provider } from "@/components/ui/provider";
 
-import { Navbar } from "../components/navbar/Navbar";
-
-
 export default function RootLayout({
   children,
 }: Readonly<{

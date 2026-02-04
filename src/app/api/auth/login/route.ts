@@ -52,7 +52,7 @@ export async function POST(request: NextRequest) {
     }
 
     // gerando um token
-    const token = jwt.sign({ id: user.id }, process.env.JWT_SECRET, {
+    const token = jwt.sign({ id: user.id }, "meusecret", {
       expiresIn: "7d",
     });
 
@@ -62,6 +62,7 @@ export async function POST(request: NextRequest) {
         user: {
           id: user.id,
           username: user.username,
+          token: token,
         },
       },
       { status: 200 },

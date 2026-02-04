@@ -3,6 +3,7 @@ export type SubjectType = {
   title: string;
   content: string;
   currentDate: string;
+  userId: string;
 };
 
 export type SubjectProps = {

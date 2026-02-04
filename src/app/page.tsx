@@ -1,13 +1,33 @@
 // components
+import { prisma } from "@/prisma/prisma";
 import { HomeClient } from "../components/home/HomeClient";
+import { Navbar } from "../components/navbar/Navbar";
 
-// services
-import { getSubjects } from "../services/subjectService";
+// utils
+import { isAuthenticated } from "../utilities/authUtils";
+import { getUserFromToken } from "./api/_helpers/getUserByToken";
+
+// actions
+import { redirect } from "next/navigation";
+import { Flex } from "@chakra-ui/react";
 
 export default async function Home() {
-  const subjects = await getSubjects();
+  const auth = await isAuthenticated();
+
+  if (!auth) redirect("/login");
+
+  const user = await getUserFromToken();
+
+  const subjects = await prisma.subject.findMany({
+    where: { userId: user.id },
+    orderBy: { currentDate: "desc" },
+  });
 
   return <>
-    <HomeClient subjects={subjects} />
+    <Flex flex={1}>
+      <Navbar />
+      {auth && <HomeClient subjects={subjects} />}
+    </Flex>
+
   </>
 }

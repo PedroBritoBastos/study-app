@@ -12,19 +12,16 @@ import { styles } from "../../styles/navbar/navbar.styles";
 import { NavbarOption } from "../navbar/NavbarOption";
 import { Calendar, ChartColumnDecreasing, Goal, Pencil } from "lucide-react";
 
-// services
-import { logout } from "@/services/authService";
-
 // hooks
 import { useRouter } from "next/navigation";
+import { useAuth } from "@/src/hooks/useAuth";
 
 export function Navbar() {
   const router = useRouter();
+  const { logout } = useAuth();
 
-  const handleClick = () => {
-    logout();
-    router.push("/login");
-    router.refresh();
+  const handleClick = async () => {
+    await logout();
   }
 
   return <Flex {...styles.container}>

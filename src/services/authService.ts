@@ -16,15 +16,8 @@ export async function login(username: string, password: string) {
     }
 
     const data = await response.json();
-    const { token } = data;
 
-    // Save token to localStorage
-    localStorage.setItem("token", token);
-
-    // Decode token to get user
-    const decoded = jwt.decode(token) as { id: string; username: string };
-
-    return decoded;
+    return "sucesso";
   } catch (error) {
     console.error("Login error:", error);
     throw error;
@@ -54,9 +47,4 @@ export async function register(username: string, password: string) {
     console.error("Registration error:", error);
     throw error;
   }
-}
-
-export function logout() {
-  // Remove token from localStorage
-  localStorage.removeItem("token");
 }
