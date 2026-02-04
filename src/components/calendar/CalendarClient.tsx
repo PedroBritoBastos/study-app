@@ -7,7 +7,7 @@ import { styles } from "@/src/styles/calendar/calendarClient.styles"
 import { SubjectType } from "@/src/types/subject"
 
 // components
-import { Flex, Text, Grid } from "@chakra-ui/react"
+import { Flex, Text, Grid, Stack } from "@chakra-ui/react"
 import { MonthControlButton } from "./MonthControlButton"
 import { Day } from "./Day"
 import { CalendarSidebar } from "../sidebar/CalendarSidebar"
@@ -25,8 +25,7 @@ export function CalendarClient({ subjects }: { subjects: SubjectType[] }) {
   const calendarHook = useCalendar();
   const sidebarHook = useSidebar();
 
-  return <>
-
+  return <Stack flex={1}>
     {/* container do mes e botoes para manipular o mes */}
     <Flex {...styles.monthControlContainer} >
       <MonthControlButton handleClick={calendarHook.handlePrevMonth}>
@@ -47,5 +46,5 @@ export function CalendarClient({ subjects }: { subjects: SubjectType[] }) {
     {/* sidebar */}
     {sidebarHook.isSidebarOpen && <CalendarSidebar closeSidebar={sidebarHook.closeSidebar} selectedDay={calendarHook.getSelectedDay()} />}
 
-  </>
+  </Stack>
 }
