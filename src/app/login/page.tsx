@@ -17,11 +17,11 @@ export default function LoginPage() {
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
 
+  // tenta fazer o login e trata os erros, se houver
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
       const user = await login(username, password);
-      // Redirect to home page on successful login
       router.push("/");
       router.refresh();
     } catch (error) {
@@ -59,8 +59,8 @@ export default function LoginPage() {
         {error && <Text color="red.400" textAlign="center" mb={3}>{error}</Text>}
 
         <Flex {...styles.submitButtonContainer}>
-          <Button {...styles.submitButton} onClick={handleSubmit}>Enviar</Button>
-          <Button {...styles.registerButton}>Registrar</Button>
+          <Button {...styles.submitButton} onClick={handleSubmit}>Log in</Button>
+          <Button {...styles.registerButton} onClick={(e) => router.push("/register")}>Cadastrar</Button>
         </Flex>
 
       </form>
