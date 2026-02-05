@@ -11,7 +11,7 @@ export async function POST(request: NextRequest) {
     // validando dados
     if (!username || !password) {
       return NextResponse.json(
-        { error: "Username and password are required" },
+        { error: "Usuário e senha obrigatórios." },
         { status: 400 },
       );
     }
@@ -33,17 +33,10 @@ export async function POST(request: NextRequest) {
     });
 
     return NextResponse.json({ user }, { status: 201 });
-  } catch (error: unknown) {
-    if (error instanceof Error && "code" in error && error.code === "P2002") {
-      return NextResponse.json(
-        { error: "Username already exists" },
-        { status: 400 },
-      );
-    }
-
+  } catch (error) {
     return NextResponse.json(
-      { error: "Internal server error" },
-      { status: 500 },
+      { error: "Este usuário já existe, tente outro." },
+      { status: 400 },
     );
   }
 }

@@ -24,8 +24,16 @@ export async function login(username: string, password: string) {
   }
 }
 
-export async function register(username: string, password: string) {
+export async function register(
+  username: string,
+  password: string,
+  confirmPassword: string,
+) {
   try {
+    if (confirmPassword !== password) {
+      throw new Error("As senhas não são iguais.");
+    }
+
     const response = await fetch("/api/auth/register", {
       method: "POST",
       headers: {
@@ -36,7 +44,7 @@ export async function register(username: string, password: string) {
 
     if (!response.ok) {
       const errorData = await response.json();
-      throw new Error(errorData.error || "Registration failed");
+      throw new Error(errorData.error || "Falha no registro.");
     }
 
     const data = await response.json();
@@ -44,7 +52,6 @@ export async function register(username: string, password: string) {
 
     return user;
   } catch (error) {
-    console.error("Registration error:", error);
     throw error;
   }
 }
