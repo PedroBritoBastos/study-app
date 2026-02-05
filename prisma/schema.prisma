@@ -15,6 +15,7 @@ model User {
   username String    @unique
   password String
   subjects Subject[]
+  goals    Goal[]
 
   @@map("users")
 }
@@ -31,3 +32,24 @@ model Subject {
   @@map("subjects")
 }
 
+model Task {
+  id          String   @id @default(cuid())
+  title       String
+  
+  goalId String
+  goal Goal @relation(fields: [goalId], references: [id], onDelete: Cascade)
+
+  @@map("tasks")
+}
+
+model Goal {
+  id          String   @id @default(cuid())
+  title       String
+
+  userId String
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  tasks Task[]
+
+  @@map("goals")
+}

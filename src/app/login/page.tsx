@@ -32,7 +32,7 @@ export default function LoginPage() {
   return (
     <Stack {...styles.container}>
 
-      {/* header da pagina de login */}
+      {/* titulo da pagina de login */}
       <Heading {...styles.heading}><Span {...styles.span}>Study</Span> App</Heading>
 
       <form onSubmit={handleSubmit}>

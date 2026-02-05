@@ -8,7 +8,11 @@ export async function getUserFromToken() {
   if (!token) return null;
 
   try {
-    return jwt.verify(token, "meusecret");
+    const secret = process.env.JWT_SECRET;
+
+    if (!secret) throw new Error("Não existe secret.");
+
+    return jwt.verify(token, secret);
   } catch {
     return null;
   }
