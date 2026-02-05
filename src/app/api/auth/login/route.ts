@@ -12,7 +12,7 @@ export async function POST(request: NextRequest) {
     // validando dados
     if (!username || !password) {
       return NextResponse.json(
-        { error: "Username and password are required" },
+        { error: "Usuário e senha obrigatórios." },
         { status: 400 },
       );
     }
@@ -30,7 +30,7 @@ export async function POST(request: NextRequest) {
     // validando se o usuario existe
     if (!user) {
       return NextResponse.json(
-        { error: "Invalid username or password" },
+        { error: "Usuário ou senha inválidos." },
         { status: 401 },
       );
     }
@@ -40,20 +40,19 @@ export async function POST(request: NextRequest) {
 
     // validando a senha
     if (!isValidPassword) {
-      return NextResponse.json(
-        { error: "Invalid username or password" },
-        { status: 401 },
-      );
-    }
-
-    // validando se existe secret
-    if (!process.env.JWT_SECRET) {
-      throw new Error("JWT_SECRET not defined");
+      return NextResponse.json({ error: "Senha inválida." }, { status: 401 });
     }
 
     // gerando um token
-    const token = jwt.sign({ id: user.id }, "meusecret", {
-      expiresIn: "7d",
+    const secret = process.env.JWT_SECRET;
+    console.log("tem secret: ", secret);
+
+    if (!secret) {
+      throw new Error("Não possui JWT_SECRET");
+    }
+
+    const token = jwt.sign({ id: user.id }, secret, {
+      expiresIn: "1d",
     });
 
     // criando resposta com cookie HttpOnly
@@ -68,13 +67,11 @@ export async function POST(request: NextRequest) {
       { status: 200 },
     );
 
-    // setando o token no cookie
+    // adicionando o token no cookie
     response.cookies.set("token", token, {
       httpOnly: true,
       secure: process.env.NODE_ENV === "production",
-      sameSite: "lax",
       path: "/",
-      maxAge: 60 * 60 * 24 * 7, // 7 dias
     });
 
     return response;

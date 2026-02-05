@@ -12,12 +12,12 @@ export async function login(username: string, password: string) {
 
     if (!response.ok) {
       const errorData = await response.json();
-      throw new Error(errorData.error || "Login failed");
+      throw new Error(errorData.error || "Falha no login");
     }
 
     const data = await response.json();
 
-    return "sucesso";
+    return data;
   } catch (error) {
     console.error("Login error:", error);
     throw error;

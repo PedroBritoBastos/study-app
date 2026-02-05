@@ -9,24 +9,23 @@ import { login } from "../../services/authService";
 
 // components
 import { Input } from "@/src/components/form/Input";
-import { Stack, Heading, Span, Button, Flex } from "@chakra-ui/react";
+import { Stack, Heading, Span, Button, Flex, Text } from "@chakra-ui/react";
 
 export default function LoginPage() {
   const router = useRouter();
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
       const user = await login(username, password);
-      console.log("Login successful:", user);
       // Redirect to home page on successful login
       router.push("/");
       router.refresh();
     } catch (error) {
-      console.error("Login failed:", error);
-      // Handle error
+      setError(error.message);
     }
   };
 
@@ -55,6 +54,9 @@ export default function LoginPage() {
           value={password}
           onChange={(e) => setPassword(e.target.value)}
         />
+
+        {/* mensagem de erro, se houver */}
+        {error && <Text color="red.400" textAlign="center" mb={3}>{error}</Text>}
 
         <Flex {...styles.submitButtonContainer}>
           <Button {...styles.submitButton} onClick={handleSubmit}>Enviar</Button>
