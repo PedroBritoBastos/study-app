@@ -1,7 +1,31 @@
-import { Flex, Text } from "@chakra-ui/react"
+import { prisma } from "@/prisma/prisma";
+import { isAuthenticated } from "@/src/utilities/authUtils";
+import { redirect } from "next/navigation";
+import { getUserFromToken } from "../api/_helpers/getUserByToken";
+import { Flex } from "@chakra-ui/react";
+import { Navbar } from "@/src/components/navbar/Navbar";
+import { GoalsClient } from "@/src/components/goals/GoalClient";
 
-export default function GoalsPage() {
-  return (
-    <></>
-  )
+import { styles } from "@/styles/goals/goalsPage.styles";
+
+export default async function GoalsPage() {
+  const auth = await isAuthenticated();
+
+  if (!auth) redirect("/login");
+
+  const user = await getUserFromToken();
+
+  const goals = await prisma.goal.findMany({
+    where: { userId: user.id },
+  });
+
+  return <>
+    {auth && (
+      <Flex {...styles.container}>
+        <Navbar />
+        <GoalsClient />
+      </Flex>)
+    }
+  </>
 }
+

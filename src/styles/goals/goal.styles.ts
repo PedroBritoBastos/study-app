@@ -1,0 +1,53 @@
+export const styles = {
+  cardRoot: {
+    bg: "white",
+    w: "100%",
+    h: "100%",
+    borderRadius: "2xl",
+    padding: 5,
+    borderColor: "gray.200",
+    boxShadow: "sm",
+    cursor: "pointer",
+  },
+  cardHeader: {
+    fontSize: "xl",
+    color: "purple.800",
+    fontWeight: "semibold",
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
+    padding: 0,
+    mb: 2,
+  },
+  progressContainer: {
+    justify: "space-between",
+    align: "center",
+    mt: 4,
+  },
+  progressBar: {
+    progressRoot: {
+      colorPalette: "purple",
+      flex: 2,
+    },
+    progressTrack: {
+      flex: 1,
+    },
+    range: {
+      color: "white",
+      justifyContent: "flex-end",
+      pr: 2,
+    },
+  },
+  completedTasks: {
+    flex: 1,
+    h: "fit-content",
+    textAlign: "center",
+    fontSize: "lg",
+    fontWeight: "semibold",
+    color: "purple.700",
+  },
+  completedTasksSpan: {
+    fontSize: "2xl",
+    fontWeight: "bold",
+  },
+};
