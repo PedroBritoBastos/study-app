@@ -4,10 +4,12 @@ import { Task } from "./Task";
 import { styles } from "@/styles/goals/goal.styles";
 import { Footprints } from "lucide-react";
 
-export function Goal() {
+import { GoalType } from "@/src/types/goal";
+
+export function Goal({ goal }: { goal: GoalType }) {
   return <Card.Root {...styles.cardRoot}>
     <Card.Header {...styles.cardHeader}>
-      Meta
+      {goal.title}
       <Footprints />
     </Card.Header>
 

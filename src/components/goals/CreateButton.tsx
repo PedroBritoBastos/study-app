@@ -15,7 +15,6 @@ export function CreateButton() {
     } catch (error) {
       console.log(error.message)
     }
-
   }
 
   return <Card.Root {...styles.cardRoot} onClick={handleCreate}>

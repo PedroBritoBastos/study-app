@@ -8,6 +8,8 @@ import { GoalsClient } from "@/src/components/goals/GoalClient";
 
 import { styles } from "@/styles/goals/goalsPage.styles";
 
+import { GoalType } from "@/src/types/goal";
+
 export default async function GoalsPage() {
   const auth = await isAuthenticated();
 
@@ -15,15 +17,18 @@ export default async function GoalsPage() {
 
   const user = await getUserFromToken();
 
-  const goals = await prisma.goal.findMany({
+  const goals: GoalType[] = await prisma.goal.findMany({
     where: { userId: user.id },
+    include: {
+      tasks: true
+    }
   });
 
   return <>
     {auth && (
       <Flex {...styles.container}>
         <Navbar />
-        <GoalsClient />
+        <GoalsClient goals={goals} />
       </Flex>)
     }
   </>
