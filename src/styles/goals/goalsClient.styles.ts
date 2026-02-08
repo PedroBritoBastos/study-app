@@ -15,7 +15,7 @@ export const styles = {
     gridTemplateRows: "repeat(2, 1fr)",
     w: "100%",
     flex: 1,
-    gap: 3,
+    gap: 5,
     mt: 8,
   },
 };

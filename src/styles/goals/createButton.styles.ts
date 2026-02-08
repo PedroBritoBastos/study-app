@@ -1,6 +1,7 @@
 export const styles = {
   cardRoot: {
     bg: "rgba(237, 242, 247, 1)",
+    _hover: { bg: "rgb(253, 254, 255)" },
     w: "100%",
     h: "100%",
     justifyContent: "center",
