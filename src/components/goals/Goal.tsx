@@ -28,9 +28,7 @@ export function Goal({ goal, selectGoal, openSidebar }: Props) {
 
     {/* stack de tasks */}
     <Stack my={"auto"}>
-      <Task />
-      <Task />
-      <Task />
+      {goal.tasks.map((task) => (<Task key={task.id} task={task} />))}
     </Stack>
 
     {/* Barra de progresso e indicação das tarefas feitas */}
