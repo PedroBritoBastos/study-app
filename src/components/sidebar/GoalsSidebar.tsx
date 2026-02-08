@@ -17,7 +17,7 @@ export function GoalsSidebar({ closeSidebar, goal }: Props) {
     <Text {...styles.statusText}>Em andamento</Text>
     <Stack {...styles.tasksStack}>
       {goal.tasks.map((task) => (<Text {...styles.task} key={task.id}>{task.title}</Text>))}
-      <CreateTaskButton />
+      <CreateTaskButton id={goal.id} />
     </Stack>
   </SidebarContainer>
 }

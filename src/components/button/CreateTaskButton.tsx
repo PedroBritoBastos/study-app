@@ -7,8 +7,9 @@ import { styles } from "@/styles/button/createTaskButton.styles";
 
 import { useState } from "react";
 
-export function CreateTaskButton() {
+export function CreateTaskButton({ id }: { id: string }) {
   const [open, setOpen] = useState(false);
+  const [title, setTitle] = useState("");
 
   return <Stack {...(open && styles.open)}>
     <Button {...styles.button} onClick={() => setOpen(!open)}>
@@ -21,7 +22,7 @@ export function CreateTaskButton() {
         <Field.Root>
           <Field.Label {...styles.createTaskLabel}>Título</Field.Label>
           <Flex {...styles.createTaskInputContainer}>
-            <Input {...styles.createTaskInput} />
+            <Input {...styles.createTaskInput} value={title} onChange={(e) => setTitle(e.target.value)} />
             <Button {...styles.createTaskAddButton} onClick={() => setOpen(!open)}>Adicionar</Button>
           </Flex>
         </Field.Root>
