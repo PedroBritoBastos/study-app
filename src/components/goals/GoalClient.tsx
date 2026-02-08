@@ -1,3 +1,5 @@
+"use client"
+
 import { Box, Heading, Grid } from "@chakra-ui/react";
 import { Goal } from "./Goal";
 import { CreateButton } from "./CreateButton";
