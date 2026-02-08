@@ -8,6 +8,10 @@ export const styles = {
     borderColor: "gray.200",
     boxShadow: "sm",
     cursor: "pointer",
+    _hover: {
+      bg: "purple.100",
+      borderColor: "purple.700",
+    },
   },
   cardHeader: {
     fontSize: "xl",

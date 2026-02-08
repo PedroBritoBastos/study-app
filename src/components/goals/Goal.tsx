@@ -6,8 +6,21 @@ import { Footprints } from "lucide-react";
 
 import { GoalType } from "@/src/types/goal";
 
-export function Goal({ goal }: { goal: GoalType }) {
-  return <Card.Root {...styles.cardRoot}>
+interface Props {
+  goal: GoalType;
+  selectGoal: (goal: GoalType) => void;
+  openSidebar: () => void;
+}
+
+export function Goal({ goal, selectGoal, openSidebar }: Props) {
+
+  function handleClick() {
+    selectGoal(goal);
+    openSidebar();
+  }
+
+
+  return <Card.Root {...styles.cardRoot} onClick={handleClick}>
     <Card.Header {...styles.cardHeader}>
       {goal.title}
       <Footprints />
