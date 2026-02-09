@@ -19,4 +19,26 @@ export const styles = {
   text: {
     fontSize: "lg",
   },
+  createMode: {
+    p: 4,
+    justifyContent: "space-evenly",
+    _hover: { bg: "rgba(237, 242, 247, 1)" },
+    cursor: "initial",
+  },
+  createLabel: {
+    color: "purple.700",
+    mb: 3,
+  },
+  createModeButtonContainer: {
+    gap: 3,
+  },
+  createModeAddButton: {
+    bg: "purple.600",
+    _hover: { bg: "purple.400" },
+  },
+  createModeCancelButton: {
+    bg: "white",
+    color: "purple.700",
+    _hover: { bg: "purple.300", color: "white" },
+  },
 };
