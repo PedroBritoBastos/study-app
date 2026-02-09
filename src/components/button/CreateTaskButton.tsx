@@ -10,7 +10,9 @@ import { useRouter } from "next/navigation";
 
 import { createTask } from "@/src/services/taskService";
 
-export function CreateTaskButton({ goalId }: { goalId: string }) {
+import { TaskType } from "@/src/types/task";
+
+export function CreateTaskButton({ goalId, updateTasks }: { goalId: string, updateTasks: (task: TaskType) => void }) {
   const router = useRouter();
 
   const [open, setOpen] = useState(false);
@@ -19,7 +21,7 @@ export function CreateTaskButton({ goalId }: { goalId: string }) {
   async function handleCreateTask() {
     try {
       const response = await createTask({ title, goalId });
-      console.log(response);
+      updateTasks(response);
       router.refresh();
       setOpen(!open);
     } catch (error) {
