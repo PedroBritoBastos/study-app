@@ -8,9 +8,8 @@ import { Text, Stack } from "@chakra-ui/react";
 
 import { styles } from "@/styles/sidebar/goalsSidebar.styles";
 
-import { useState, useEffect } from "react";
+import { useGoalsSidebar } from "@/src/hooks/goalClient/useGoalsSidebar";
 
-import { TaskType } from "@/src/types/task";
 
 interface Props {
   closeSidebar: () => void;
@@ -18,18 +17,14 @@ interface Props {
 }
 
 export function GoalsSidebar({ closeSidebar, goal }: Props) {
-  const [tasks, setTasks] = useState<TaskType[]>(goal.tasks);
-
-  function updateTasks(task: TaskType) {
-    setTasks(prev => [...prev, task]);
-  }
+  const goalsSidebarHook = useGoalsSidebar(goal);
 
   return <SidebarContainer header={goal.title} closeSidebar={closeSidebar}>
     {/* tasks em andamento */}
     <Text {...styles.statusText}>Em andamento</Text>
     <Stack {...styles.tasksStack}>
-      {tasks.map((task) => (<Text {...styles.task} key={task.id}>{task.title}</Text>))}
-      <CreateTaskButton goalId={goal.id} updateTasks={updateTasks} />
+      {goalsSidebarHook.tasks.map((task) => (<Text {...styles.task} key={task.id}>{task.title}</Text>))}
+      <CreateTaskButton goalId={goal.id} updateAddedTask={goalsSidebarHook.updateAddedTask} />
     </Stack>
   </SidebarContainer>
 }

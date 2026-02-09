@@ -9,10 +9,14 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 
 import { createTask } from "@/src/services/taskService";
-
 import { TaskType } from "@/src/types/task";
 
-export function CreateTaskButton({ goalId, updateTasks }: { goalId: string, updateTasks: (task: TaskType) => void }) {
+interface Props {
+  goalId: string;
+  updateAddedTask: (task: TaskType) => void;
+}
+
+export function CreateTaskButton({ goalId, updateAddedTask }: Props) {
   const router = useRouter();
 
   const [open, setOpen] = useState(false);
@@ -21,8 +25,9 @@ export function CreateTaskButton({ goalId, updateTasks }: { goalId: string, upda
   async function handleCreateTask() {
     try {
       const response = await createTask({ title, goalId });
-      updateTasks(response);
       router.refresh();
+      updateAddedTask(response);
+      setTitle(""); 1
       setOpen(!open);
     } catch (error) {
       console.log(error.message);
