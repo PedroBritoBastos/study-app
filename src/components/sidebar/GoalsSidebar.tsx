@@ -2,6 +2,7 @@
 
 import { SidebarContainer } from "./SidebarContainer";
 import { CreateTaskButton } from "../button/CreateTaskButton";
+import { GoalSidebarTask } from "../goals/GoalSidebarTask";
 
 import { GoalType } from "@/src/types/goal";
 import { Text, Stack } from "@chakra-ui/react";
@@ -44,12 +45,11 @@ export function GoalsSidebar({ closeSidebar, goal }: Props) {
     fetchTasks();
   }, [addedTask]);
 
-
   return <SidebarContainer header={goal.title} closeSidebar={closeSidebar}>
     {/* tasks em andamento */}
     <Text {...styles.statusText}>Em andamento</Text>
     <Stack {...styles.tasksStack}>
-      {goalTasks.map((task) => (<Text {...styles.task} key={task.id}>{task.title}</Text>))}
+      {goalTasks.map((task) => (<GoalSidebarTask key={task.id} task={task} />))}
       <CreateTaskButton goalId={goal.id} updateAddedTask={handleAddTask} />
     </Stack>
   </SidebarContainer>
