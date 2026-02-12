@@ -41,6 +41,9 @@ export const styles = {
       justifyContent: "flex-end",
       pr: 2,
     },
+    completed: {
+      bg: "green.400",
+    },
   },
   completedTasks: {
     flex: 1,
@@ -53,5 +56,8 @@ export const styles = {
   completedTasksSpan: {
     fontSize: "2xl",
     fontWeight: "bold",
+  },
+  completedAllTasks: {
+    color: "green.400",
   },
 };
