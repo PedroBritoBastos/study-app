@@ -77,8 +77,16 @@ export function GoalsSidebar({ closeSidebar, goal }: Props) {
         {/* tasks em andamento */}
         <Text {...styles.statusText}>Em andamento</Text>
         <Stack {...styles.tasksStack}>
-          {goalTasks.map((task) => (<GoalSidebarTask key={task.id} task={task} updateDeletedTask={updateDeletedTask} />))}
+          {(goalTasks.filter((task) => !task.isChecked).map((task) => (<GoalSidebarTask key={task.id} task={task} updateDeletedTask={updateDeletedTask} />)))}
           <CreateTaskButton goalId={goal.id} updateAddedTask={handleAddTask} />
+        </Stack>
+      </Stack>
+
+      {/* tasks concluídas */}
+      <Stack>
+        <Text {...styles.statusText}>Concluídas</Text>
+        <Stack {...styles.tasksStack}>
+          {(goalTasks.filter((task) => task.isChecked).map((task) => (<GoalSidebarTask key={task.id} task={task} updateDeletedTask={updateDeletedTask} />)))}
         </Stack>
       </Stack>
 
