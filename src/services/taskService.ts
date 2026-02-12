@@ -35,13 +35,12 @@ export async function getTasks(goalId: string): Promise<TaskType[]> {
 
 // deleta uma task pelo ID
 export async function deleteTask(id: string) {
-  const response = await fetch(`/api/tasks/${id}`, {
-    method: "DELETE",
-  });
-
-  if (!response.ok) {
-    throw new Error("Erro ao deletar tarefa");
+  try {
+    const response = await fetch(`/api/tasks/${id}`, {
+      method: "DELETE",
+    });
+    return response.json();
+  } catch (error) {
+    return error;
   }
-
-  return response.json();
 }

@@ -27,6 +27,13 @@ export function GoalsSidebar({ closeSidebar, goal }: Props) {
   // estado para monitorar quando uma nova tarefa é adicionada
   const [addedTask, setAddedTask] = useState({});
 
+  // estado para monitorar quando uma tarefa é excluída
+  const [deletedTask, setDeletedTask] = useState({});
+
+  function updateDeletedTask(task) {
+    setDeletedTask(task);
+  }
+
   function handleAddTask(task) {
     setAddedTask(task);
   }
@@ -45,11 +52,20 @@ export function GoalsSidebar({ closeSidebar, goal }: Props) {
     fetchTasks();
   }, [addedTask]);
 
+  // quando uma tarefa for deletada, o componente deve fazer um fetch para atualizar as tarefas 
+  useEffect(() => {
+    async function fetchTasks() {
+      const response = await getTasks(goal.id);
+      setGoalTasks(response);
+    }
+    fetchTasks();
+  }, [deletedTask]);
+
   return <SidebarContainer header={goal.title} closeSidebar={closeSidebar}>
     {/* tasks em andamento */}
     <Text {...styles.statusText}>Em andamento</Text>
     <Stack {...styles.tasksStack}>
-      {goalTasks.map((task) => (<GoalSidebarTask key={task.id} task={task} />))}
+      {goalTasks.map((task) => (<GoalSidebarTask key={task.id} task={task} updateDeletedTask={updateDeletedTask} />))}
       <CreateTaskButton goalId={goal.id} updateAddedTask={handleAddTask} />
     </Stack>
   </SidebarContainer>

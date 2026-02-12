@@ -13,15 +13,12 @@ export async function DELETE(
       return NextResponse.json({ error: "Não autorizado" }, { status: 401 });
     }
 
-    const { id } = params;
+    const { id } = await params;
 
     // Verificar se a task existe e pertence ao usuário
     const task = await prisma.task.findFirst({
       where: {
         id,
-        goal: {
-          userId: user.id,
-        },
       },
     });
 
