@@ -8,6 +8,10 @@ export const styles = {
     align: "center",
     justify: "space-between",
   },
+  checkedContainer: {
+    bg: "green.400",
+    color: "white",
+  },
   text: {},
   buttons: {
     container: {
@@ -30,6 +34,15 @@ export const styles = {
       color: "white",
       boxShadow: "2px 2px 5px rgba(226, 232, 240, 1)",
       _hover: { bg: "green.300" },
+    },
+    checkedStyle: {
+      bg: "green.400",
+      color: "white",
+      boxShadow: "2px 2px 8px rgba(56, 161, 105, 0.6)",
+      _hover: {
+        bg: "green.300",
+        boxShadow: "2px 2px 10px rgba(56, 161, 105, 0.8)",
+      },
     },
   },
 };

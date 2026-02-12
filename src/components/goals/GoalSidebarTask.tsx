@@ -46,17 +46,17 @@ export function GoalSidebarTask({ task, updateDeletedTask }: Props) {
     fetchTaskStatus();
   }, [checkedTask])
 
-  return <Flex {...styles.container}>
+  return <Flex {...styles.container} {...(checked && styles.checkedContainer)}>
 
     {/* nome da tarefa */}
     <Text>{task.title}</Text>
 
     {/* botoes */}
     <Flex {...styles.buttons.container}>
-      <IconButton size="xs" {...styles.buttons.deleteButton} onClick={handleDeleteTask}>
+      <IconButton size="xs" {...styles.buttons.deleteButton} {...(checked && styles.buttons.checkedStyle)} onClick={handleDeleteTask}>
         <X />
       </IconButton>
-      <IconButton size="xs" {...styles.buttons.checkButton} {...(checked && styles.buttons.checkedButton)} onClick={handleCheckTask}>
+      <IconButton size="xs" {...styles.buttons.checkButton} {...(checked && styles.buttons.checkedStyle)} onClick={handleCheckTask}>
         {checked && <Check />}
       </IconButton>
     </Flex>
