@@ -10,12 +10,26 @@ export const styles = {
   },
   text: {},
   buttons: {
-    container: {},
+    container: {
+      gap: 3,
+    },
     deleteButton: {
       bg: "transparent",
       color: "purple.700",
       boxShadow: "2px 2px 5px rgba(226, 232, 240, 1)",
       _hover: { bg: "purple.700", color: "white" },
+    },
+    checkButton: {
+      bg: "rgba(0, 0, 0, 0.16)",
+      color: "purple.700",
+      boxShadow: "inset 0 1px 3px rgba(0,0,0,0.2)",
+      _hover: { bg: "rgba(247, 250, 252, 0.29)" },
+    },
+    checkedButton: {
+      bg: "green.400",
+      color: "white",
+      boxShadow: "2px 2px 5px rgba(226, 232, 240, 1)",
+      _hover: { bg: "green.300" },
     },
   },
 };

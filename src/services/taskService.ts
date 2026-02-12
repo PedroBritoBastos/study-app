@@ -44,3 +44,32 @@ export async function deleteTask(id: string) {
     return error;
   }
 }
+
+// marca uma task como concluída (isChecked = true)
+export async function checkTask(id: string, checked: boolean) {
+  const response = await fetch(`/api/tasks/${id}`, {
+    method: "PUT",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ isChecked: !checked }),
+  });
+
+  if (!response.ok) {
+    throw new Error("Erro ao marcar tarefa como concluída");
+  }
+
+  return response.json();
+}
+
+// busca o status isChecked de uma task pelo ID
+export async function getTaskStatus(id: string): Promise<boolean> {
+  const response = await fetch(`/api/tasks/status/${id}`, {
+    method: "GET",
+  });
+
+  if (!response.ok) {
+    throw new Error("Erro ao buscar status da tarefa");
+  }
+
+  const data = await response.json();
+  return data.isChecked;
+}

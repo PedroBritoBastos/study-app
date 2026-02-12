@@ -41,3 +41,47 @@ export async function DELETE(
     );
   }
 }
+
+export async function PUT(
+  request: NextRequest,
+  { params }: { params: { id: string } },
+) {
+  try {
+    const user = await getUserFromToken();
+
+    if (!user) {
+      return NextResponse.json({ error: "Não autorizado" }, { status: 401 });
+    }
+
+    const { id } = await params;
+
+    const body = await request.json();
+    const { isChecked } = body;
+
+    // Verificar se a task existe
+    const task = await prisma.task.findFirst({
+      where: {
+        id,
+      },
+    });
+
+    if (!task) {
+      return NextResponse.json(
+        { error: "Task não encontrada" },
+        { status: 404 },
+      );
+    }
+
+    await prisma.task.update({
+      where: { id },
+      data: { isChecked },
+    });
+
+    return NextResponse.json({ message: "Task atualizada com sucesso" });
+  } catch {
+    return NextResponse.json(
+      { error: "Erro ao atualizar a task" },
+      { status: 500 },
+    );
+  }
+}
