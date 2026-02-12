@@ -19,6 +19,8 @@ export function Goal({ goal, selectGoal, openSidebar }: Props) {
     openSidebar();
   }
 
+  const allTasks = goal.tasks.length;
+  const checkedTasks = (goal.tasks.filter((task) => task.isChecked)).length;
 
   return <Card.Root {...styles.cardRoot} onClick={handleClick}>
     <Card.Header {...styles.cardHeader}>
@@ -33,15 +35,15 @@ export function Goal({ goal, selectGoal, openSidebar }: Props) {
 
     {/* Barra de progresso e indicação das tarefas feitas */}
     <Flex {...styles.progressContainer} >
-      <Progress.Root  {...styles.progressBar.progressRoot} striped value={50} size={"lg"}>
+      <Progress.Root  {...styles.progressBar.progressRoot} value={(checkedTasks / allTasks) * 100} size={"lg"}>
         <Progress.Track {...styles.progressBar.progressTrack}>
           <Progress.Range  {...styles.progressBar.range} >
-            50%
+            {Math.round((checkedTasks / allTasks) * 100)}%
           </Progress.Range>
         </Progress.Track>
       </Progress.Root>
 
-      <Text {...styles.completedTasks}><Span {...styles.completedTasksSpan}>5</Span> / 10</Text>
+      <Text {...styles.completedTasks}><Span {...styles.completedTasksSpan}>{checkedTasks}</Span> / {allTasks}</Text>
     </Flex>
 
   </Card.Root>
