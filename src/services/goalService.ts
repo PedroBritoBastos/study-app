@@ -13,3 +13,17 @@ export async function create(title: string) {
 
   return response.json();
 }
+
+// deleta um goal
+export async function deleteGoal(id: string) {
+  // envia para a api
+  const response = await fetch(`/api/goals/${id}`, {
+    method: "DELETE",
+  });
+
+  if (!response.ok) {
+    throw new Error("Erro ao deletar meta");
+  }
+
+  return response.json();
+}

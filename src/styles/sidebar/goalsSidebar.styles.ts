@@ -1,4 +1,8 @@
 export const styles = {
+  container: {
+    justify: "space-between",
+    h: "100%",
+  },
   statusText: {
     fontSize: "md",
     color: "purple.600",
@@ -16,5 +20,9 @@ export const styles = {
     py: 2,
     px: 4,
     boxShadow: "5px 5px 10px rgba(0, 0, 0, 0.25)",
+  },
+  deleteButton: {
+    bg: "purple.600",
+    _hover: { bg: "purple.400" },
   },
 };

@@ -3,16 +3,18 @@
 import { SidebarContainer } from "./SidebarContainer";
 import { CreateTaskButton } from "../button/CreateTaskButton";
 import { GoalSidebarTask } from "../goals/GoalSidebarTask";
+import { Trash } from "lucide-react";
 
 import { GoalType } from "@/src/types/goal";
-import { Text, Stack } from "@chakra-ui/react";
+import { Text, Stack, Button, Icon } from "@chakra-ui/react";
 
 import { styles } from "@/styles/sidebar/goalsSidebar.styles";
 
-import { useGoalsSidebar } from "@/src/hooks/goalClient/useGoalsSidebar";
+import { useRouter } from "next/navigation";
 import { useState, useEffect } from "react";
 
 import { getTasks } from "@/src/services/taskService";
+import { deleteGoal } from "@/src/services/goalService";
 
 interface Props {
   closeSidebar: () => void;
@@ -20,6 +22,7 @@ interface Props {
 }
 
 export function GoalsSidebar({ closeSidebar, goal }: Props) {
+  const router = useRouter();
 
   // estado para guardar as tasks do goal atual
   const [goalTasks, setGoalTasks] = useState(goal.tasks);
@@ -61,12 +64,32 @@ export function GoalsSidebar({ closeSidebar, goal }: Props) {
     fetchTasks();
   }, [deletedTask]);
 
+  // exclui a meta
+  async function handleDeleteGoal() {
+    const response = await deleteGoal(goal.id);
+    router.refresh();
+    closeSidebar();
+  }
+
   return <SidebarContainer header={goal.title} closeSidebar={closeSidebar}>
-    {/* tasks em andamento */}
-    <Text {...styles.statusText}>Em andamento</Text>
-    <Stack {...styles.tasksStack}>
-      {goalTasks.map((task) => (<GoalSidebarTask key={task.id} task={task} updateDeletedTask={updateDeletedTask} />))}
-      <CreateTaskButton goalId={goal.id} updateAddedTask={handleAddTask} />
+    <Stack {...styles.container}>
+      <Stack>
+        {/* tasks em andamento */}
+        <Text {...styles.statusText}>Em andamento</Text>
+        <Stack {...styles.tasksStack}>
+          {goalTasks.map((task) => (<GoalSidebarTask key={task.id} task={task} updateDeletedTask={updateDeletedTask} />))}
+          <CreateTaskButton goalId={goal.id} updateAddedTask={handleAddTask} />
+        </Stack>
+      </Stack>
+
+      <Button {...styles.deleteButton} onClick={handleDeleteGoal}>
+        <Icon size="sm">
+          <Trash />
+        </Icon>
+
+        Excluir meta
+      </Button>
     </Stack>
+
   </SidebarContainer>
 }
