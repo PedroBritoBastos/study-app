@@ -34,6 +34,18 @@ export function GoalsSidebar({ closeSidebar, goal, updateCheckedTask }: Props) {
   // estado para monitorar quando uma tarefa é excluída
   const [deletedTask, setDeletedTask] = useState({});
 
+  // estado para monitorar quando uma tarefa é checada
+  const [checkedTask, setCheckedTask] = useState<{
+    taskId: string;
+    isChecked: boolean;
+  } | null>(null);
+
+  // funcao para atualizar os estados para re-renderizar os componentes
+  function handleCheckedTask(taskId: string, isChecked: boolean) {
+    setCheckedTask({ taskId, isChecked });
+    updateCheckedTask(taskId, isChecked); // continua propagando para GoalsClient
+  }
+
   function updateDeletedTask(task) {
     setDeletedTask(task);
   }
@@ -65,6 +77,18 @@ export function GoalsSidebar({ closeSidebar, goal, updateCheckedTask }: Props) {
     fetchTasks();
   }, [deletedTask]);
 
+  useEffect(() => {
+    if (!checkedTask) return;
+
+    async function fetchTasks() {
+      const response = await getTasks(goal.id);
+      setGoalTasks(response);
+    }
+
+    fetchTasks();
+  }, [checkedTask]);
+
+
   // exclui a meta
   async function handleDeleteGoal() {
     const response = await deleteGoal(goal.id);
@@ -86,7 +110,7 @@ export function GoalsSidebar({ closeSidebar, goal, updateCheckedTask }: Props) {
                 key={task.id}
                 task={task}
                 updateDeletedTask={updateDeletedTask}
-                updateCheckedTask={updateCheckedTask}
+                updateCheckedTask={handleCheckedTask}
               />
             )
           ))}
@@ -109,7 +133,7 @@ export function GoalsSidebar({ closeSidebar, goal, updateCheckedTask }: Props) {
               key={task.id}
               task={task}
               updateDeletedTask={updateDeletedTask}
-              updateCheckedTask={updateCheckedTask}
+              updateCheckedTask={handleCheckedTask}
             />
           )))}
 
