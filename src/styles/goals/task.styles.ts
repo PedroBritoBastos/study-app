@@ -7,4 +7,7 @@ export const styles = {
     py: 0.5,
     borderRadius: "md",
   },
+  checked: {
+    bg: "green.400",
+  },
 };

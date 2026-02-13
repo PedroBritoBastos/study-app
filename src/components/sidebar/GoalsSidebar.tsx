@@ -19,9 +19,10 @@ import { deleteGoal } from "@/src/services/goalService";
 interface Props {
   closeSidebar: () => void;
   goal: GoalType;
+  updateCheckedTask: (taskId: string, isChecked: boolean) => void;
 }
 
-export function GoalsSidebar({ closeSidebar, goal }: Props) {
+export function GoalsSidebar({ closeSidebar, goal, updateCheckedTask }: Props) {
   const router = useRouter();
 
   // estado para guardar as tasks do goal atual
@@ -76,9 +77,25 @@ export function GoalsSidebar({ closeSidebar, goal }: Props) {
       <Stack>
         {/* tasks em andamento */}
         <Text {...styles.statusText}>Em andamento</Text>
+
         <Stack {...styles.tasksStack}>
-          {(goalTasks.filter((task) => !task.isChecked).map((task) => (<GoalSidebarTask key={task.id} task={task} updateDeletedTask={updateDeletedTask} />)))}
-          <CreateTaskButton goalId={goal.id} updateAddedTask={handleAddTask} />
+
+          {(goalTasks.filter((task) => !task.isChecked).map(
+            (task) => (
+              <GoalSidebarTask
+                key={task.id}
+                task={task}
+                updateDeletedTask={updateDeletedTask}
+                updateCheckedTask={updateCheckedTask}
+              />
+            )
+          ))}
+
+          <CreateTaskButton
+            goalId={goal.id}
+            updateAddedTask={handleAddTask}
+          />
+
         </Stack>
       </Stack>
 
@@ -86,7 +103,16 @@ export function GoalsSidebar({ closeSidebar, goal }: Props) {
       <Stack>
         <Text {...styles.statusText}>Concluídas</Text>
         <Stack {...styles.tasksStack}>
-          {(goalTasks.filter((task) => task.isChecked).map((task) => (<GoalSidebarTask key={task.id} task={task} updateDeletedTask={updateDeletedTask} />)))}
+
+          {(goalTasks.filter((task) => task.isChecked).map((task) => (
+            <GoalSidebarTask
+              key={task.id}
+              task={task}
+              updateDeletedTask={updateDeletedTask}
+              updateCheckedTask={updateCheckedTask}
+            />
+          )))}
+
         </Stack>
       </Stack>
 

@@ -15,9 +15,10 @@ import { useState, useEffect } from "react";
 interface Props {
   task: TaskType;
   updateDeletedTask: (task: TaskType) => void;
+  updateCheckedTask: (taskId: string, isChecked: boolean) => void;
 }
 
-export function GoalSidebarTask({ task, updateDeletedTask }: Props) {
+export function GoalSidebarTask({ task, updateDeletedTask, updateCheckedTask }: Props) {
   // state para gerenciar estado do status da task
   const [checked, setChecked] = useState(false);
   const [checkedTask, setCheckedTask] = useState(false);
@@ -33,8 +34,11 @@ export function GoalSidebarTask({ task, updateDeletedTask }: Props) {
 
   async function handleCheckTask() {
     const response = await checkTask(task.id, checked);
-    console.log(response)
+
+    const newValue = !checked;
     setCheckedTask(!checkedTask);
+
+    updateCheckedTask(task.id, newValue);
   }
 
   // sempre que a task for checada, deve fazer fetch novamente

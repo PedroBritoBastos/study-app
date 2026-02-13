@@ -1,36 +1,60 @@
-import { Card, Stack, Progress, Text, Span, Flex } from "@chakra-ui/react"
+"use client"
+
+import { Card, Stack, Progress, Text, Span, Flex, Icon } from "@chakra-ui/react"
 import { Task } from "./Task";
 
 import { styles } from "@/styles/goals/goal.styles";
-import { Footprints } from "lucide-react";
+import { Ellipsis, Footprints } from "lucide-react";
 
 import { GoalType } from "@/src/types/goal";
+import { useState, useEffect } from "react";
+
+import { getTasks } from "@/src/services/taskService";
 
 interface Props {
   goal: GoalType;
   selectGoal: (goal: GoalType) => void;
   openSidebar: () => void;
+  checkedTask: { taskId: string, isChecked: boolean };
+  updateCheckedTask: (taskId: string, isChecked: boolean) => void;
 }
 
-export function Goal({ goal, selectGoal, openSidebar }: Props) {
+export function Goal({ goal, selectGoal, openSidebar, checkedTask, updateCheckedTask }: Props) {
+
+  // state que guarda as tasks que sao exibidas
+  const [tasks, setTasks] = useState(goal.tasks);
+
+  // toda vez que checkedTask mudar, deve fazer fetch para pegar as tasks atualizadas
+  useEffect(() => {
+
+    async function fetchTasks() {
+      const response = await getTasks(goal.id);
+      setTasks(response);
+    }
+    fetchTasks();
+
+  }, [checkedTask])
 
   function handleClick() {
     selectGoal(goal);
     openSidebar();
   }
 
-  const allTasks = goal.tasks.length;
-  const checkedTasks = (goal.tasks.filter((task) => task.isChecked)).length;
+  const allTasks = tasks.length;
+  const checkedTasks = tasks.filter((task) => task.isChecked).length;
+
 
   return <Card.Root {...styles.cardRoot} onClick={handleClick}>
     <Card.Header {...styles.cardHeader}>
-      {goal.title}
-      <Footprints />
+      {goal.title || "Meta"}
+      <Icon>
+        {<Ellipsis />}
+      </Icon>
     </Card.Header>
 
     {/* stack de tasks */}
     <Stack my={"auto"}>
-      {goal.tasks.map((task) => (<Task key={task.id} task={task} />))}
+      {tasks.map((task) => (<Task key={task.id} task={task} isChecked={task.isChecked} />))}
     </Stack>
 
     {/* Barra de progresso e indicação das tarefas feitas */}
