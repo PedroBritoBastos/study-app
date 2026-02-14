@@ -99,7 +99,7 @@ export function GoalsSidebar({ closeSidebar, goal, updateCheckedTask, refreshGoa
 
   // indicadores de tarefas concluidas e totais
   const allTasks = goalTasks.length;
-  const completedTasks = (goalTasks.filter((task) => task.isChecked)).length;
+  const checkedTasks = (goalTasks.filter((task) => task.isChecked)).length;
 
   return <SidebarContainer header={goal.title} closeSidebar={closeSidebar}>
     <Stack {...styles.container}>
@@ -149,9 +149,19 @@ export function GoalsSidebar({ closeSidebar, goal, updateCheckedTask, refreshGoa
       </Stack>
 
       {/* indicação do progresso */}
-      <Stack>
+      <Stack {...styles.progressContainer}>
         <Text {...styles.statusText}>Progresso</Text>
-        <Text {...styles.progressIndicator}>{completedTasks} de {allTasks}</Text>
+        <Text {...styles.progressIndicator}>{checkedTasks} de {allTasks}</Text>
+
+        {/* barra de progresso */}
+        <Progress.Root value={(checkedTasks / allTasks) * 100}>
+          <Progress.Track {...styles.progressBar.track}>
+            <Progress.Range {...styles.progressBar.range}>
+              {goalTasks.length > 0 && (Math.round((checkedTasks / allTasks) * 100) || 0)}%
+            </Progress.Range>
+          </Progress.Track>
+        </Progress.Root>
+
       </Stack>
 
       {/* botão de excluir meta */}

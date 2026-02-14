@@ -2,6 +2,7 @@ export const styles = {
   container: {
     justify: "space-between",
     h: "100%",
+    gap: 8,
   },
   statusText: {
     fontSize: "md",
@@ -25,10 +26,23 @@ export const styles = {
     bg: "purple.600",
     _hover: { bg: "purple.400" },
   },
+  progressContainer: {
+    gap: 8,
+    mb: 4,
+  },
   progressIndicator: {
     textAlign: "center",
     fontSize: "4xl",
     fontWeight: "bold",
     color: "purple.700",
+  },
+  progressBar: {
+    track: {
+      height: "1.8rem",
+    },
+    range: {
+      bg: "purple.600",
+      color: "white",
+    },
   },
 };
