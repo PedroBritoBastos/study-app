@@ -20,9 +20,10 @@ interface Props {
   closeSidebar: () => void;
   goal: GoalType;
   updateCheckedTask: (taskId: string, isChecked: boolean) => void;
+  refreshGoal: (taskId: string, action: string) => void;
 }
 
-export function GoalsSidebar({ closeSidebar, goal, updateCheckedTask }: Props) {
+export function GoalsSidebar({ closeSidebar, goal, updateCheckedTask, refreshGoal }: Props) {
   const router = useRouter();
 
   // estado para guardar as tasks do goal atual
@@ -118,6 +119,7 @@ export function GoalsSidebar({ closeSidebar, goal, updateCheckedTask }: Props) {
           <CreateTaskButton
             goalId={goal.id}
             updateAddedTask={handleAddTask}
+            refreshGoal={refreshGoal}
           />
 
         </Stack>
@@ -134,6 +136,7 @@ export function GoalsSidebar({ closeSidebar, goal, updateCheckedTask }: Props) {
               task={task}
               updateDeletedTask={updateDeletedTask}
               updateCheckedTask={handleCheckedTask}
+              refreshGoal={refreshGoal}
             />
           )))}
 

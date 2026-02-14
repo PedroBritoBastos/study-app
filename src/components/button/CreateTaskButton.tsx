@@ -14,9 +14,10 @@ import { TaskType } from "@/src/types/task";
 interface Props {
   goalId: string;
   updateAddedTask: (task: TaskType) => void;
+  refreshGoal: (taskId: string, action: string) => void;
 }
 
-export function CreateTaskButton({ goalId, updateAddedTask }: Props) {
+export function CreateTaskButton({ goalId, updateAddedTask, refreshGoal }: Props) {
   const router = useRouter();
 
   const [open, setOpen] = useState(false);
@@ -27,7 +28,8 @@ export function CreateTaskButton({ goalId, updateAddedTask }: Props) {
       const response = await createTask({ title, goalId });
       router.refresh();
       updateAddedTask(response);
-      setTitle(""); 1
+      setTitle("");
+      refreshGoal(response.id, "create");
       setOpen(!open);
     } catch (error) {
       console.log(error.message);

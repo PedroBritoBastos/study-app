@@ -16,9 +16,10 @@ interface Props {
   task: TaskType;
   updateDeletedTask: (task: TaskType) => void;
   updateCheckedTask: (taskId: string, isChecked: boolean) => void;
+  refreshGoal: (taskId: string, action: string) => void;
 }
 
-export function GoalSidebarTask({ task, updateDeletedTask, updateCheckedTask }: Props) {
+export function GoalSidebarTask({ task, updateDeletedTask, updateCheckedTask, refreshGoal }: Props) {
   // state para gerenciar estado do status da task
   const [checked, setChecked] = useState(false);
   const [checkedTask, setCheckedTask] = useState(false);
@@ -29,6 +30,7 @@ export function GoalSidebarTask({ task, updateDeletedTask, updateCheckedTask }: 
   async function handleDeleteTask() {
     const response = await deleteTask(task.id);
     updateDeletedTask(response);
+    refreshGoal(response.id, "delete");
     router.refresh();
   }
 

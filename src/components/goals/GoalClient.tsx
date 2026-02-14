@@ -20,6 +20,14 @@ export function GoalsClient({ goals }: { goals: GoalType[] }) {
   // state que monitora quando uma task é checada
   const [checkedTask, setCheckedTask] = useState({});
 
+  // state que monitora quando uma task é deletada ou criada
+  const [refresh, setRefresh] = useState({ taskId: "", action: "" });
+
+  // função que atualiza a Goal
+  function refreshGoal(taskId: string, action: string): void {
+    setRefresh({ taskId, action });
+  }
+
   // função que atualiza checkedTask
   function updateCheckedTask(taskId: string, isChecked: boolean): void {
     setCheckedTask({ taskId, isChecked });
@@ -39,6 +47,7 @@ export function GoalsClient({ goals }: { goals: GoalType[] }) {
             openSidebar={sidebarHook.openSidebar}
             checkedTask={checkedTask}
             updateCheckedTask={updateCheckedTask}
+            refresh={refresh}
           />
         )
       )}
@@ -51,6 +60,7 @@ export function GoalsClient({ goals }: { goals: GoalType[] }) {
         closeSidebar={sidebarHook.closeSidebar}
         goal={goalHook.selectedGoal}
         updateCheckedTask={updateCheckedTask}
+        refreshGoal={refreshGoal}
       />}
   </Box>
 }

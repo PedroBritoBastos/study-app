@@ -17,9 +17,10 @@ interface Props {
   openSidebar: () => void;
   checkedTask: { taskId: string, isChecked: boolean };
   updateCheckedTask: (taskId: string, isChecked: boolean) => void;
+  refresh: { taskId: string, action: string };
 }
 
-export function Goal({ goal, selectGoal, openSidebar, checkedTask, updateCheckedTask }: Props) {
+export function Goal({ goal, selectGoal, openSidebar, checkedTask, refresh }: Props) {
 
   // state que guarda as tasks que sao exibidas
   const [tasks, setTasks] = useState(goal.tasks);
@@ -33,7 +34,9 @@ export function Goal({ goal, selectGoal, openSidebar, checkedTask, updateChecked
     }
     fetchTasks();
 
-  }, [checkedTask])
+    console.log("componente GOAL re-renderizado")
+
+  }, [checkedTask, refresh])
 
   function handleClick() {
     selectGoal(goal);
@@ -42,7 +45,6 @@ export function Goal({ goal, selectGoal, openSidebar, checkedTask, updateChecked
 
   const allTasks = tasks.length;
   const checkedTasks = tasks.filter((task) => task.isChecked).length;
-
 
   return <Card.Root {...styles.cardRoot} onClick={handleClick}>
     <Card.Header {...styles.cardHeader}>
