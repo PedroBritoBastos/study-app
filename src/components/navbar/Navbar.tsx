@@ -32,10 +32,10 @@ export function Navbar() {
       <NavbarOption name="Calendário" url="/calendar">
         <Calendar />
       </NavbarOption>
-      <NavbarOption name="Metas" url="/">
+      <NavbarOption name="Metas" url="/goals">
         <Goal />
       </NavbarOption>
-      <NavbarOption name="Dashboards" url="/">
+      <NavbarOption name="Dashboards" url="/dashboards">
         <ChartColumnDecreasing />
       </NavbarOption>
     </Stack>

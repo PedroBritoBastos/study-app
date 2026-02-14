@@ -9,4 +9,7 @@ export const styles = {
       bg: "purple.500",
     },
   },
+  active: {
+    bg: "purple.400",
+  },
 };
