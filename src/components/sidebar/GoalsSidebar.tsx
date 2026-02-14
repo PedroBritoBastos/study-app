@@ -6,7 +6,7 @@ import { GoalSidebarTask } from "../goals/GoalSidebarTask";
 import { Trash } from "lucide-react";
 
 import { GoalType } from "@/src/types/goal";
-import { Text, Stack, Button, Icon } from "@chakra-ui/react";
+import { Text, Stack, Button, Icon, Progress } from "@chakra-ui/react";
 
 import { styles } from "@/styles/sidebar/goalsSidebar.styles";
 
@@ -97,6 +97,10 @@ export function GoalsSidebar({ closeSidebar, goal, updateCheckedTask, refreshGoa
     closeSidebar();
   }
 
+  // indicadores de tarefas concluidas e totais
+  const allTasks = goalTasks.length;
+  const completedTasks = (goalTasks.filter((task) => task.isChecked)).length;
+
   return <SidebarContainer header={goal.title} closeSidebar={closeSidebar}>
     <Stack {...styles.container}>
       <Stack>
@@ -112,6 +116,7 @@ export function GoalsSidebar({ closeSidebar, goal, updateCheckedTask, refreshGoa
                 task={task}
                 updateDeletedTask={updateDeletedTask}
                 updateCheckedTask={handleCheckedTask}
+                refreshGoal={refreshGoal}
               />
             )
           ))}
@@ -143,6 +148,13 @@ export function GoalsSidebar({ closeSidebar, goal, updateCheckedTask, refreshGoa
         </Stack>
       </Stack>
 
+      {/* indicação do progresso */}
+      <Stack>
+        <Text {...styles.statusText}>Progresso</Text>
+        <Text {...styles.progressIndicator}>{completedTasks} de {allTasks}</Text>
+      </Stack>
+
+      {/* botão de excluir meta */}
       <Button {...styles.deleteButton} onClick={handleDeleteGoal}>
         <Icon size="sm">
           <Trash />

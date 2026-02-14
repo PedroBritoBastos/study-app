@@ -25,4 +25,10 @@ export const styles = {
     bg: "purple.600",
     _hover: { bg: "purple.400" },
   },
+  progressIndicator: {
+    textAlign: "center",
+    fontSize: "4xl",
+    fontWeight: "bold",
+    color: "purple.700",
+  },
 };
