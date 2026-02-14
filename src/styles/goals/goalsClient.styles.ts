@@ -12,10 +12,12 @@ export const styles = {
   },
   grid: {
     gridTemplateColumns: "repeat(5, 1fr)",
-    gridTemplateRows: "repeat(2, 1fr)",
     w: "100%",
     flex: 1,
     gap: 5,
     mt: 8,
+    pr: 3,
+    overflowY: "auto",
+    minH: 0,
   },
 };

@@ -6,6 +6,7 @@ import { CreateButton } from "./CreateButton";
 import { GoalsSidebar } from "../sidebar/GoalsSidebar";
 
 import { styles } from "@/styles/goals/goalsClient.styles";
+import scrollStyles from "../../styles/sidebar/scroll.module.css";
 
 import { GoalType } from "@/src/types/goal";
 
@@ -37,7 +38,7 @@ export function GoalsClient({ goals }: { goals: GoalType[] }) {
     <Heading {...styles.heading}>Minhas metas</Heading>
 
     {/* grid de metas */}
-    <Grid  {...styles.grid}>
+    <Grid  {...styles.grid} className={scrollStyles["scrollbar"]}>
       {goals.map(
         (goal) => (
           <Goal

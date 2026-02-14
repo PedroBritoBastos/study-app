@@ -2,7 +2,7 @@ export const styles = {
   cardRoot: {
     bg: "white",
     w: "100%",
-    h: "100%",
+    h: "15rem",
     borderRadius: "2xl",
     padding: 5,
     borderColor: "gray.200",
