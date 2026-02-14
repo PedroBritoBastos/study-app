@@ -36,7 +36,7 @@ export function CreateButton() {
     {createMode ? <>
       <Field.Root>
         <Field.Label {...styles.createLabel}>Nome da meta</Field.Label>
-        <Input type="text" value={goalTitle} onChange={(e) => setGoalTitle(e.target.value)} />
+        <Input {...styles.input} type="text" value={goalTitle} onChange={(e) => setGoalTitle(e.target.value)} />
       </Field.Root>
       <Flex {...styles.createModeButtonContainer}>
         <Button {...styles.createModeAddButton} onClick={handleCreate}>Adicionar</Button>

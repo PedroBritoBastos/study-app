@@ -13,6 +13,9 @@ export const styles = {
     boxShadow: "sm",
     cursor: "pointer",
   },
+  input: {
+    bg: "gray.200",
+  },
   icon: {
     size: "3em",
   },
