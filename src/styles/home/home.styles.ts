@@ -2,8 +2,9 @@ export const styles = {
   container: {
     flex: 1,
     p: 8,
-    direction: "column",
+    flexDirection: "column",
     position: "relative",
+    h: "100vh",
   },
   header: {
     container: {
@@ -21,12 +22,17 @@ export const styles = {
 
   grid: {
     flex: 1,
-    templateRows: "repeat(3, 1fr)",
+    templateRows: "auto",
+    alignContent: "start",
     templateColumns: {
       sm: "repeat(1, 1fr)",
       md: "repeat(3, 1fr)",
       lg: "repeat(4, 1fr)",
     },
     gap: 6,
+    minH: 0,
+    maxH: "100%",
+    overflowY: "auto",
+    p: 2,
   },
 };

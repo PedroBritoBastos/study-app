@@ -26,7 +26,7 @@ export function SidebarContainer({ children, closeSidebar, header }: Props) {
         </CloseButton>
       </Flex>
 
-      <Stack {...styles.content} className={scrollbarStyles["scrollbar"]}>
+      <Stack {...styles.content} className={scrollbarStyles["sidebarScrollbar"]}>
         {children}
       </Stack>
     </Stack>

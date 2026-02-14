@@ -3,7 +3,7 @@ export const styles = {
     bg: "rgba(237, 242, 247, 1)",
     _hover: { bg: "rgb(253, 254, 255)" },
     w: "100%",
-    h: "100%",
+    h: "15rem",
     justifyContent: "center",
     alignItems: "center",
     gap: 3,

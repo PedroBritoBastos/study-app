@@ -1,3 +1,5 @@
+/* scroll de grid */
+
 .scrollbar::-webkit-scrollbar-track {
   background-color: #edf2f7;
 }
@@ -8,4 +10,18 @@
 
 .scrollbar::-webkit-scrollbar-thumb {
   background-color: white;
+}
+
+/* scroll da sidebar */
+
+.sidebarScrollbar::-webkit-scrollbar-track {
+  background-color: white;
+}
+
+.sidebarScrollbar::-webkit-scrollbar {
+  width: 5px;
+}
+
+.sidebarScrollbar::-webkit-scrollbar-thumb {
+  background-color: #edf2f7;
 }

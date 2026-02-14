@@ -1,6 +1,7 @@
 "use client";
 
 import { styles } from "@/src/styles/home/home.styles";
+import scrollStyles from "@/styles/sidebar/scroll.module.css";
 import { Flex, Text, Grid } from "@chakra-ui/react";
 
 // components
@@ -52,7 +53,7 @@ export function HomeClient({ subjects }: Props) {
 
 
     {/* grid de conteudos */}
-    <Grid {...styles.grid}>
+    <Grid {...styles.grid} className={scrollStyles["scrollbar"]}>
       {subjects.map((subject) => <Subject key={subject.id} subject={subject} openSidebar={sidebarHook.openSidebar} setSelectedSubject={setSelectedSubject} />)}
     </Grid>
 

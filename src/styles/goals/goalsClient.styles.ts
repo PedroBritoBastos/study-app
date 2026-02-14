@@ -16,7 +16,7 @@ export const styles = {
     flex: 1,
     gap: 5,
     mt: 8,
-    pr: 3,
+    p: 2,
     overflowY: "auto",
     minH: 0,
   },

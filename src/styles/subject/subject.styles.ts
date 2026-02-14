@@ -7,6 +7,7 @@ export const styles = {
       borderColor: "gray.200",
       boxShadow: "sm",
       cursor: "pointer",
+      h: "13rem",
     },
 
     body: {
