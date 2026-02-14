@@ -4,7 +4,7 @@ import { Card, Stack, Progress, Text, Span, Flex, Icon } from "@chakra-ui/react"
 import { Task } from "./Task";
 
 import { styles } from "@/styles/goals/goal.styles";
-import { Ellipsis, Footprints } from "lucide-react";
+import { CircleCheckBig, Ellipsis, Footprints } from "lucide-react";
 
 import { GoalType } from "@/src/types/goal";
 import { useState, useEffect } from "react";
@@ -46,11 +46,11 @@ export function Goal({ goal, selectGoal, openSidebar, checkedTask, refresh }: Pr
   const allTasks = tasks.length;
   const checkedTasks = tasks.filter((task) => task.isChecked).length;
 
-  return <Card.Root {...styles.cardRoot} onClick={handleClick}>
+  return <Card.Root  {...styles.cardRoot} onClick={handleClick}>
     <Card.Header {...styles.cardHeader}>
-      {goal.title || "Meta"}
-      <Icon>
-        {<Ellipsis />}
+      <Text {...styles.goalTitle} {...((checkedTasks / allTasks) === 1 && styles.goalTitleCompleted)}>{goal.title || "Meta"}</Text>
+      <Icon {...((checkedTasks / allTasks) === 1 && styles.goalTitleCompleted)}>
+        {(checkedTasks / allTasks) === 1 ? <CircleCheckBig /> : <Ellipsis />}
       </Icon>
     </Card.Header>
 

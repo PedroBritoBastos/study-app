@@ -18,10 +18,18 @@ export const styles = {
     color: "purple.800",
     fontWeight: "semibold",
     flexDirection: "row",
-    alignItems: "center",
+    alignItems: "flex-start",
     justifyContent: "space-between",
     padding: 0,
     mb: 2,
+    gap: 4,
+  },
+  goalTitle: {
+    overflowX: "hidden",
+    whiteSpace: "nowrap",
+  },
+  goalTitleCompleted: {
+    color: "green.400",
   },
   progressContainer: {
     justify: "space-between",
