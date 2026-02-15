@@ -27,3 +27,16 @@ export async function deleteGoal(id: string) {
 
   return response.json();
 }
+
+// busca o deadline de um goal
+export async function getDeadline(id: string) {
+  const response = await fetch(`/api/goals/deadline/${id}`, {
+    method: "GET",
+  });
+
+  if (!response.ok) {
+    throw new Error("Erro ao buscar deadline");
+  }
+
+  return response.json();
+}

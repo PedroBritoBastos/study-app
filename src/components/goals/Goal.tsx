@@ -10,6 +10,9 @@ import { GoalType } from "@/src/types/goal";
 import { useState, useEffect } from "react";
 
 import { getTasks } from "@/src/services/taskService";
+import { getDeadline } from "@/src/services/goalService";
+
+import { formatDate } from "@/src/utilities/dateUtils";
 
 interface Props {
   goal: GoalType;
@@ -25,6 +28,21 @@ export function Goal({ goal, selectGoal, openSidebar, checkedTask, refresh }: Pr
   // state que guarda as tasks que sao exibidas
   const [tasks, setTasks] = useState(goal.tasks);
 
+  // state que guarda o valor da deadline
+  const [deadline, setDeadline] = useState("");
+
+  // faz fetch para pegar o valor da deadline assim que o componente é renderizado
+  useEffect(() => {
+
+    async function fetchDeadline() {
+      const response = await getDeadline(goal.id);
+      const formatedDate = formatDate(response.deadline);
+      setDeadline(formatedDate);
+    }
+    fetchDeadline();
+
+  }, [])
+
   // toda vez que checkedTask mudar, deve fazer fetch para pegar as tasks atualizadas
   useEffect(() => {
 
@@ -33,8 +51,6 @@ export function Goal({ goal, selectGoal, openSidebar, checkedTask, refresh }: Pr
       setTasks(response);
     }
     fetchTasks();
-
-    console.log("componente GOAL re-renderizado")
 
   }, [checkedTask, refresh])
 
@@ -63,7 +79,7 @@ export function Goal({ goal, selectGoal, openSidebar, checkedTask, refresh }: Pr
       <Icon size="sm">
         <Calendar />
       </Icon>
-      2 dias restantes
+      {deadline}
     </Flex>
 
     {/* stack de tasks */}

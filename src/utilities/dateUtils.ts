@@ -55,5 +55,7 @@ export function daysSinceCreation(
 
 export function formatDate(fullDate: string): string {
   const date = new Date(fullDate);
-  return date.toLocaleDateString();
+  return date.toLocaleDateString("pt-BR", {
+    timeZone: "UTC",
+  });
 }
