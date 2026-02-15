@@ -6,7 +6,7 @@ import { GoalSidebarTask } from "../goals/GoalSidebarTask";
 import { Trash } from "lucide-react";
 
 import { GoalType } from "@/src/types/goal";
-import { Text, Stack, Button, Icon, Progress } from "@chakra-ui/react";
+import { Text, Stack, Button, Icon, Progress, Span } from "@chakra-ui/react";
 
 import { styles } from "@/styles/sidebar/goalsSidebar.styles";
 
@@ -47,10 +47,12 @@ export function GoalsSidebar({ closeSidebar, goal, updateCheckedTask, refreshGoa
     updateCheckedTask(taskId, isChecked); // continua propagando para GoalsClient
   }
 
+  // atualizar o state de task deletada
   function updateDeletedTask(task) {
     setDeletedTask(task);
   }
 
+  // atualizar o sttate de task adicionada
   function handleAddTask(task) {
     setAddedTask(task);
   }
@@ -60,7 +62,7 @@ export function GoalsSidebar({ closeSidebar, goal, updateCheckedTask, refreshGoa
     setGoalTasks(goal.tasks);
   }, [goal])
 
-  // quando addedTask mudar, o componente deve fazer um fetch para pegar as tarefas
+  // quando uma tarefa for adicionada, o componente deve fazer um fetch para atualizar as tarefas
   useEffect(() => {
     async function fetchTasks() {
       const response = await getTasks(goal.id);
@@ -78,6 +80,7 @@ export function GoalsSidebar({ closeSidebar, goal, updateCheckedTask, refreshGoa
     fetchTasks();
   }, [deletedTask]);
 
+  // atualiza as tasks toda vez que uma task é checada
   useEffect(() => {
     if (!checkedTask) return;
 
@@ -151,16 +154,18 @@ export function GoalsSidebar({ closeSidebar, goal, updateCheckedTask, refreshGoa
       {/* indicação do progresso */}
       <Stack {...styles.progressContainer}>
         <Text {...styles.statusText}>Progresso</Text>
-        <Text {...styles.progressIndicator}>{checkedTasks} de {allTasks}</Text>
+        <Text {...styles.progressIndicator} {...((checkedTasks / allTasks) === 1 && styles.progressIndicatorCompleted)}>{checkedTasks} de {allTasks}</Text>
 
         {/* barra de progresso */}
         <Progress.Root value={(checkedTasks / allTasks) * 100}>
           <Progress.Track {...styles.progressBar.track}>
-            <Progress.Range {...styles.progressBar.range}>
+            <Progress.Range {...styles.progressBar.range} {...((checkedTasks / allTasks) === 1 && styles.progressBar.completed)}>
               {goalTasks.length > 0 && (Math.round((checkedTasks / allTasks) * 100) || 0)}%
             </Progress.Range>
           </Progress.Track>
         </Progress.Root>
+
+        <Text {...styles.statusIndicator}>Status: <Span {...(checkedTasks / allTasks === 1 ? styles.progressIndicatorCompleted : styles.statusIndicatorInProgress)}>{(checkedTasks / allTasks === 1 ? "concluído" : "em andamento")}</Span> </Text>
 
       </Stack>
 

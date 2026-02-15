@@ -2,7 +2,7 @@ export const styles = {
   container: {
     justify: "space-between",
     h: "100%",
-    gap: 8,
+    gap: 6,
   },
   statusText: {
     fontSize: "md",
@@ -36,6 +36,9 @@ export const styles = {
     fontWeight: "bold",
     color: "purple.700",
   },
+  progressIndicatorCompleted: {
+    color: "green.400",
+  },
   progressBar: {
     track: {
       height: "1.8rem",
@@ -44,5 +47,18 @@ export const styles = {
       bg: "purple.600",
       color: "white",
     },
+    completed: {
+      bg: "green.400",
+    },
+  },
+  statusIndicator: {
+    color: "purple.700",
+    textAlign: "center",
+  },
+  statusIndicatorCompleted: {
+    color: "green.400",
+  },
+  statusIndicatorInProgress: {
+    color: "red.400",
   },
 };
