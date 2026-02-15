@@ -44,13 +44,16 @@ model Task {
 }
 
 model Goal {
-  id          String   @id @default(cuid())
-  title       String
+  id       String   @id @default(cuid())
+  title    String
 
-  userId String
-  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  deadline DateTime
 
-  tasks Task[]
+  userId   String
+  user     User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  tasks    Task[]
 
   @@map("goals")
 }
+
