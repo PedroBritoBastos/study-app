@@ -46,6 +46,10 @@ export function Goal({ goal, selectGoal, openSidebar, checkedTask, refresh }: Pr
   const allTasks = tasks.length;
   const checkedTasks = tasks.filter((task) => task.isChecked).length;
 
+  // tarefas visiveis
+  const visibleTasks = tasks.slice(0, 3);
+  const remainingTasks = tasks.length - 3;
+
   return <Card.Root  {...styles.cardRoot} onClick={handleClick}>
     <Card.Header {...styles.cardHeader}>
       <Text {...styles.goalTitle} {...((checkedTasks / allTasks) === 1 && styles.goalTitleCompleted)}>{goal.title || "Meta"}</Text>
@@ -64,7 +68,18 @@ export function Goal({ goal, selectGoal, openSidebar, checkedTask, refresh }: Pr
 
     {/* stack de tasks */}
     <Stack {...styles.tasksStack}>
-      {tasks.map((task) => (<Task key={task.id} task={task} isChecked={task.isChecked} />))}
+
+      {/* apenas as 3 primeiras tasks */}
+      {visibleTasks.map((task) => (
+        <Task key={task.id} task={task} isChecked={task.isChecked} />
+      ))}
+
+      {/* quantidade de tasks restantes quando houver mais de 3 tasks */}
+      {tasks.length > 3 && (
+        <Text fontSize="sm" color="gray.500">
+          ..mais {remainingTasks}
+        </Text>
+      )}
     </Stack>
 
     {/* Barra de progresso e indicação das tarefas feitas */}
