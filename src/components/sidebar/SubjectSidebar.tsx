@@ -13,15 +13,20 @@ import { Calendar1 } from "lucide-react";
 // utils
 import { formatDate } from "@/src/utilities/dateUtils";
 
-type Props = {
+interface Props {
   selectedSubject: SubjectType;
   closeSidebar: () => void;
   openDeleteModal: () => void;
+  isSidebarOpen: boolean;
 }
 
-export function SubjectSidebar({ selectedSubject, closeSidebar, openDeleteModal }: Props) {
+export function SubjectSidebar({ selectedSubject, closeSidebar, openDeleteModal, isSidebarOpen }: Props) {
   return (
-    <SidebarContainer closeSidebar={closeSidebar} header={selectedSubject.title}>
+    <SidebarContainer
+      closeSidebar={closeSidebar}
+      header={selectedSubject.title}
+      isSidebarOpen={isSidebarOpen}
+    >
       <Stack {...styles.container}>
         <Stack>
           {/* data de criacao */}

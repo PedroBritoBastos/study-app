@@ -12,6 +12,7 @@ import { CreateSubjectModal } from "../modal/CreateSubjectModal";
 import { DeleteSubjectModal } from "../modal/DeleteSubjectModal";
 import { ReviewsAccordion } from "./ReviewsAccordion";
 import { Plus } from "lucide-react";
+import { Backdrop } from "../backdrop/Backdrop";
 
 // types
 import { SubjectType } from "@/src/types/subject";
@@ -57,8 +58,20 @@ export function HomeClient({ subjects }: Props) {
       {subjects.map((subject) => <Subject key={subject.id} subject={subject} openSidebar={sidebarHook.openSidebar} setSelectedSubject={setSelectedSubject} />)}
     </Grid>
 
+    {/* backdrop */}
+    <Backdrop
+      isOpen={sidebarHook.isSidebarOpen}
+      onClick={sidebarHook.closeSidebar}
+    />
+
     {/* sidebar */}
-    {sidebarHook.isSidebarOpen && <SubjectSidebar selectedSubject={selectedSubject} closeSidebar={sidebarHook.closeSidebar} openDeleteModal={deleteModalHook.openModal} />}
+    <SubjectSidebar
+      selectedSubject={selectedSubject}
+      closeSidebar={sidebarHook.closeSidebar}
+      openDeleteModal={deleteModalHook.openModal}
+      isSidebarOpen={sidebarHook.isSidebarOpen}
+    />
+
 
     {/* modal de criar */}
     {createModalHook.isModalOpen && <CreateSubjectModal closeModal={createModalHook.closeModal} />}
