@@ -16,11 +16,16 @@ import { formatDate } from "@/src/utilities/dateUtils";
 type Props = {
   closeSidebar: () => void;
   selectedDay: DayType;
+  isSidebarOpen: boolean;
 }
 
-export function CalendarSidebar({ closeSidebar, selectedDay }: Props) {
+export function CalendarSidebar({ closeSidebar, selectedDay, isSidebarOpen }: Props) {
 
-  return <SidebarContainer closeSidebar={closeSidebar} header="Revisões">
+  return <SidebarContainer
+    closeSidebar={closeSidebar}
+    header="Revisões"
+    isSidebarOpen={isSidebarOpen}
+  >
 
     {/* data selecionada */}
     <Flex {...styles.date.container}>

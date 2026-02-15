@@ -12,6 +12,7 @@ import { MonthControlButton } from "./MonthControlButton"
 import { Day } from "./Day"
 import { CalendarSidebar } from "../sidebar/CalendarSidebar"
 import { ChevronsLeft, ChevronsRight } from "lucide-react";
+import { Backdrop } from "../backdrop/Backdrop"
 
 // hooks
 import { useCalendar } from "@/src/hooks/calendar/useCalendar"
@@ -43,8 +44,19 @@ export function CalendarClient({ subjects }: { subjects: SubjectType[] }) {
       {getDaysOfMonth(calendarHook.year, calendarHook.month).map((day) => (<Day key={day.getDate()} subjects={subjects} currentDate={day} openSidebar={sidebarHook.openSidebar} selectDay={calendarHook.selectDay} selectedDay={calendarHook.getSelectedDay()} />))}
     </Grid>
 
+    {/* backdrop */}
+    <Backdrop
+      isOpen={sidebarHook.isSidebarOpen}
+      onClick={sidebarHook.closeSidebar}
+    />
+
     {/* sidebar */}
-    {sidebarHook.isSidebarOpen && <CalendarSidebar closeSidebar={sidebarHook.closeSidebar} selectedDay={calendarHook.getSelectedDay()} />}
+    <CalendarSidebar
+      closeSidebar={sidebarHook.closeSidebar}
+      selectedDay={calendarHook.getSelectedDay()}
+      isSidebarOpen={sidebarHook.isSidebarOpen}
+    />
+
 
   </Stack>
 }
