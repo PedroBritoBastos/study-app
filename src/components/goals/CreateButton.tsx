@@ -13,12 +13,13 @@ import { useRouter } from "next/navigation";
 export function CreateButton() {
   const [createMode, setCreateMode] = useState(false);
   const [goalTitle, setGoalTitle] = useState("");
+  const [deadline, setDeadline] = useState("");
 
   const router = useRouter();
 
   async function handleCreate() {
     try {
-      const response = await create(goalTitle);
+      const response = await create(goalTitle, deadline);
       setGoalTitle("");
       router.refresh();
       setCreateMode(false);
@@ -36,10 +37,18 @@ export function CreateButton() {
     {createMode ? <>
       <Field.Root>
         <Field.Label {...styles.createLabel}>Título</Field.Label>
-        <Input {...styles.input} type="text" value={goalTitle} onChange={(e) => setGoalTitle(e.target.value)} />
+        <Input {...styles.input}
+          type="text"
+          value={goalTitle}
+          onChange={(e) => setGoalTitle(e.target.value)}
+        />
 
         <Field.Label {...styles.createLabel}>Prazo</Field.Label>
-        <Input type="date" />
+        <Input
+          type="date"
+          value={deadline}
+          onChange={(e) => setDeadline(e.target.value)}
+        />
       </Field.Root>
       <Flex {...styles.createModeButtonContainer}>
         <Button {...styles.createModeCancelButton} onClick={handleCancel}>Cancelar</Button>
@@ -48,6 +57,7 @@ export function CreateButton() {
     </> : <>
       < Plus {...styles.icon} />
       < Text {...styles.text}> Criar nova meta</Text >
-    </>}
+    </>
+    }
   </Card.Root >
 }

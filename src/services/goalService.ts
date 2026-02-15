@@ -1,10 +1,10 @@
 // cria um goal
-export async function create(title: string) {
+export async function create(title: string, deadline: string) {
   // envia para a api
   const response = await fetch("/api/goals", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ title }),
+    body: JSON.stringify({ title, deadline }),
   });
 
   if (!response.ok) {

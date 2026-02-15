@@ -5,4 +5,5 @@ export interface GoalType {
   title: string;
   userId: string;
   tasks: TaskType[];
+  deadline: Date;
 }
