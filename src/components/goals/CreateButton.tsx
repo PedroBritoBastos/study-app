@@ -13,7 +13,7 @@ import { useRouter } from "next/navigation";
 export function CreateButton() {
   const [createMode, setCreateMode] = useState(false);
   const [goalTitle, setGoalTitle] = useState("");
-  const [deadline, setDeadline] = useState("");
+  const [deadline, setDeadline] = useState(new Date());
 
   const router = useRouter();
 
@@ -23,6 +23,7 @@ export function CreateButton() {
       setGoalTitle("");
       router.refresh();
       setCreateMode(false);
+      setDeadline(new Date());
     } catch (error) {
       console.log(error.message)
     }
@@ -30,7 +31,8 @@ export function CreateButton() {
 
   function handleCancel(e) {
     e.stopPropagation();
-    setCreateMode(false)
+    setCreateMode(false);
+    setDeadline(new Date());
   }
 
   return <Card.Root {...styles.cardRoot} {...(createMode && styles.createMode)} onClick={() => setCreateMode(true)} >
