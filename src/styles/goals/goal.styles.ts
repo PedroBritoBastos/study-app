@@ -45,6 +45,11 @@ export const styles = {
       color: "purple.800",
       fontWeight: "semibold",
     },
+    completed: {
+      borderColor: "red.800",
+      color: "red.800",
+      bg: "red.300",
+    },
   },
   tasksStack: {
     my: "auto",

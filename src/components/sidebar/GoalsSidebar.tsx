@@ -10,6 +10,7 @@ import { GoalType } from "@/src/types/goal";
 import { Text, Stack, Button, Icon, Progress, Span, Flex } from "@chakra-ui/react";
 
 import { styles } from "@/styles/sidebar/goalsSidebar.styles";
+import scrollbarStyles from "@/styles/sidebar/scroll.module.css";
 
 import { useRouter } from "next/navigation";
 import { useState, useEffect } from "react";
@@ -128,7 +129,7 @@ export function GoalsSidebar({
         {/* tasks em andamento */}
         <Text {...styles.statusText}>Em andamento</Text>
 
-        <Stack {...styles.tasksStack}>
+        <Stack {...styles.tasksStack} className={scrollbarStyles["scrollbar"]}>
 
           {(goalTasks.filter((task) => !task.isChecked).map(
             (task) => (
@@ -141,20 +142,20 @@ export function GoalsSidebar({
               />
             )
           ))}
-
+        </Stack>
+        <Stack {...styles.createTaskStack} >
           <CreateTaskButton
             goalId={goal.id}
             updateAddedTask={handleAddTask}
             refreshGoal={refreshGoal}
           />
-
         </Stack>
       </Stack>
 
       {/* tasks concluídas */}
       <Stack>
         <Text {...styles.statusText}>Concluídas</Text>
-        <Stack {...styles.tasksStack}>
+        <Stack {...styles.tasksStack} className={scrollbarStyles["scrollbar"]}>
 
           {(goalTasks.filter((task) => task.isChecked).map((task) => (
             <GoalSidebarTask

@@ -11,9 +11,18 @@ export const styles = {
   tasksStack: {
     my: 4,
     bg: "rgba(237, 242, 247, 1)",
-    p: 4,
+    p: 3,
     borderRadius: "md",
     gap: 4,
+    maxH: "200px",
+    overflowY: "auto",
+    border: "1px solid rgb(217, 223, 230)",
+  },
+  createTaskStack: {
+    bg: "rgba(237, 242, 247, 1)",
+    p: 3,
+    borderRadius: "md",
+    border: "1px solid rgb(217, 223, 230)",
   },
   task: {
     bg: "white",

@@ -4,7 +4,7 @@ import { Card, Stack, Progress, Text, Span, Flex, Icon } from "@chakra-ui/react"
 import { Task } from "./Task";
 
 import { styles } from "@/styles/goals/goal.styles";
-import { CircleCheckBig, Ellipsis, Calendar } from "lucide-react";
+import { CircleCheckBig, Ellipsis, Calendar, CircleAlert } from "lucide-react";
 
 import { GoalType } from "@/src/types/goal";
 import { useState, useEffect } from "react";
@@ -89,12 +89,17 @@ export function Goal({
     </Card.Header>
 
     {/* Prazo */}
-    <Flex {...styles.deadline.container}>
+    <Flex {...styles.deadline.container} {...(daysRemaining <= 7 && styles.deadline.completed)}>
       <Icon size="sm">
         <Calendar />
       </Icon>
-      <Text>{daysRemaining} restantes</Text>
+      <Text>{daysRemaining} dias restantes</Text>
 
+      {daysRemaining <= 7 &&
+        <Icon size="sm" ml={"auto"}>
+          <CircleAlert />
+        </Icon>
+      }
     </Flex>
 
     {/* stack de tasks */}
