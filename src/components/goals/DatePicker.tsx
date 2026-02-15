@@ -1,28 +1,40 @@
 "use client"
 
-import { useState } from "react"
-import { DatePicker as DatePickerReact, registerLocale, setDefaultLocale } from "react-datepicker"
-import { Stack, Text, Icon, Flex } from "@chakra-ui/react";
-import { Calendar } from "lucide-react";
-import { ptBR } from 'date-fns/locale/pt-BR';
+import { Stack, Text, Icon, Flex, Input } from "@chakra-ui/react";
+
+import { useState, useEffect } from "react";
+
+import { getDeadline } from "@/src/services/goalService";
+import { formatDate } from "@/src/utilities/dateUtils";
 
 import { styles } from "@/styles/datePicker/datePicker.styles";
 
-registerLocale('pt-br', ptBR);
+export function DatePicker({ goalId }: { goalId: string }) {
 
-import "react-datepicker/dist/react-datepicker.css";
+  // estado que guarda a data do prazo
+  const [deadline, setDeadline] = useState("");
 
-export function DatePicker() {
-  const [startDate, setStartDate] = useState<Date>(new Date());
+  // faz fetch para trazer o prazo da meta quando renderiza
+  useEffect(() => {
+    async function fetchDeadline() {
+      const response = await getDeadline(goalId);
+
+      // converte para YYYY-MM-DD corretamente
+      const isoDate = new Date(response.deadline)
+        .toISOString()
+        .split("T")[0];
+
+      setDeadline(isoDate);
+    }
+
+    fetchDeadline();
+  }, []);
 
   return (
     <Stack {...styles.container}>
       <Text {...styles.text}>Terminar até:</Text>
       <Flex {...styles.calendarContainer}>
-        <Icon size="sm">
-          <Calendar />
-        </Icon>
-        <DatePickerReact selected={startDate} onChange={(date) => setStartDate(date)} locale={"pt-br"} dateFormat="dd/MM/yyyy" />
+        <Input {...styles.dateInput} type="date" value={deadline} />
       </Flex>
     </Stack>
   )

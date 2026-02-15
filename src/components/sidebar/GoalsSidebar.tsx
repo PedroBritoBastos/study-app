@@ -109,7 +109,7 @@ export function GoalsSidebar({ closeSidebar, goal, updateCheckedTask, refreshGoa
     <Stack {...styles.container}>
 
       {/* prazo */}
-      <DatePicker />
+      <DatePicker goalId={goal.id} />
 
       <Stack>
         {/* tasks em andamento */}

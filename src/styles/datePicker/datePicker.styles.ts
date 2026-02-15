@@ -7,7 +7,7 @@ export const styles = {
   },
   calendarContainer: {
     alignItems: "center",
-    gap: 2,
+    gap: 3,
     py: 2,
     px: 4,
     border: "2px solid rgba(203, 213, 224, 1)",
@@ -15,5 +15,9 @@ export const styles = {
     fontWeight: "semibold",
     letterSpacing: 1,
     borderRadius: "md",
+    width: "fit-content",
+  },
+  dateInput: {
+    border: "none",
   },
 };
