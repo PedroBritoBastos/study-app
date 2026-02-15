@@ -179,7 +179,10 @@ export function GoalsSidebar({
         <Progress.Root value={(checkedTasks / allTasks) * 100}>
           <Progress.Track {...styles.progressBar.track}>
             <Progress.Range {...styles.progressBar.range} {...((checkedTasks / allTasks) === 1 && styles.progressBar.completed)}>
-              {goalTasks.length > 0 && (Math.round((checkedTasks / allTasks) * 100) || 0)}%
+              <Text>
+                {goalTasks.length > 0 && (Math.round((checkedTasks / allTasks) * 100) || 0)}
+                {goalTasks.length > 0 && "%"}
+              </Text>
             </Progress.Range>
           </Progress.Track>
         </Progress.Root>
