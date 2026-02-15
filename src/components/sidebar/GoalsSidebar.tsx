@@ -22,9 +22,16 @@ interface Props {
   goal: GoalType;
   updateCheckedTask: (taskId: string, isChecked: boolean) => void;
   refreshGoal: (taskId: string, action: string) => void;
+  updateDeadlineState: (goalId: string, newDeadline: string) => void;
 }
 
-export function GoalsSidebar({ closeSidebar, goal, updateCheckedTask, refreshGoal }: Props) {
+export function GoalsSidebar({
+  closeSidebar,
+  goal,
+  updateCheckedTask,
+  refreshGoal,
+  updateDeadlineState
+}: Props) {
   const router = useRouter();
 
   // estado para guardar as tasks do goal atual
@@ -105,11 +112,17 @@ export function GoalsSidebar({ closeSidebar, goal, updateCheckedTask, refreshGoa
   const allTasks = goalTasks.length;
   const checkedTasks = (goalTasks.filter((task) => task.isChecked)).length;
 
-  return <SidebarContainer header={goal.title} closeSidebar={closeSidebar}>
+  return <SidebarContainer
+    header={goal.title}
+    closeSidebar={closeSidebar}
+  >
     <Stack {...styles.container}>
 
       {/* prazo */}
-      <DatePicker goalId={goal.id} />
+      <DatePicker
+        goalId={goal.id}
+        updateDeadlineState={updateDeadlineState}
+      />
 
       <Stack>
         {/* tasks em andamento */}

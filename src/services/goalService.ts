@@ -40,3 +40,18 @@ export async function getDeadline(id: string) {
 
   return response.json();
 }
+
+// atualiza o deadline de um goal
+export async function updateDeadline(id: string, deadline: string) {
+  const response = await fetch(`/api/goals/deadline/${id}`, {
+    method: "PUT",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ deadline }),
+  });
+
+  if (!response.ok) {
+    throw new Error("Erro ao atualizar deadline");
+  }
+
+  return response.json();
+}

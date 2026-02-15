@@ -21,9 +21,17 @@ interface Props {
   checkedTask: { taskId: string, isChecked: boolean };
   updateCheckedTask: (taskId: string, isChecked: boolean) => void;
   refresh: { taskId: string, action: string };
+  updatedDeadline: { goalId: string, newDeadline: string };
 }
 
-export function Goal({ goal, selectGoal, openSidebar, checkedTask, refresh }: Props) {
+export function Goal({
+  goal,
+  selectGoal,
+  openSidebar,
+  checkedTask,
+  refresh,
+  updatedDeadline
+}: Props) {
 
   // state que guarda as tasks que sao exibidas
   const [tasks, setTasks] = useState(goal.tasks);
@@ -41,7 +49,7 @@ export function Goal({ goal, selectGoal, openSidebar, checkedTask, refresh }: Pr
     }
     fetchDeadline();
 
-  }, [])
+  }, [updatedDeadline])
 
   // toda vez que checkedTask mudar, deve fazer fetch para pegar as tasks atualizadas
   useEffect(() => {
