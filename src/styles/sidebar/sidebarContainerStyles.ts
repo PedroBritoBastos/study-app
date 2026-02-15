@@ -13,6 +13,7 @@ export const styles = {
     px: 6,
     py: 5,
     overflow: "hidden",
+    transition: "transform 0.2s ease-in-out",
   },
 
   header: {

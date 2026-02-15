@@ -24,6 +24,7 @@ interface Props {
   updateCheckedTask: (taskId: string, isChecked: boolean) => void;
   refreshGoal: (taskId: string, action: string) => void;
   updateDeadlineState: (goalId: string, newDeadline: string) => void;
+  isSidebarOpen?: boolean;
 }
 
 export function GoalsSidebar({
@@ -31,7 +32,8 @@ export function GoalsSidebar({
   goal,
   updateCheckedTask,
   refreshGoal,
-  updateDeadlineState
+  updateDeadlineState,
+  isSidebarOpen
 }: Props) {
   const router = useRouter();
 
@@ -116,6 +118,7 @@ export function GoalsSidebar({
   return <SidebarContainer
     header={goal.title}
     closeSidebar={closeSidebar}
+    isSidebarOpen={isSidebarOpen}
   >
     <Stack {...styles.container}>
 

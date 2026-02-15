@@ -12,12 +12,14 @@ type Props = {
   children: React.ReactNode;
   closeSidebar: () => void;
   header: string;
+  isSidebarOpen?: boolean;
 }
 
-export function SidebarContainer({ children, closeSidebar, header }: Props) {
+export function SidebarContainer({ children, closeSidebar, header, isSidebarOpen }: Props) {
   return (
     <Stack
       {...styles.container}
+      transform={isSidebarOpen ? "translateX(0)" : "translateX(100%)"}
     >
       <Flex {...styles.header.container}>
         <Heading {...styles.header.heading}>{header}</Heading>

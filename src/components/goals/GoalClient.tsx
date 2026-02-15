@@ -13,6 +13,7 @@ import { GoalType } from "@/src/types/goal";
 import { useSidebar } from "@/src/hooks/useSidebar";
 import { useGoal } from "@/src/hooks/goalClient/useGoal";
 import { useState } from "react";
+import { Backdrop } from "../backdrop/Backdrop";
 
 export function GoalsClient({ goals }: { goals: GoalType[] }) {
   const sidebarHook = useSidebar();
@@ -64,14 +65,20 @@ export function GoalsClient({ goals }: { goals: GoalType[] }) {
       <CreateButton />
     </Grid>
 
+    {/* backdrop */}
+    <Backdrop
+      isOpen={sidebarHook.isSidebarOpen}
+      onClick={sidebarHook.closeSidebar}
+    />
+
     {/* sidebar */}
-    {sidebarHook.isSidebarOpen &&
-      <GoalsSidebar
-        closeSidebar={sidebarHook.closeSidebar}
-        goal={goalHook.selectedGoal}
-        updateCheckedTask={updateCheckedTask}
-        refreshGoal={refreshGoal}
-        updateDeadlineState={updateDeadlineState}
-      />}
+    <GoalsSidebar
+      closeSidebar={sidebarHook.closeSidebar}
+      goal={goalHook.selectedGoal}
+      updateCheckedTask={updateCheckedTask}
+      refreshGoal={refreshGoal}
+      updateDeadlineState={updateDeadlineState}
+      isSidebarOpen={sidebarHook.isSidebarOpen}
+    />
   </Box>
 }
