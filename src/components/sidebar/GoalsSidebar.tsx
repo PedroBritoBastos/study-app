@@ -3,10 +3,11 @@
 import { SidebarContainer } from "./SidebarContainer";
 import { CreateTaskButton } from "../button/CreateTaskButton";
 import { GoalSidebarTask } from "../goals/GoalSidebarTask";
+import { DatePicker } from "../goals/DatePicker";
 import { Trash } from "lucide-react";
 
 import { GoalType } from "@/src/types/goal";
-import { Text, Stack, Button, Icon, Progress, Span } from "@chakra-ui/react";
+import { Text, Stack, Button, Icon, Progress, Span, Flex } from "@chakra-ui/react";
 
 import { styles } from "@/styles/sidebar/goalsSidebar.styles";
 
@@ -106,6 +107,10 @@ export function GoalsSidebar({ closeSidebar, goal, updateCheckedTask, refreshGoa
 
   return <SidebarContainer header={goal.title} closeSidebar={closeSidebar}>
     <Stack {...styles.container}>
+
+      {/* prazo */}
+      <DatePicker />
+
       <Stack>
         {/* tasks em andamento */}
         <Text {...styles.statusText}>Em andamento</Text>
