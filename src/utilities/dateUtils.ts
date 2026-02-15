@@ -59,3 +59,16 @@ export function formatDate(fullDate: string): string {
     timeZone: "UTC",
   });
 }
+
+// retorna a diferença em dias entre duas datas
+export function diffInDays(date1: string, date2: string): number {
+  const [y1, m1, d1] = date1.split("-").map(Number);
+  const [y2, m2, d2] = date2.split("-").map(Number);
+
+  const utc1 = Date.UTC(y1, m1 - 1, d1);
+  const utc2 = Date.UTC(y2, m2 - 1, d2);
+
+  const diffInMs = utc2 - utc1;
+
+  return Math.floor(diffInMs / (1000 * 60 * 60 * 24));
+}

@@ -40,7 +40,15 @@ export function DatePicker({
   // atualiza o estado quando o valor do input muda
   async function handleDateChange(e: React.ChangeEvent<HTMLInputElement>) {
     const newDate = e.target.value;
-    const response = await updateDeadline(goalId, newDate);
+    const today = new Date().toISOString().split("T")[0];
+
+    // Se a nova data for menor que hoje, deve parar o fluxo
+    if (newDate < today) {
+      setDeadline(today);
+      return;
+    }
+
+    await updateDeadline(goalId, newDate);
     updateDeadlineState(goalId, newDate);
     setDeadline(newDate);
   }

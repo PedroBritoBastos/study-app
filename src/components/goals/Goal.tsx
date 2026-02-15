@@ -12,7 +12,7 @@ import { useState, useEffect } from "react";
 import { getTasks } from "@/src/services/taskService";
 import { getDeadline } from "@/src/services/goalService";
 
-import { formatDate } from "@/src/utilities/dateUtils";
+import { formatDate, diffInDays } from "@/src/utilities/dateUtils";
 
 interface Props {
   goal: GoalType;
@@ -41,15 +41,18 @@ export function Goal({
 
   // faz fetch para pegar o valor da deadline assim que o componente é renderizado
   useEffect(() => {
-
     async function fetchDeadline() {
       const response = await getDeadline(goal.id);
-      const formatedDate = formatDate(response.deadline);
-      setDeadline(formatedDate);
-    }
-    fetchDeadline();
 
-  }, [updatedDeadline])
+      const isoDate = new Date(response.deadline)
+        .toISOString()
+        .split("T")[0];
+
+      setDeadline(isoDate);
+    }
+
+    fetchDeadline();
+  }, [updatedDeadline]);
 
   // toda vez que checkedTask mudar, deve fazer fetch para pegar as tasks atualizadas
   useEffect(() => {
@@ -74,6 +77,9 @@ export function Goal({
   const visibleTasks = tasks.slice(0, 3);
   const remainingTasks = tasks.length - 3;
 
+  // dias restantes para terminar o prazo
+  const daysRemaining = diffInDays(new Date().toISOString().split("T")[0], deadline);
+
   return <Card.Root  {...styles.cardRoot} onClick={handleClick}>
     <Card.Header {...styles.cardHeader}>
       <Text {...styles.goalTitle} {...((checkedTasks / allTasks) === 1 && styles.goalTitleCompleted)}>{goal.title || "Meta"}</Text>
@@ -87,7 +93,8 @@ export function Goal({
       <Icon size="sm">
         <Calendar />
       </Icon>
-      {deadline}
+      <Text>{daysRemaining} restantes</Text>
+
     </Flex>
 
     {/* stack de tasks */}
