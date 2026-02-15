@@ -4,7 +4,7 @@ import { Card, Stack, Progress, Text, Span, Flex, Icon } from "@chakra-ui/react"
 import { Task } from "./Task";
 
 import { styles } from "@/styles/goals/goal.styles";
-import { CircleCheckBig, Ellipsis, Footprints } from "lucide-react";
+import { CircleCheckBig, Ellipsis, Calendar } from "lucide-react";
 
 import { GoalType } from "@/src/types/goal";
 import { useState, useEffect } from "react";
@@ -54,8 +54,16 @@ export function Goal({ goal, selectGoal, openSidebar, checkedTask, refresh }: Pr
       </Icon>
     </Card.Header>
 
+    {/* Prazo */}
+    <Flex {...styles.deadline.container}>
+      <Icon size="sm">
+        <Calendar />
+      </Icon>
+      2 dias restantes
+    </Flex>
+
     {/* stack de tasks */}
-    <Stack my={"auto"}>
+    <Stack {...styles.tasksStack}>
       {tasks.map((task) => (<Task key={task.id} task={task} isChecked={task.isChecked} />))}
     </Stack>
 

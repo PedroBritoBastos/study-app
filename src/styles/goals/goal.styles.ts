@@ -2,7 +2,7 @@ export const styles = {
   cardRoot: {
     bg: "white",
     w: "100%",
-    h: "15rem",
+    h: "19rem",
     borderRadius: "2xl",
     padding: 5,
     borderColor: "gray.200",
@@ -30,6 +30,28 @@ export const styles = {
   },
   goalTitleCompleted: {
     color: "green.400",
+  },
+  deadline: {
+    container: {
+      mb: 4,
+      gap: 2,
+      alignItems: "center",
+      py: 1,
+      px: 2,
+      border: "2px solid rgba(85, 60, 154, 1)",
+      bg: "purple.300",
+      fontSize: "sm",
+      borderRadius: "md",
+      color: "purple.800",
+      fontWeight: "semibold",
+    },
+  },
+  tasksStack: {
+    my: "auto",
+    justifyContent: "flex-start",
+    height: "100%",
+    width: "100%",
+    overflow: "hidden",
   },
   progressContainer: {
     justify: "space-between",
