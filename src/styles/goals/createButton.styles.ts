@@ -30,7 +30,8 @@ export const styles = {
   },
   createLabel: {
     color: "purple.700",
-    mb: 3,
+    mb: 2,
+    mt: 3,
   },
   createModeButtonContainer: {
     gap: 3,
