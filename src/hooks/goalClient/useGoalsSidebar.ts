@@ -2,6 +2,7 @@ import { useRouter } from "next/navigation";
 import { useState, useEffect } from "react";
 
 import { GoalType } from "@/src/types/goal";
+import { TaskType } from "@/src/types/task";
 import { getTasks } from "@/src/services/taskService";
 import { deleteGoal } from "@/src/services/goalService";
 
@@ -31,11 +32,11 @@ export function useGoalsSidebar({
     updateCheckedTask(taskId, isChecked);
   }
 
-  function updateDeletedTask(task) {
+  function updateDeletedTask(task: TaskType) {
     setDeletedTask(task);
   }
 
-  function handleAddTask(task) {
+  function handleAddTask(task: TaskType) {
     setAddedTask(task);
   }
 
