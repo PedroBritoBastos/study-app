@@ -4,13 +4,9 @@ import { Flex, Text, IconButton } from "@chakra-ui/react";
 import { Check, X } from "lucide-react";
 
 import { styles } from "@/styles/goals/goalsSidebarTask.styles";
-
 import { TaskType } from "@/src/types/task";
 
-import { deleteTask, checkTask, getTaskStatus } from "@/src/services/taskService";
-
-import { useRouter } from "next/navigation";
-import { useState, useEffect } from "react";
+import { useGoalSidebarTask } from "@/src/hooks/goalClient/useGoalSidebarTask";
 
 interface Props {
   task: TaskType;
@@ -19,52 +15,49 @@ interface Props {
   refreshGoal: (taskId: string, action: string) => void;
 }
 
-export function GoalSidebarTask({ task, updateDeletedTask, updateCheckedTask, refreshGoal }: Props) {
-  // state para gerenciar estado do status da task
-  const [checked, setChecked] = useState(false);
-  const [checkedTask, setCheckedTask] = useState(false);
+export function GoalSidebarTask({
+  task,
+  updateDeletedTask,
+  updateCheckedTask,
+  refreshGoal,
+}: Props) {
 
-  const router = useRouter();
+  const {
+    checked,
+    handleDeleteTask,
+    handleCheckTask,
+  } = useGoalSidebarTask({
+    task,
+    updateDeletedTask,
+    updateCheckedTask,
+    refreshGoal,
+  });
 
-  // envia a requisição para a api e atualiza o estado de deletedTask
-  async function handleDeleteTask() {
-    const response = await deleteTask(task.id);
-    updateDeletedTask(response);
-    refreshGoal(response.id, "delete");
-    router.refresh();
-  }
+  return (
+    <Flex {...styles.container} {...(checked && styles.checkedContainer)}>
 
-  async function handleCheckTask() {
-    const response = await checkTask(task.id, checked);
+      <Text>{task.title}</Text>
 
-    const newValue = !checked;
-    setCheckedTask(!checkedTask);
+      <Flex {...styles.buttons.container}>
+        <IconButton
+          size="xs"
+          {...styles.buttons.deleteButton}
+          {...(checked && styles.buttons.checkedStyle)}
+          onClick={handleDeleteTask}
+        >
+          <X />
+        </IconButton>
 
-    updateCheckedTask(task.id, newValue);
-  }
+        <IconButton
+          size="xs"
+          {...styles.buttons.checkButton}
+          {...(checked && styles.buttons.checkedStyle)}
+          onClick={handleCheckTask}
+        >
+          {checked && <Check />}
+        </IconButton>
+      </Flex>
 
-  // sempre que a task for checada, deve fazer fetch novamente
-  useEffect(() => {
-    async function fetchTaskStatus() {
-      const status = await getTaskStatus(task.id);
-      setChecked(status);
-    }
-    fetchTaskStatus();
-  }, [checkedTask])
-
-  return <Flex {...styles.container} {...(checked && styles.checkedContainer)}>
-
-    {/* nome da tarefa */}
-    <Text>{task.title}</Text>
-
-    {/* botoes */}
-    <Flex {...styles.buttons.container}>
-      <IconButton size="xs" {...styles.buttons.deleteButton} {...(checked && styles.buttons.checkedStyle)} onClick={handleDeleteTask}>
-        <X />
-      </IconButton>
-      <IconButton size="xs" {...styles.buttons.checkButton} {...(checked && styles.buttons.checkedStyle)} onClick={handleCheckTask}>
-        {checked && <Check />}
-      </IconButton>
     </Flex>
-  </Flex>
+  );
 }
