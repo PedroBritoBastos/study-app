@@ -1,34 +1,53 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
+import { GoalType } from "@/src/types/goal";
 
 export function useGoalClient() {
-  // state que monitora quando uma task é checada
-  const [checkedTask, setCheckedTask] = useState({});
+  // meta selecionada
+  const [selectedGoal, setSelectedGoal] = useState<GoalType>({
+    id: "",
+    title: "",
+    userId: "",
+    tasks: [],
+    deadline: new Date(),
+  });
 
-  // state que monitora quando uma task é deletada ou criada
-  const [refresh, setRefresh] = useState({ taskId: "", action: "" });
+  // monitora quando uma task é checada
+  const [checkedTask, setCheckedTask] = useState({
+    taskId: "",
+    isChecked: false,
+  });
 
-  // state que monitora quando uma deadline é atualizada
+  // monitora quando uma task é criada/deletada
+  const [refresh, setRefresh] = useState({
+    taskId: "",
+    action: "",
+  });
+
+  // monitora quando a deadline é atualizada
   const [updatedDeadline, setUpdatedDeadline] = useState({
     goalId: "",
     newDeadline: "",
   });
 
-  // função que atualiza a Goal
+  function selectGoal(goal: GoalType): void {
+    setSelectedGoal(goal);
+  }
+
   function refreshGoal(taskId: string, action: string): void {
     setRefresh({ taskId, action });
   }
 
-  // função que atualiza checkedTask
   function updateCheckedTask(taskId: string, isChecked: boolean): void {
     setCheckedTask({ taskId, isChecked });
   }
 
-  // função que atualiza updatedDeadline
   function updateDeadlineState(goalId: string, newDeadline: string): void {
     setUpdatedDeadline({ goalId, newDeadline });
   }
 
   return {
+    selectedGoal,
+    selectGoal,
     refreshGoal,
     updateCheckedTask,
     updateDeadlineState,

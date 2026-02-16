@@ -1,27 +1,21 @@
 "use client"
 
-import { Card, Stack, Progress, Text, Span, Flex, Icon } from "@chakra-ui/react"
+import { Card, Stack, Progress, Text, Span, Flex, Icon } from "@chakra-ui/react";
 import { Task } from "./Task";
 
 import { styles } from "@/styles/goals/goal.styles";
 import { CircleCheckBig, Ellipsis, Calendar, CircleAlert } from "lucide-react";
 
 import { GoalType } from "@/src/types/goal";
-import { useState, useEffect } from "react";
-
-import { getTasks } from "@/src/services/taskService";
-import { getDeadline } from "@/src/services/goalService";
-
-import { formatDate, diffInDays } from "@/src/utilities/dateUtils";
+import { useGoal } from "@/src/hooks/goalClient/useGoal";
 
 interface Props {
   goal: GoalType;
   selectGoal: (goal: GoalType) => void;
   openSidebar: () => void;
-  checkedTask: { taskId: string, isChecked: boolean };
-  updateCheckedTask: (taskId: string, isChecked: boolean) => void;
-  refresh: { taskId: string, action: string };
-  updatedDeadline: { goalId: string, newDeadline: string };
+  checkedTask: { taskId: string; isChecked: boolean };
+  refresh: { taskId: string; action: string };
+  updatedDeadline: { goalId: string; newDeadline: string };
 }
 
 export function Goal({
@@ -30,106 +24,111 @@ export function Goal({
   openSidebar,
   checkedTask,
   refresh,
-  updatedDeadline
+  updatedDeadline,
 }: Props) {
 
-  // state que guarda as tasks que sao exibidas
-  const [tasks, setTasks] = useState(goal.tasks);
-
-  // state que guarda o valor da deadline
-  const [deadline, setDeadline] = useState("");
-
-  // faz fetch para pegar o valor da deadline assim que o componente é renderizado
-  useEffect(() => {
-    async function fetchDeadline() {
-      const response = await getDeadline(goal.id);
-
-      const isoDate = new Date(response.deadline)
-        .toISOString()
-        .split("T")[0];
-
-      setDeadline(isoDate);
-    }
-
-    fetchDeadline();
-  }, [updatedDeadline]);
-
-  // toda vez que checkedTask mudar, deve fazer fetch para pegar as tasks atualizadas
-  useEffect(() => {
-
-    async function fetchTasks() {
-      const response = await getTasks(goal.id);
-      setTasks(response);
-    }
-    fetchTasks();
-
-  }, [checkedTask, refresh])
+  const {
+    tasks,
+    allTasks,
+    checkedTasks,
+    visibleTasks,
+    remainingTasks,
+    daysRemaining,
+  } = useGoal({
+    goal,
+    checkedTask,
+    refresh,
+    updatedDeadline,
+  });
 
   function handleClick() {
     selectGoal(goal);
     openSidebar();
   }
 
-  const allTasks = tasks.length;
-  const checkedTasks = tasks.filter((task) => task.isChecked).length;
+  const progressValue =
+    allTasks === 0 ? 0 : (checkedTasks / allTasks) * 100;
 
-  // tarefas visiveis
-  const visibleTasks = tasks.slice(0, 3);
-  const remainingTasks = tasks.length - 3;
+  const isCompleted =
+    allTasks > 0 && checkedTasks === allTasks;
 
-  // dias restantes para terminar o prazo
-  const daysRemaining = diffInDays(new Date().toISOString().split("T")[0], deadline);
+  return (
+    <Card.Root {...styles.cardRoot} onClick={handleClick}>
 
-  return <Card.Root  {...styles.cardRoot} onClick={handleClick}>
-    <Card.Header {...styles.cardHeader}>
-      <Text {...styles.goalTitle} {...((checkedTasks / allTasks) === 1 && styles.goalTitleCompleted)}>{goal.title || "Meta"}</Text>
-      <Icon {...((checkedTasks / allTasks) === 1 && styles.goalTitleCompleted)}>
-        {(checkedTasks / allTasks) === 1 ? <CircleCheckBig /> : <Ellipsis />}
-      </Icon>
-    </Card.Header>
-
-    {/* Prazo */}
-    <Flex {...styles.deadline.container} {...(daysRemaining <= 7 && styles.deadline.completed)}>
-      <Icon size="sm">
-        <Calendar />
-      </Icon>
-      <Text>{daysRemaining} dias restantes</Text>
-
-      {daysRemaining <= 7 &&
-        <Icon size="sm" ml={"auto"}>
-          <CircleAlert />
-        </Icon>
-      }
-    </Flex>
-
-    {/* stack de tasks */}
-    <Stack {...styles.tasksStack}>
-
-      {/* apenas as 3 primeiras tasks */}
-      {visibleTasks.map((task) => (
-        <Task key={task.id} task={task} isChecked={task.isChecked} />
-      ))}
-
-      {/* quantidade de tasks restantes quando houver mais de 3 tasks */}
-      {tasks.length > 3 && (
-        <Text fontSize="sm" color="gray.500">
-          ..mais {remainingTasks}
+      <Card.Header {...styles.cardHeader}>
+        <Text
+          {...styles.goalTitle}
+          {...(isCompleted && styles.goalTitleCompleted)}
+        >
+          {goal.title || "Meta"}
         </Text>
-      )}
-    </Stack>
 
-    {/* Barra de progresso e indicação das tarefas feitas */}
-    <Flex {...styles.progressContainer} >
-      <Progress.Root  {...styles.progressBar.progressRoot} value={(checkedTasks / allTasks) * 100} size={"lg"}>
-        <Progress.Track {...styles.progressBar.progressTrack} >
-          <Progress.Range  {...styles.progressBar.range} {...((checkedTasks / allTasks) === 1 && styles.progressBar.completed)}>
-            {Math.round((checkedTasks / allTasks) * 100) || 0}%
-          </Progress.Range>
-        </Progress.Track>
-      </Progress.Root>
+        <Icon {...(isCompleted && styles.goalTitleCompleted)}>
+          {isCompleted ? <CircleCheckBig /> : <Ellipsis />}
+        </Icon>
+      </Card.Header>
 
-      <Text {...styles.completedTasks} {...((checkedTasks / allTasks) === 1 && styles.completedAllTasks)}><Span {...styles.completedTasksSpan}>{checkedTasks}</Span> / {allTasks}</Text>
-    </Flex>
+      <Flex
+        {...styles.deadline.container}
+        {...(daysRemaining <= 7 && styles.deadline.completed)}
+      >
+        <Icon size="sm">
+          <Calendar />
+        </Icon>
 
-  </Card.Root>
+        <Text>{daysRemaining} dias restantes</Text>
+
+        {daysRemaining <= 7 && (
+          <Icon size="sm" ml="auto">
+            <CircleAlert />
+          </Icon>
+        )}
+      </Flex>
+
+      <Stack {...styles.tasksStack}>
+        {visibleTasks.map((task) => (
+          <Task
+            key={task.id}
+            task={task}
+            isChecked={task.isChecked}
+          />
+        ))}
+
+        {tasks.length > 3 && (
+          <Text fontSize="sm" color="gray.500">
+            ..mais {remainingTasks}
+          </Text>
+        )}
+      </Stack>
+
+      <Flex {...styles.progressContainer}>
+        <Progress.Root
+          {...styles.progressBar.progressRoot}
+          value={progressValue}
+          size="lg"
+        >
+          <Progress.Track {...styles.progressBar.progressTrack}>
+            <Progress.Range
+              {...styles.progressBar.range}
+              {...(isCompleted && styles.progressBar.completed)}
+            >
+              {Math.round(progressValue)}%
+            </Progress.Range>
+          </Progress.Track>
+        </Progress.Root>
+
+        <Text
+          {...styles.completedTasks}
+          {...(isCompleted && styles.completedAllTasks)}
+        >
+          <Span {...styles.completedTasksSpan}>
+            {checkedTasks}
+          </Span>
+          {" / "}
+          {allTasks}
+        </Text>
+      </Flex>
+
+    </Card.Root>
+  );
 }
