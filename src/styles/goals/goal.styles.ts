@@ -14,7 +14,7 @@ export const styles = {
     },
   },
   cardHeader: {
-    fontSize: "xl",
+    fontSize: "lg",
     color: "purple.800",
     fontWeight: "semibold",
     flexDirection: "row",
