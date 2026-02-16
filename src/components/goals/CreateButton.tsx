@@ -1,65 +1,71 @@
 "use client"
 
 import { Card, Text, Field, Input, Button, Flex } from "@chakra-ui/react";
-
-import { styles } from "@/styles/goals/createButton.styles";
 import { Plus } from "lucide-react";
 
-import { create } from "@/src/services/goalService";
-
-import { useState } from "react";
-import { useRouter } from "next/navigation";
+import { styles } from "@/styles/goals/createButton.styles";
+import { useCreateButton } from "@/src/hooks/goalClient/useCreateButton";
 
 export function CreateButton() {
-  const [createMode, setCreateMode] = useState(false);
-  const [goalTitle, setGoalTitle] = useState("");
-  const [deadline, setDeadline] = useState(new Date());
 
-  const router = useRouter();
+  const {
+    createMode,
+    setCreateMode,
+    goalTitle,
+    setGoalTitle,
+    deadline,
+    setDeadline,
+    handleCreate,
+    handleCancel,
+  } = useCreateButton();
 
-  async function handleCreate() {
-    try {
-      const response = await create(goalTitle, deadline);
-      setGoalTitle("");
-      router.refresh();
-      setCreateMode(false);
-      setDeadline(new Date());
-    } catch (error) {
-      console.log(error.message)
-    }
-  }
+  return (
+    <Card.Root
+      {...styles.cardRoot}
+      {...(createMode && styles.createMode)}
+      onClick={() => setCreateMode(true)}
+    >
+      {createMode ? (
+        <>
+          <Field.Root>
+            <Field.Label {...styles.createLabel}>Título</Field.Label>
+            <Input
+              {...styles.input}
+              type="text"
+              value={goalTitle}
+              onChange={(e) => setGoalTitle(e.target.value)}
+            />
 
-  function handleCancel(e) {
-    e.stopPropagation();
-    setCreateMode(false);
-    setDeadline(new Date());
-  }
+            <Field.Label {...styles.createLabel}>Prazo</Field.Label>
+            <Input
+              type="date"
+              value={deadline}
+              onChange={(e) => setDeadline(e.target.value)}
+            />
+          </Field.Root>
 
-  return <Card.Root {...styles.cardRoot} {...(createMode && styles.createMode)} onClick={() => setCreateMode(true)} >
-    {createMode ? <>
-      <Field.Root>
-        <Field.Label {...styles.createLabel}>Título</Field.Label>
-        <Input {...styles.input}
-          type="text"
-          value={goalTitle}
-          onChange={(e) => setGoalTitle(e.target.value)}
-        />
+          <Flex {...styles.createModeButtonContainer}>
+            <Button
+              {...styles.createModeCancelButton}
+              onClick={handleCancel}
+            >
+              Cancelar
+            </Button>
 
-        <Field.Label {...styles.createLabel}>Prazo</Field.Label>
-        <Input
-          type="date"
-          value={deadline}
-          onChange={(e) => setDeadline(e.target.value)}
-        />
-      </Field.Root>
-      <Flex {...styles.createModeButtonContainer}>
-        <Button {...styles.createModeCancelButton} onClick={handleCancel}>Cancelar</Button>
-        <Button {...styles.createModeAddButton} onClick={handleCreate}>Adicionar</Button>
-      </Flex>
-    </> : <>
-      < Plus {...styles.icon} />
-      < Text {...styles.text}> Criar nova meta</Text >
-    </>
-    }
-  </Card.Root >
+            <Button
+              {...styles.createModeAddButton}
+              onClick={handleCreate}
+            >
+              Adicionar
+            </Button>
+          </Flex>
+        </>
+      ) : (
+        <>
+          <Plus {...styles.icon} />
+          <Text {...styles.text}> Criar nova meta</Text>
+        </>
+      )}
+    </Card.Root>
+  );
 }
