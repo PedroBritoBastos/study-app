@@ -17,8 +17,8 @@ import { useGoalClient } from "@/src/hooks/goalClient/useGoalClient";
 import { Backdrop } from "../backdrop/Backdrop";
 
 export function GoalsClient({ goals }: { goals: GoalType[] }) {
-  const sidebarHook = useSidebar();
-  const goalHook = useGoal();
+  const { openSidebar, closeSidebar, isSidebarOpen } = useSidebar();
+  const { selectGoal, selectedGoal } = useGoal();
 
   const {
     refreshGoal,
@@ -39,8 +39,8 @@ export function GoalsClient({ goals }: { goals: GoalType[] }) {
           <Goal
             key={goal.id}
             goal={goal}
-            selectGoal={goalHook.selectGoal}
-            openSidebar={sidebarHook.openSidebar}
+            selectGoal={selectGoal}
+            openSidebar={openSidebar}
             checkedTask={checkedTask}
             updateCheckedTask={updateCheckedTask}
             refresh={refresh}
@@ -53,18 +53,18 @@ export function GoalsClient({ goals }: { goals: GoalType[] }) {
 
     {/* backdrop */}
     <Backdrop
-      isOpen={sidebarHook.isSidebarOpen}
-      onClick={sidebarHook.closeSidebar}
+      isOpen={isSidebarOpen}
+      onClick={closeSidebar}
     />
 
     {/* sidebar */}
     <GoalsSidebar
-      closeSidebar={sidebarHook.closeSidebar}
-      goal={goalHook.selectedGoal}
+      closeSidebar={closeSidebar}
+      goal={selectedGoal}
       updateCheckedTask={updateCheckedTask}
       refreshGoal={refreshGoal}
       updateDeadlineState={updateDeadlineState}
-      isSidebarOpen={sidebarHook.isSidebarOpen}
+      isSidebarOpen={isSidebarOpen}
     />
   </Box>
 }
