@@ -12,36 +12,22 @@ import { GoalType } from "@/src/types/goal";
 
 import { useSidebar } from "@/src/hooks/useSidebar";
 import { useGoal } from "@/src/hooks/goalClient/useGoal";
-import { useState } from "react";
+import { useGoalClient } from "@/src/hooks/goalClient/useGoalClient";
+
 import { Backdrop } from "../backdrop/Backdrop";
 
 export function GoalsClient({ goals }: { goals: GoalType[] }) {
   const sidebarHook = useSidebar();
   const goalHook = useGoal();
 
-  // state que monitora quando uma task é checada
-  const [checkedTask, setCheckedTask] = useState({});
-
-  // state que monitora quando uma task é deletada ou criada
-  const [refresh, setRefresh] = useState({ taskId: "", action: "" });
-
-  // state que monitora quando uma deadline é atualizada
-  const [updatedDeadline, setUpdatedDeadline] = useState({ goalId: "", newDeadline: "" });
-
-  // função que atualiza a Goal
-  function refreshGoal(taskId: string, action: string): void {
-    setRefresh({ taskId, action });
-  }
-
-  // função que atualiza checkedTask
-  function updateCheckedTask(taskId: string, isChecked: boolean): void {
-    setCheckedTask({ taskId, isChecked });
-  }
-
-  // função que atualiza updatedDeadline
-  function updateDeadlineState(goalId: string, newDeadline: string): void {
-    setUpdatedDeadline({ goalId, newDeadline });
-  }
+  const {
+    refreshGoal,
+    updateCheckedTask,
+    updateDeadlineState,
+    checkedTask,
+    refresh,
+    updatedDeadline,
+  } = useGoalClient();
 
   return <Box  {...styles.container}>
     <Heading {...styles.heading}>Minhas metas</Heading>

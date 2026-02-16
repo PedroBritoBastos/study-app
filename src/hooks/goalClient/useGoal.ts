@@ -8,6 +8,7 @@ export function useGoal() {
     title: "",
     userId: "",
     tasks: [],
+    deadline: new Date(),
   });
 
   // seleciona a meta
