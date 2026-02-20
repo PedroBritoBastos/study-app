@@ -11,11 +11,12 @@ datasource db {
 }
 
 model User {
-  id       String    @id @default(cuid())
-  username String    @unique
-  password String
-  subjects Subject[]
-  goals    Goal[]
+  id        String     @id @default(cuid())
+  username  String     @unique
+  password  String
+  subjects  Subject[]
+  goals     Goal[]
+  schedules Schedule[]
 
   @@map("users")
 }
@@ -56,4 +57,34 @@ model Goal {
 
   @@map("goals")
 }
+
+model Schedule {
+  id           String   @id @default(cuid())
+  title        String
+
+  scheduleDay  DateTime
+
+  createdAt    DateTime @default(now())
+
+  userId String
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  tasks  ScheduleTask[]
+
+  @@map("schedules")
+}
+
+model ScheduleTask {
+  id            String    @id @default(cuid())
+  title         String
+  isChecked     Boolean   @default(false)
+
+  executionTime DateTime?
+
+  scheduleId String
+  schedule   Schedule @relation(fields: [scheduleId], references: [id], onDelete: Cascade)
+
+  @@map("schedule_tasks")
+}
+
 
