@@ -24,7 +24,7 @@ export default async function Home() {
   });
 
   return <>
-    <Flex flex={1}>
+    <Flex flex={1} w={"100%"}>
       <Navbar />
       {auth && <HomeClient subjects={subjects} />}
     </Flex>

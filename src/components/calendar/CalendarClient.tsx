@@ -41,7 +41,16 @@ export function CalendarClient({ subjects }: { subjects: SubjectType[] }) {
 
     {/* grid de dias */}
     <Grid {...styles.grid}>
-      {getDaysOfMonth(calendarHook.year, calendarHook.month).map((day) => (<Day key={day.getDate()} subjects={subjects} currentDate={day} openSidebar={sidebarHook.openSidebar} selectDay={calendarHook.selectDay} selectedDay={calendarHook.getSelectedDay()} />))}
+      {getDaysOfMonth(calendarHook.year, calendarHook.month).map((day) => (
+        <Day
+          key={day.getDate()}
+          subjects={subjects}
+          currentDate={day}
+          openSidebar={sidebarHook.openSidebar}
+          selectDay={calendarHook.selectDay}
+          selectedDay={calendarHook.getSelectedDay()}
+        />
+      ))}
     </Grid>
 
     {/* backdrop */}

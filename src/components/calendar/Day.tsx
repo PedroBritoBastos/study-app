@@ -23,7 +23,13 @@ type Props = {
   selectedDay: DayType;
 }
 
-export function Day({ subjects, currentDate, openSidebar, selectDay, selectedDay }: Props) {
+export function Day({
+  subjects,
+  currentDate,
+  openSidebar,
+  selectDay,
+  selectedDay
+}: Props) {
   // hooks
   const dayHook = useDay();
   const reviewsHook = useReviews();
