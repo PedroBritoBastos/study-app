@@ -11,13 +11,12 @@ export async function POST(request: NextRequest) {
     }
 
     const body = await request.json();
-    const { title, scheduleDay, tasks } = body;
+    const { scheduleDay, tasks } = body;
 
     const formatedScheduleDay = new Date(scheduleDay);
 
     const schedule = await prisma.schedule.create({
       data: {
-        title,
         scheduleDay: formatedScheduleDay,
         userId: user.id,
         tasks:

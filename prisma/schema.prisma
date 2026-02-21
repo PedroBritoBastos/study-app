@@ -60,7 +60,6 @@ model Goal {
 
 model Schedule {
   id           String   @id @default(cuid())
-  title        String
 
   scheduleDay  DateTime
 
