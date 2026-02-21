@@ -1,4 +1,6 @@
 import { Navbar } from "@/src/components/navbar/Navbar"
+import { Schedule } from "@/src/components/schedulePage/Schedule";
+
 import { isAuthenticated } from "@/src/utilities/authUtils";
 import { redirect } from "next/navigation";
 import { getUserFromToken } from "../api/_helpers/getUserByToken";
@@ -17,7 +19,7 @@ export default async function SchedulePage() {
 
   return <>
     <Navbar />
-    SchedulePage
+    <Schedule />
   </>
 }
 
