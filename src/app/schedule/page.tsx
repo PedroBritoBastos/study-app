@@ -1,5 +1,6 @@
 import { Navbar } from "@/src/components/navbar/Navbar"
 import { Schedule } from "@/src/components/schedulePage/Schedule";
+import { Stack } from "@chakra-ui/react";
 
 import { isAuthenticated } from "@/src/utilities/authUtils";
 import { redirect } from "next/navigation";

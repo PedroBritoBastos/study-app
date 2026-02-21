@@ -6,6 +6,7 @@ export const styles = {
     p: 6,
     flexDirection: "column",
     justify: "space-between",
+    height: "100%",
   },
   optionsContainer: {
     gap: 4,

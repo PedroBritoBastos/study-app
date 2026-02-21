@@ -1,13 +1,10 @@
 import { Stack, Text, Box, Separator, Flex } from "@chakra-ui/react"
 
-
-
 const styles = {
   container: {
-    gap: 0
+    gap: 0,
   },
   dateContainer: {
-    //height: "50px",
     position: "relative",
     display: "flex",
     alignItems: "center",
@@ -74,20 +71,21 @@ interface Props {
 }
 
 export function Column({ date, dayOfWeek }: Props) {
-  return <Stack {...styles.container} >
+  return (
+    <Stack {...styles.container} >
+      {/* date container */}
+      <Box {...styles.dateContainer}>
+        <Separator {...styles.separator} />
+        <Text {...styles.date}>{date}</Text>
+        <Box {...styles.decorativeCircle} {...styles.decorativeCircleLeft}></Box>
+        <Box {...styles.decorativeCircle} {...styles.decorativeCircleRight}></Box>
+      </Box>
 
-    {/* date container */}
-    <Box {...styles.dateContainer}>
-      <Separator {...styles.separator} />
-      <Text {...styles.date}>{date}</Text>
-      <Box {...styles.decorativeCircle} {...styles.decorativeCircleLeft}></Box>
-      <Box {...styles.decorativeCircle} {...styles.decorativeCircleRight}></Box>
-    </Box>
+      <Text {...styles.dayOfWeek}>{dayOfWeek}</Text>
+      {/* schedule tasks container */}
+      <Stack {...styles.scheduleTasksContainer}>
 
-    <Text {...styles.dayOfWeek}>{dayOfWeek}</Text>
-    {/* schedule tasks container */}
-    <Stack {...styles.scheduleTasksContainer}>
-
+      </Stack>
     </Stack>
-  </Stack>
+  )
 }
