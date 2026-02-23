@@ -48,7 +48,7 @@ export function CreateButton() {
   const handleSave = () => { }
 
   return (
-    <Dialog.Root size="md" placement="center" motionPreset="slide-in-bottom" >
+    <Dialog.Root size="md" placement="center" motionPreset="slide-in-bottom">
       <Dialog.Trigger asChild>
         <Button variant="outline" size="sm">
           Criar cronograma
