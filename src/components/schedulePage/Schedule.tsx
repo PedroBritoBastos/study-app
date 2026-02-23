@@ -1,7 +1,8 @@
 "use client"
 
-import { Stack, Grid } from "@chakra-ui/react"
+import { Stack, Grid, Flex } from "@chakra-ui/react"
 import { Column } from "./Column"
+import { CreateButton } from "./createSchedule/CreateButton"
 
 import { getDaysOfMonth, formatDate } from "@/src/utilities/dateUtils"
 
@@ -38,6 +39,12 @@ export function Schedule() {
 
   return (
     <Stack {...styles.container}>
+
+      {/* Criar Schedule */}
+      <Flex>
+        <CreateButton />
+      </Flex>
+
       <Grid {...styles.grid} className={scrollStyles["scrollbar"]}>
         {getDaysOfMonth(year, month).map((date, index) => (
           <Column
