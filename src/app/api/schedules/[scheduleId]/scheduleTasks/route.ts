@@ -2,13 +2,13 @@ import { NextResponse, NextRequest } from "next/server";
 import { prisma } from "../../../../../../prisma/prisma";
 import { getUserFromToken } from "../../../_helpers/getUserByToken";
 
-// api/schedules/:id get
+// api/schedules/:scheduleId get
 export async function GET(
   request: Request,
-  { params }: { params: { id: string } },
+  { params }: { params: { scheduleId: string } },
 ) {
   try {
-    const { id } = await params;
+    const { scheduleId } = await params;
     const user = await getUserFromToken();
 
     // valida o usuário
@@ -19,7 +19,7 @@ export async function GET(
     // procura a schedule no banco
     const schedule = await prisma.schedule.findFirst({
       where: {
-        id: id,
+        id: scheduleId,
         userId: user.id,
       },
     });
@@ -35,7 +35,7 @@ export async function GET(
     // busca as schedule tasks
     const scheduleTasks = await prisma.scheduleTask.findMany({
       where: {
-        scheduleId: id,
+        scheduleId: scheduleId,
       },
     });
 

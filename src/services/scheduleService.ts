@@ -22,3 +22,17 @@ export async function createSchedule(data: ScheduleData) {
 
   return response.json();
 }
+
+// pega todas as tasks da schedule pelo id
+export async function getTasks(scheduleId: string) {
+  const response = await fetch(`/api/schedules/${scheduleId}/scheduleTasks`, {
+    method: "GET",
+    headers: { "Content-Type": "application/json" },
+  });
+
+  if (!response.ok) {
+    throw new Error("Erro ao buscar tasks da schedule");
+  }
+
+  return response.json();
+}

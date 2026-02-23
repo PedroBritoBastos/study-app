@@ -1,4 +1,13 @@
-import { Stack, Text, Box, Separator, Flex } from "@chakra-ui/react"
+"use client"
+
+import { Stack, Text, Box, Separator } from "@chakra-ui/react"
+import { ScheduleTask } from "./ScheduleTask";
+
+import { ScheduleProps } from "@/src/types/schedule";
+import { ScheduleTaskProps } from "@/src/types/scheduleTask";
+
+import { useState, useEffect } from "react";
+import { getTasks } from "@/src/services/scheduleService";
 
 const styles = {
   container: {
@@ -47,7 +56,8 @@ const styles = {
     ml: 1.5,
     mr: 1.5,
     bg: "rgba(255, 255, 255, 0.7)",
-    borderRadius: "md"
+    borderRadius: "md",
+    p: 4
   },
   dayOfWeek: {
     textAlign: "center",
@@ -68,9 +78,27 @@ const styles = {
 interface Props {
   date: string;
   dayOfWeek: string;
+  schedule: ScheduleProps | undefined;
 }
 
-export function Column({ date, dayOfWeek }: Props) {
+export function Column({ date, dayOfWeek, schedule }: Props) {
+  const [tasks, setTasks] = useState<ScheduleTaskProps[]>();
+
+  // faz o fetch para buscar as tarefas 
+  useEffect(() => {
+    if (!schedule) return; // verificando se existe schedule
+
+    const fetchTasks = async () => {
+      try {
+        const response = await getTasks(schedule.id);
+        setTasks(response);
+      } catch (error) {
+        console.log("Erro ao buscar tarefas." + error);
+      }
+    }
+    fetchTasks();
+  }, [])
+
   return (
     <Stack {...styles.container} >
       {/* date container */}
@@ -84,7 +112,12 @@ export function Column({ date, dayOfWeek }: Props) {
       <Text {...styles.dayOfWeek}>{dayOfWeek}</Text>
       {/* schedule tasks container */}
       <Stack {...styles.scheduleTasksContainer}>
-
+        {tasks && tasks.map((task) => (
+          <ScheduleTask
+            key={task.id}
+            title={task.title}
+          />
+        ))}
       </Stack>
     </Stack>
   )

@@ -70,13 +70,21 @@ export function Schedule({ schedules }: Props) {
       </Flex>
 
       <Grid {...styles.grid} className={scrollStyles["scrollbar"]}>
-        {getDaysOfMonth(year, month).map((date, index) => (
-          <Column
+        {getDaysOfMonth(year, month).map((date, index) => {
+          const formattedDate = formatDate(date.toISOString()).slice(0, 5)
+
+          const scheduleForDay: ScheduleProps | undefined = schedules.find(schedule =>
+            formatDate(schedule.scheduleDay.toISOString()).slice(0, 5) === formattedDate
+          )
+
+          return (<Column
             key={index}
             date={formatDate(date.toISOString()).slice(0, 5)}
             dayOfWeek={date.toLocaleDateString("pt-BR", { weekday: "long" }).slice(0, 3).toUpperCase()}
+            schedule={scheduleForDay}
           />
-        ))}
+          )
+        })}
       </Grid>
     </Stack>
   )
