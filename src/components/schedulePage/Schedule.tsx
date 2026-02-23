@@ -10,6 +10,8 @@ import scrollStyles from "@/styles/sidebar/scroll.module.css";
 
 import { useSchedule } from "@/src/hooks/schedulePage/schedule/useSchedule"
 
+import { ScheduleProps } from "@/src/types/schedule"
+
 const styles = {
   container: {
     gap: 0,
@@ -32,7 +34,11 @@ const styles = {
 
 import { useState } from "react"
 
-export function Schedule() {
+interface Props {
+  schedules: ScheduleProps[];
+}
+
+export function Schedule({ schedules }: Props) {
 
   const {
     year,
