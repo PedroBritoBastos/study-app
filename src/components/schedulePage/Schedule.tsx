@@ -1,6 +1,6 @@
 "use client"
 
-import { Stack, Grid, Flex } from "@chakra-ui/react"
+import { Stack, Grid, Flex, Button } from "@chakra-ui/react"
 import { Column } from "./Column"
 import { CreateButton } from "./createSchedule/CreateButton"
 
@@ -30,6 +30,8 @@ const styles = {
   }
 }
 
+import { useState } from "react"
+
 export function Schedule() {
 
   const {
@@ -37,12 +39,28 @@ export function Schedule() {
     month
   } = useSchedule();
 
+  const [openCreateSchedule, setOpenCreateSchedule] = useState(false);
+
+  const handleOpenDialog = () => {
+    setOpenCreateSchedule(true);
+  }
+
+  const handleCloseDialog = () => {
+    setOpenCreateSchedule(false);
+  }
+
   return (
     <Stack {...styles.container}>
-
       {/* Criar Schedule */}
       <Flex>
-        <CreateButton />
+        <Button
+          onClick={handleOpenDialog}
+        >Criar cronograma</Button>
+
+        <CreateButton
+          open={openCreateSchedule}
+          handleCloseDialog={handleCloseDialog}
+        />
       </Flex>
 
       <Grid {...styles.grid} className={scrollStyles["scrollbar"]}>

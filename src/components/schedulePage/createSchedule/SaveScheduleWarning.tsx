@@ -1,4 +1,4 @@
-import { Button, CloseButton, Dialog } from "@chakra-ui/react";
+import { Button, Text, Dialog } from "@chakra-ui/react";
 
 interface Props {
   open: boolean;
@@ -18,12 +18,12 @@ export function SaveScheduleWarning({
             <Dialog.Title textAlign={"center"} width={"100%"}>Nenhuma tarefa criada</Dialog.Title>
           </Dialog.Header>
           <Dialog.Body>
-            <p>
+            <Text textAlign={"center"}>
               Por favor, crie pelo menos uma tarefa para salvar o cronograma.
-            </p>
+            </Text>
           </Dialog.Body>
           <Dialog.Footer>
-            <Button onClick={handleClose}>Ok</Button>
+            <Button variant="outline" size="sm" onClick={handleClose}>Ok</Button>
           </Dialog.Footer>
         </Dialog.Content>
       </Dialog.Positioner>

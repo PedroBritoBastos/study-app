@@ -15,7 +15,14 @@ import {
 import { Task } from "./Task"
 import { SaveScheduleWarning } from "./SaveScheduleWarning"
 
-export function CreateButton() {
+import { createSchedule } from "@/src/services/scheduleService"
+
+interface Props {
+  open: boolean;
+  handleCloseDialog: () => void;
+}
+
+export function CreateButton({ open, handleCloseDialog }: Props) {
 
   const [scheduleDate, setScheduleDate] = useState(""); // data do cronograma
   const [tasks, setTasks] = useState<{ name: string, endTime: string }[]>([]); // lista de tarefas
@@ -41,15 +48,34 @@ export function CreateButton() {
     setTaskName("");
     setTaskEndTime("");
     setScheduleDate("");
+    handleCloseDialog();
   }
 
   const handleSave = () => {
 
     if (tasks.length === 0) {
       setOpenSaveScheduleWarning(true);
+      return;
     }
 
-    return;
+    const fetchScheduleData = async () => {
+      const formattedTasks = tasks.map(task => ({
+        title: task.name,
+        executionTime: task.endTime ? `1970-01-01T${task.endTime}:00` : undefined
+      }));
+
+
+      try {
+        const response = await createSchedule({
+          scheduleDay: scheduleDate,
+          tasks: formattedTasks
+        });
+      } catch (error) {
+        console.error("Erro ao criar cronograma:", error);
+      }
+    }
+    fetchScheduleData();
+    handleClose();
   }
 
   const closeWarning = () => {
@@ -57,12 +83,7 @@ export function CreateButton() {
   }
 
   return (
-    <Dialog.Root size="md" placement="center" motionPreset="slide-in-bottom">
-      <Dialog.Trigger asChild>
-        <Button variant="outline" size="sm">
-          Criar cronograma
-        </Button>
-      </Dialog.Trigger>
+    <Dialog.Root size="md" placement="center" motionPreset="slide-in-bottom" open={open}>
 
       <Portal>
         <Dialog.Backdrop />
