@@ -13,10 +13,7 @@ import {
   Flex
 } from "@chakra-ui/react"
 import { Task } from "./Task"
-
-const styles = {
-
-}
+import { SaveScheduleWarning } from "./SaveScheduleWarning"
 
 export function CreateButton() {
 
@@ -24,6 +21,7 @@ export function CreateButton() {
   const [tasks, setTasks] = useState<{ name: string, endTime: string }[]>([]); // lista de tarefas
   const [taskName, setTaskName] = useState(""); // nome da tarefa a ser criada
   const [taskEndTime, setTaskEndTime] = useState(""); // horário de término da tarefa a ser criada
+  const [openSaveScheduleWarning, setOpenSaveScheduleWarning] = useState(false); // abre o warning
 
   const handleAddTask = () => {
     const task = {
@@ -45,7 +43,18 @@ export function CreateButton() {
     setScheduleDate("");
   }
 
-  const handleSave = () => { }
+  const handleSave = () => {
+
+    if (tasks.length === 0) {
+      setOpenSaveScheduleWarning(true);
+    }
+
+    return;
+  }
+
+  const closeWarning = () => {
+    setOpenSaveScheduleWarning(false);
+  }
 
   return (
     <Dialog.Root size="md" placement="center" motionPreset="slide-in-bottom">
@@ -127,6 +136,7 @@ export function CreateButton() {
                   size="sm"
                   flex={1}
                   boxShadow={"md"}
+                  onClick={handleSave}
                 >
                   Salvar
                 </Button>
@@ -145,6 +155,11 @@ export function CreateButton() {
           </Dialog.Content>
         </Dialog.Positioner>
       </Portal>
+
+      <SaveScheduleWarning
+        open={openSaveScheduleWarning}
+        handleClose={closeWarning}
+      />
     </Dialog.Root >
   )
 }
