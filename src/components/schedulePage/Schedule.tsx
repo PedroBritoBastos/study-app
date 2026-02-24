@@ -3,6 +3,7 @@
 import { Stack, Grid, Flex, Button } from "@chakra-ui/react"
 import { Column } from "./Column"
 import { CreateButton } from "./createSchedule/CreateButton"
+import { Plus } from "lucide-react"
 
 import { getDaysOfMonth, formatDate } from "@/src/utilities/dateUtils"
 
@@ -60,8 +61,14 @@ export function Schedule({ schedules }: Props) {
       {/* Criar Schedule */}
       <Flex>
         <Button
+          bg={"purple.600"}
+          _hover={{ bg: "purple.500" }}
+          mb={5}
           onClick={handleOpenDialog}
-        >Criar cronograma</Button>
+        >
+          <Plus />
+          Criar cronograma
+        </Button>
 
         <CreateButton
           open={openCreateSchedule}
