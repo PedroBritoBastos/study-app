@@ -62,6 +62,7 @@ export function CreateButton({
     setTaskName("");
     setTaskEndTime("");
     setScheduleDate("");
+    setEmptyTaskNameInputWarning(false);
     handleCloseDialog();
   }
 
