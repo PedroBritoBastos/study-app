@@ -1,6 +1,7 @@
 "use client"
 
 import { useState } from "react"
+import { useRouter } from "next/navigation"
 
 import {
   Button,
@@ -16,13 +17,19 @@ import { Task } from "./Task"
 import { SaveScheduleWarning } from "./SaveScheduleWarning"
 
 import { createSchedule } from "@/src/services/scheduleService"
+import { ScheduleProps } from "@/src/types/schedule"
+
 
 interface Props {
   open: boolean;
   handleCloseDialog: () => void;
 }
 
-export function CreateButton({ open, handleCloseDialog }: Props) {
+export function CreateButton({
+  open,
+  handleCloseDialog,
+}: Props) {
+  const router = useRouter();
 
   const [scheduleDate, setScheduleDate] = useState(""); // data do cronograma
   const [tasks, setTasks] = useState<{ name: string, endTime: string }[]>([]); // lista de tarefas
@@ -66,16 +73,17 @@ export function CreateButton({ open, handleCloseDialog }: Props) {
 
 
       try {
-        const response = await createSchedule({
+        const response: ScheduleProps = await createSchedule({
           scheduleDay: scheduleDate,
           tasks: formattedTasks
         });
+        router.refresh()
+        handleClose();
       } catch (error) {
         console.error("Erro ao criar cronograma:", error);
       }
     }
     fetchScheduleData();
-    handleClose();
   }
 
   const closeWarning = () => {

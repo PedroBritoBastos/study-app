@@ -81,12 +81,17 @@ interface Props {
   schedule: ScheduleProps | undefined;
 }
 
-export function Column({ date, dayOfWeek, schedule }: Props) {
+export function Column({
+  date,
+  dayOfWeek,
+  schedule,
+}: Props) {
   const [tasks, setTasks] = useState<ScheduleTaskProps[]>();
 
   // faz o fetch para buscar as tarefas 
+  // atualiza sempre que addedScheduleTask é atualizado
   useEffect(() => {
-    if (!schedule) return; // verificando se existe schedule
+    if (!schedule) return;
 
     const fetchTasks = async () => {
       try {
@@ -97,7 +102,7 @@ export function Column({ date, dayOfWeek, schedule }: Props) {
       }
     }
     fetchTasks();
-  }, [])
+  }, [schedule])
 
   return (
     <Stack {...styles.container} >
