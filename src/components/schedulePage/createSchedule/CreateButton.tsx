@@ -11,14 +11,14 @@ import {
   Field,
   Input,
   Stack,
-  Flex
+  Flex,
+  Span
 } from "@chakra-ui/react"
 import { Task } from "./Task"
 import { SaveScheduleWarning } from "./SaveScheduleWarning"
 
 import { createSchedule } from "@/src/services/scheduleService"
 import { ScheduleProps } from "@/src/types/schedule"
-
 
 interface Props {
   open: boolean;
@@ -36,8 +36,14 @@ export function CreateButton({
   const [taskName, setTaskName] = useState(""); // nome da tarefa a ser criada
   const [taskEndTime, setTaskEndTime] = useState(""); // horário de término da tarefa a ser criada
   const [openSaveScheduleWarning, setOpenSaveScheduleWarning] = useState(false); // abre o warning
+  const [emptyTaskNameInputWarning, setEmptyTaskNameInputWarning] = useState(false);
 
   const handleAddTask = () => {
+    if (taskName.length === 0) {
+      setEmptyTaskNameInputWarning(true);
+      return;
+    }
+
     const task = {
       name: taskName,
       endTime: taskEndTime
@@ -48,6 +54,7 @@ export function CreateButton({
 
     setTaskName("");
     setTaskEndTime("");
+    setEmptyTaskNameInputWarning(false);
   }
 
   const handleClose = () => {
@@ -90,6 +97,13 @@ export function CreateButton({
     setOpenSaveScheduleWarning(false);
   }
 
+  const onScheduleDateInputChange = (e) => {
+    setScheduleDate(e.target.value);
+    setTasks([]);
+    setTaskName("");
+    setTaskEndTime("");
+  }
+
   return (
     <Dialog.Root size="md" placement="center" motionPreset="slide-in-bottom" open={open}>
 
@@ -116,27 +130,36 @@ export function CreateButton({
                   type="date"
                   w={"fit-content"}
                   value={scheduleDate}
-                  onChange={(e) => setScheduleDate(e.target.value)}
+                  onChange={onScheduleDateInputChange}
                 />
               </Field.Root>
 
               <Flex mb={5} alignItems={"center"} justifyContent={"space-between"} gap={4}>
                 <Field.Root flex={3}>
-                  <Field.Label>Criar tarefa</Field.Label>
+                  <Field.Label
+                    color={scheduleDate ? "black" : "gray.200"}
+                  >
+                    Criar tarefa
+                    {emptyTaskNameInputWarning && <Span ml={2} fontSize={"xs"} color={"red.400"}>Nome da tarefa é obrigatório</Span>}
+                  </Field.Label>
                   <Input
                     type="text"
                     placeholder="nome da tarefa"
                     value={taskName}
                     onChange={(e) => setTaskName(e.target.value)}
+                    disabled={scheduleDate ? false : true}
                   />
                 </Field.Root>
 
                 <Field.Root width={"fit-content"} flex={1}>
-                  <Field.Label>{"Horário (opcional)"}</Field.Label>
+                  <Field.Label
+                    color={scheduleDate ? "black" : "gray.200"}
+                  >{"Horário (opcional)"}</Field.Label>
                   <Input
                     type="time"
                     value={taskEndTime}
                     onChange={(e) => setTaskEndTime(e.target.value)}
+                    disabled={scheduleDate ? false : true}
                   />
                 </Field.Root>
               </Flex>
@@ -153,6 +176,7 @@ export function CreateButton({
                   size="sm"
                   onClick={handleAddTask}
                   flex={1}
+                  disabled={scheduleDate ? false : true}
                 >
                   Adicionar tarefa
                 </Button>
@@ -166,6 +190,7 @@ export function CreateButton({
                   flex={1}
                   boxShadow={"md"}
                   onClick={handleSave}
+                  disabled={scheduleDate ? false : true}
                 >
                   Salvar
                 </Button>
