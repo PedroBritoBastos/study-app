@@ -86,7 +86,7 @@ export function Schedule({ schedules }: Props) {
 
           return (<Column
             key={index}
-            date={formatDate(date.toISOString()).slice(0, 5)}
+            date={formatDate(date.toISOString())}
             dayOfWeek={date.toLocaleDateString("pt-BR", { weekday: "long" }).slice(0, 3).toUpperCase()}
             schedule={scheduleForDay}
           />

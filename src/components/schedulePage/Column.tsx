@@ -8,6 +8,8 @@ import { ScheduleTaskProps } from "@/src/types/scheduleTask";
 
 import { useState, useEffect } from "react";
 import { getTasks } from "@/src/services/scheduleService";
+import { CreateButton } from "./createSchedule/CreateButton";
+import { formatDateForInput } from "@/src/utilities/dateUtils";
 
 const styles = {
   container: {
@@ -87,6 +89,15 @@ export function Column({
   schedule,
 }: Props) {
   const [tasks, setTasks] = useState<ScheduleTaskProps[]>();
+  const [openCreateSchedule, setOpenCreateSchedule] = useState(false);
+
+  const handleOpenDialog = () => {
+    setOpenCreateSchedule(true);
+  }
+
+  const handleCloseDialog = () => {
+    setOpenCreateSchedule(false);
+  }
 
   // faz o fetch para buscar as tarefas 
   // atualiza sempre que addedScheduleTask é atualizado
@@ -105,18 +116,22 @@ export function Column({
   }, [schedule])
 
   return (
-    <Stack {...styles.container} >
+    <Stack {...styles.container} onClick={handleOpenDialog}>
       {/* date container */}
       <Box {...styles.dateContainer}>
         <Separator {...styles.separator} />
-        <Text {...styles.date}>{date}</Text>
+        <Text {...styles.date}>{date.slice(0, 5)}</Text>
         <Box {...styles.decorativeCircle} {...styles.decorativeCircleLeft}></Box>
         <Box {...styles.decorativeCircle} {...styles.decorativeCircleRight}></Box>
       </Box>
 
       <Text {...styles.dayOfWeek}>{dayOfWeek}</Text>
+
       {/* schedule tasks container */}
-      <Stack {...styles.scheduleTasksContainer}>
+      <Stack {...styles.scheduleTasksContainer}
+        cursor={schedule && "pointer"}
+        _hover={schedule && { bg: "gray.100" }}
+      >
         {tasks && tasks.map((task) => (
           <ScheduleTask
             key={task.id}
@@ -124,6 +139,12 @@ export function Column({
           />
         ))}
       </Stack>
+
+      <CreateButton
+        open={openCreateSchedule}
+        handleCloseDialog={handleCloseDialog}
+        columnDate={date}
+      />
     </Stack>
   )
 }

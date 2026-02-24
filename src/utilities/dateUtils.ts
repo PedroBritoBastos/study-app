@@ -72,3 +72,8 @@ export function diffInDays(date1: string, date2: string): number {
 
   return Math.floor(diffInMs / (1000 * 60 * 60 * 24));
 }
+
+export function formatDateForInput(date: string) {
+  const [day, month, year] = date.split("/");
+  return `${year}-${month}-${day}`;
+}

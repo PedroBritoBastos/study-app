@@ -1,6 +1,6 @@
 "use client"
 
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { useRouter } from "next/navigation"
 
 import {
@@ -19,19 +19,22 @@ import { SaveScheduleWarning } from "./SaveScheduleWarning"
 
 import { createSchedule } from "@/src/services/scheduleService"
 import { ScheduleProps } from "@/src/types/schedule"
+import { formatDateForInput } from "@/src/utilities/dateUtils"
 
 interface Props {
   open: boolean;
   handleCloseDialog: () => void;
+  columnDate?: string;
 }
 
 export function CreateButton({
   open,
   handleCloseDialog,
+  columnDate
 }: Props) {
   const router = useRouter();
 
-  const [scheduleDate, setScheduleDate] = useState(""); // data do cronograma
+  const [scheduleDate, setScheduleDate] = useState(columnDate && formatDateForInput(columnDate)); // data do cronograma
   const [tasks, setTasks] = useState<{ name: string, endTime: string }[]>([]); // lista de tarefas
   const [taskName, setTaskName] = useState(""); // nome da tarefa a ser criada
   const [taskEndTime, setTaskEndTime] = useState(""); // horário de término da tarefa a ser criada
@@ -61,7 +64,7 @@ export function CreateButton({
     setTasks([]);
     setTaskName("");
     setTaskEndTime("");
-    setScheduleDate("");
+    setScheduleDate(columnDate && formatDateForInput(columnDate));
     setEmptyTaskNameInputWarning(false);
     handleCloseDialog();
   }
