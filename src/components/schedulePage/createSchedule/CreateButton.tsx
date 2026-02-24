@@ -104,6 +104,10 @@ export function CreateButton({
     setTaskEndTime("");
   }
 
+  const handleRemoveTask = (taskIndex: number): void => {
+    setTasks(prev => prev.filter((_, index) => index !== taskIndex))
+  }
+
   return (
     <Dialog.Root size="md" placement="center" motionPreset="slide-in-bottom" open={open}>
 
@@ -201,7 +205,13 @@ export function CreateButton({
               {/* tarefas adicionadas */}
               <Stack h={"300px"} bg={"gray.200"} borderRadius={"md"} p={3} overflowY={"auto"}>
                 {tasks.map((task, index) => (
-                  <Task key={index} name={task.name} endTime={task.endTime} />
+                  <Task
+                    key={index}
+                    name={task.name}
+                    endTime={task.endTime}
+                    taskIndex={index}
+                    onRemoveTask={handleRemoveTask}
+                  />
                 ))}
               </Stack>
             </Dialog.Body>

@@ -1,8 +1,11 @@
-import { Flex, Text, Span } from "@chakra-ui/react"
+import { Flex, Text, IconButton, Icon } from "@chakra-ui/react"
+import { Clock, Trash2 } from "lucide-react";
 
 interface Props {
   name: string;
   endTime?: string;
+  taskIndex: number;
+  onRemoveTask: (taskIndex: number) => void;
 }
 
 const styles = {
@@ -21,17 +24,33 @@ const styles = {
     borderRadius: "sm",
     fontSize: "sm",
     color: "white",
-    width: "4.5rem",
+    width: "6rem",
     alignItems: "center",
-    justifyContent: "center"
+    justifyContent: "space-evenly",
   }
 }
 
-export function Task({ name, endTime }: Props) {
+export function Task({
+  name,
+  endTime,
+  taskIndex,
+  onRemoveTask
+}: Props) {
   return (
     <Flex {...styles.container}>
       <Text>{name}</Text>
-      <Flex {...styles.endtime}>{endTime ? `${endTime}h` : "--:--"}</Flex>
+
+      {/* container do botao de excluir e horario */}
+      <Flex gap={3}>
+        <Flex {...styles.endtime}>
+          <Icon size={"md"}>
+            <Clock />
+          </Icon>
+          {endTime ? `${endTime}h` : "--:--"}</Flex>
+        <IconButton size={"xs"} variant={"outline"} onClick={(e) => onRemoveTask(taskIndex)}>
+          <Trash2 />
+        </IconButton>
+      </Flex>
     </Flex>
   )
 }
