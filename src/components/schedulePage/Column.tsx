@@ -7,9 +7,10 @@ import { ScheduleProps } from "@/src/types/schedule";
 import { ScheduleTaskProps } from "@/src/types/scheduleTask";
 
 import { useState, useEffect } from "react";
+import { useRouter } from "next/navigation";
+
 import { getTasks } from "@/src/services/scheduleService";
 import { CreateButton } from "./createSchedule/CreateButton";
-import { formatDateForInput } from "@/src/utilities/dateUtils";
 
 const styles = {
   container: {
@@ -88,6 +89,8 @@ export function Column({
   dayOfWeek,
   schedule,
 }: Props) {
+  const router = useRouter();
+
   const [tasks, setTasks] = useState<ScheduleTaskProps[]>();
   const [openCreateSchedule, setOpenCreateSchedule] = useState(false);
 
@@ -115,8 +118,20 @@ export function Column({
     fetchTasks();
   }, [schedule])
 
+  /* abre a caixa para criar um cronograma quando não há um cronograma na coluna clicada 
+     redireciona para a página com as informações do cronograma quando há cronograma
+  */
+  const handleColumnClick = () => {
+    if (schedule) {
+      router.push(`/schedule/${schedule.id}`);
+      return;
+    }
+
+    handleOpenDialog();
+  }
+
   return (
-    <Stack {...styles.container} onClick={handleOpenDialog}>
+    <Stack {...styles.container} onClick={handleColumnClick}>
       {/* date container */}
       <Box {...styles.dateContainer}>
         <Separator {...styles.separator} />
@@ -129,8 +144,8 @@ export function Column({
 
       {/* schedule tasks container */}
       <Stack {...styles.scheduleTasksContainer}
-        cursor={schedule && "pointer"}
-        _hover={schedule && { bg: "gray.100" }}
+        cursor={"pointer"}
+        _hover={{ bg: "gray.100" }}
       >
         {tasks && tasks.map((task) => (
           <ScheduleTask
