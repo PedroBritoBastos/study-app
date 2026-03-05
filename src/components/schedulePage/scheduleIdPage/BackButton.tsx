@@ -1,7 +1,9 @@
 "use client"
 
-import { Button } from "@chakra-ui/react"
+import { IconButton } from "@chakra-ui/react"
+import { ArrowLeft } from "lucide-react";
 import { useRouter } from "next/navigation"
+
 
 export function BackButton() {
   const router = useRouter();
@@ -10,7 +12,7 @@ export function BackButton() {
     router.back();
   }
 
-  return <Button onClick={handleGoBack}>
-    Voltar
-  </Button>
+  return <IconButton onClick={handleGoBack} w={"fit-content"} bg={"purple.700"} _hover={{ bg: "purple.600" }}>
+    <ArrowLeft />
+  </IconButton>
 }

@@ -5,8 +5,12 @@ import { redirect } from "next/navigation";
 import { getUserFromToken } from "../../api/_helpers/getUserByToken";
 import { prisma } from "@/prisma/prisma";
 import { Navbar } from "@/src/components/navbar/Navbar";
+import { Text, Box, Flex, Stack } from "@chakra-ui/react";
 
 import { BackButton } from "@/src/components/schedulePage/scheduleIdPage/BackButton";
+import { Task } from "@/src/components/schedulePage/scheduleIdPage/Task";
+
+import { formatDate } from "@/src/utilities/dateUtils";
 
 interface Props {
   params: {
@@ -38,15 +42,74 @@ export default async function ScheduleIdPage({ params }: Props) {
   return <>
     <Navbar />
 
-    <div>
-      <BackButton />
-      <ul>
-        {scheduleTasks.map((task) => (
-          <li key={task.id}>{task.title}</li>
-        ))}
-      </ul>
-    </div>
+    <Box
+      py={6}
+      px={12}
+      flex={1}
+      display={"flex"}
+      flexDirection={"column"}
+    >
+
+      <Flex
+        alignItems={"center"}
+        gap={5}
+        mb={12}
+      >
+        <BackButton />
+        <Text
+          letterSpacing={2}
+          fontSize={"2xl"}
+          fontWeight={"bold"}
+          color={"gray.700"}
+        >
+          {formatDate(schedule ? schedule?.scheduleDay.toLocaleString() : "")}
+        </Text>
+        <Text
+          mt={2}
+          letterSpacing={1}
+          fontSize={"md"}
+          fontWeight={"semibold"}
+          color={"gray.600"}
+        >
+          {
+            schedule && (schedule?.scheduleDay.toLocaleDateString("pt-BR", { weekday: "long" }))?.charAt(0).toUpperCase() + (schedule?.scheduleDay.toLocaleDateString("pt-BR", { weekday: "long" }))?.slice(1)
+          }
+        </Text>
+      </Flex>
+
+      {/* tarefas */}
+      <Flex
+        flex={1}
+        gap={5}
+      >
+        {/* em andamento */}
+        <Stack
+          flex={1}
+          gap={4}
+        >
+          <Text
+            fontSize={"md"}
+            color={"purple.800"}
+          >
+            Tarefas
+          </Text>
+          {
+            scheduleTasks.map((task) => (
+              <Task
+                key={task.id}
+                name={task.title}
+                isChecked={task.isChecked}
+              />
+            ))
+          }
+        </Stack>
 
 
+      </Flex>
+    </Box>
   </>
 }
+
+
+
+
