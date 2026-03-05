@@ -1,7 +1,11 @@
+"use client"
+
 import { Flex, Text, Icon } from "@chakra-ui/react";
 import { CheckButton } from "./CheckButton";
 import { DeleteButton } from "./DeleteButton";
 import { Clock } from "lucide-react";
+
+import { useState } from "react";
 
 interface Props {
    name: string;
@@ -10,9 +14,9 @@ interface Props {
 
 const styles = {
    container: {
-      bg: "white",
       borderRadius: "md",
-      justifyContent: "space-between"
+      justifyContent: "space-between",
+      boxShadow: "sm"
    },
    timeContainer: {
       alignItems: "center",
@@ -40,25 +44,33 @@ export function Task({
    name,
    isChecked
 }: Props) {
-   return <Flex {...styles.container}>
-      <Flex {...styles.taskContainer}>
-         {/* nome da task */}
-         <Text color={"gray.700"}>{name}</Text>
+   const [checked, setChecked] = useState<boolean>(false);
 
-         {/* options */}
-         <Flex {...styles.optionsContainer}>
-            <CheckButton />
-            <DeleteButton />
+   const handleCheck = () => {
+      setChecked(prev => !prev);
+   }
+
+   return (
+      <Flex {...styles.container} bg={checked ? "gray.100" : "white"}>
+         <Flex {...styles.taskContainer}>
+            {/* nome da task */}
+            <Text color={checked ? "gray.400" : "gray.700"} textDecoration={checked ? "line-through" : "none"}>{name}</Text>
+
+            {/* options */}
+            <Flex {...styles.optionsContainer}>
+               <CheckButton onCheck={handleCheck} />
+               <DeleteButton isTaskChecked={checked} />
+            </Flex>
          </Flex>
-      </Flex>
 
-      {/* horario */}
-      <Flex {...styles.timeContainer}>
-         <Icon size={"md"}>
-            <Clock />
-         </Icon>
-         <Text>12:00</Text>
-      </Flex>
+         {/* horario */}
+         <Flex {...styles.timeContainer}>
+            <Icon size={"md"}>
+               <Clock />
+            </Icon>
+            <Text>12:00</Text>
+         </Flex>
 
-   </Flex>
+      </Flex>
+   )
 }

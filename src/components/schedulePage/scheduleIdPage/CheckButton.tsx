@@ -2,9 +2,13 @@
 
 import { Checkbox } from "@chakra-ui/react"
 
-export function CheckButton() {
+interface Props {
+   onCheck: () => void;
+}
+
+export function CheckButton({ onCheck }: Props) {
    return (
-      <Checkbox.Root variant={"solid"} colorPalette={"purple"} bg={"gray.300"} size={"lg"}>
+      <Checkbox.Root variant={"solid"} colorPalette={"purple"} bg={"gray.300"} size={"lg"} onCheckedChange={onCheck}>
          <Checkbox.HiddenInput />
          <Checkbox.Control />
       </Checkbox.Root>
