@@ -5,6 +5,7 @@ import { Dialog, Button, Portal, Field, Input, Flex, Presence } from "@chakra-ui
 import { useState } from "react"
 import { useRouter } from "next/navigation"
 import { createScheduleTask } from "@/src/services/scheduleService"
+import { parseTimeToDate } from "@/src/utilities/dateUtils"
 
 interface Props {
    scheduleId: string;
@@ -32,7 +33,7 @@ export function CreateScheduleTaskButton({ scheduleId }: Props) {
 
       const data = {
          title: name,
-         executionTime: time
+         executionTime: parseTimeToDate(time)
       }
 
       try {
@@ -47,7 +48,10 @@ export function CreateScheduleTaskButton({ scheduleId }: Props) {
    }
 
    return (
-      <Dialog.Root open={present} onOpenChange={(e) => setPresent(e.open)}>
+      <Dialog.Root
+         open={present}
+         onOpenChange={(e) => setPresent(e.open)}
+      >
          <Button
             px={6}
             size={"sm"}

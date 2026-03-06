@@ -37,8 +37,16 @@ export async function getTasks(scheduleId: string) {
   return response.json();
 }
 
+interface CreateScheduleTaskProps {
+  title: string;
+  executionTime?: Date | null;
+}
+
 // cria uma scheduleTask
-export async function createScheduleTask(data: Task, scheduleId: string) {
+export async function createScheduleTask(
+  data: CreateScheduleTaskProps,
+  scheduleId: string,
+) {
   const response = await fetch(`/api/schedules/${scheduleId}/scheduleTasks`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },

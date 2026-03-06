@@ -34,7 +34,7 @@ const styles = {
    taskContainer: {
       py: 3,
       px: 6,
-      flex: 6,
+      flex: 10,
       justifyContent: "space-between",
       alignItems: "center"
    },
@@ -53,17 +53,24 @@ export function Task({
 }: Props) {
    const [checked, setChecked] = useState<boolean>(false);
 
-   console.log("Execution time: ", executionTime)
-
    const handleCheck = () => {
       setChecked(prev => !prev);
    }
 
    return (
       <Flex {...styles.container} bg={checked ? "gray.100" : "white"}>
+
+         {/* horario */}
+         <Flex {...styles.timeContainer}>
+            <Icon size={"md"}>
+               <Clock />
+            </Icon>
+            <Text>{executionTime ? formatTime(executionTime) : "--:--"}</Text>
+         </Flex>
+
          <Flex {...styles.taskContainer}>
             {/* nome da task */}
-            <Text color={checked ? "gray.400" : "gray.700"} textDecoration={checked ? "line-through" : "none"}>{name}</Text>
+            <Text color={checked ? "gray.400" : "gray.700"} ml={3} textDecoration={checked ? "line-through" : "none"}>{name}</Text>
 
             {/* options */}
             <Flex {...styles.optionsContainer}>
@@ -74,14 +81,6 @@ export function Task({
                   taskId={taskId}
                />
             </Flex>
-         </Flex>
-
-         {/* horario */}
-         <Flex {...styles.timeContainer}>
-            <Icon size={"md"}>
-               <Clock />
-            </Icon>
-            <Text>{executionTime ? formatTime(executionTime) : "--:--"}</Text>
          </Flex>
 
       </Flex>
