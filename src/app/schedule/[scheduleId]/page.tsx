@@ -103,6 +103,8 @@ export default async function ScheduleIdPage({ params }: Props) {
               key={task.id}
               name={task.title}
               isChecked={task.isChecked}
+              taskId={task.id}
+              scheduleId={scheduleId}
             />
           ))
         }

@@ -10,6 +10,8 @@ import { useState } from "react";
 interface Props {
    name: string;
    isChecked: boolean;
+   taskId: string;
+   scheduleId: string;
 }
 
 const styles = {
@@ -42,7 +44,9 @@ const styles = {
 
 export function Task({
    name,
-   isChecked
+   isChecked,
+   taskId,
+   scheduleId
 }: Props) {
    const [checked, setChecked] = useState<boolean>(false);
 
@@ -59,7 +63,11 @@ export function Task({
             {/* options */}
             <Flex {...styles.optionsContainer}>
                <CheckButton onCheck={handleCheck} />
-               <DeleteButton isTaskChecked={checked} />
+               <DeleteButton
+                  isTaskChecked={checked}
+                  scheduleId={scheduleId}
+                  taskId={taskId}
+               />
             </Flex>
          </Flex>
 

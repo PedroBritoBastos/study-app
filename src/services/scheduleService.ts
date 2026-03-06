@@ -53,3 +53,23 @@ export async function createScheduleTask(data: Task, scheduleId: string) {
 
   return response;
 }
+
+// deleta uma scheduleTask
+export async function deleteScheduleTask(
+  scheduleId: string,
+  scheduleTaskId: string,
+) {
+  const response = await fetch(
+    `/api/schedules/${scheduleId}/scheduleTasks/${scheduleTaskId}`,
+    {
+      method: "DELETE",
+      headers: { "Content-Type": "application/json" },
+    },
+  );
+
+  if (!response.ok) {
+    throw new Error("Erro ao deletar task");
+  }
+
+  return response.json();
+}
