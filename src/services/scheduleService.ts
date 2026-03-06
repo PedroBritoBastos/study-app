@@ -36,3 +36,20 @@ export async function getTasks(scheduleId: string) {
 
   return response.json();
 }
+
+// cria uma scheduleTask
+export async function createScheduleTask(data: Task, scheduleId: string) {
+  const response = await fetch(`/api/schedules/${scheduleId}/scheduleTasks`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(data),
+  });
+
+  const responseMessage = await response.json();
+
+  if (!response.ok) {
+    throw new Error("Erro ao criar task: " + responseMessage);
+  }
+
+  return response;
+}

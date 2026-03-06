@@ -76,7 +76,7 @@ export default async function ScheduleIdPage({ params }: Props) {
             schedule && (schedule?.scheduleDay.toLocaleDateString("pt-BR", { weekday: "long" }))?.charAt(0).toUpperCase() + (schedule?.scheduleDay.toLocaleDateString("pt-BR", { weekday: "long" }))?.slice(1)
           }
         </Text>
-        <CreateScheduleTaskButton />
+        <CreateScheduleTaskButton scheduleId={scheduleId} />
       </Flex>
 
       {/* tarefas */}
