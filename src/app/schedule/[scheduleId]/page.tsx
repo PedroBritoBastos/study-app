@@ -8,6 +8,7 @@ import { Navbar } from "@/src/components/navbar/Navbar";
 import { Text, Box, Flex, Stack } from "@chakra-ui/react";
 
 import { BackButton } from "@/src/components/schedulePage/scheduleIdPage/BackButton";
+import { CreateScheduleTaskButton } from "@/src/components/schedulePage/scheduleIdPage/CreateScheduleTaskButton";
 import { Task } from "@/src/components/schedulePage/scheduleIdPage/Task";
 
 import { formatDate } from "@/src/utilities/dateUtils";
@@ -75,6 +76,7 @@ export default async function ScheduleIdPage({ params }: Props) {
             schedule && (schedule?.scheduleDay.toLocaleDateString("pt-BR", { weekday: "long" }))?.charAt(0).toUpperCase() + (schedule?.scheduleDay.toLocaleDateString("pt-BR", { weekday: "long" }))?.slice(1)
           }
         </Text>
+        <CreateScheduleTaskButton />
       </Flex>
 
       {/* tarefas */}
@@ -86,6 +88,7 @@ export default async function ScheduleIdPage({ params }: Props) {
         <Stack
           flex={1}
           gap={4}
+          px={6}
         >
           <Text
             fontSize={"md"}
