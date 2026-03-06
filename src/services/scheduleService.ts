@@ -67,9 +67,11 @@ export async function deleteScheduleTask(
     },
   );
 
+  const responseApi = await response.json();
+
   if (!response.ok) {
-    throw new Error("Erro ao deletar task");
+    throw new Error("Erro ao deletar task: ", responseApi);
   }
 
-  return response.json();
+  return responseApi;
 }

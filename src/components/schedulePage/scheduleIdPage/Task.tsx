@@ -6,12 +6,14 @@ import { DeleteButton } from "./DeleteButton";
 import { Clock } from "lucide-react";
 
 import { useState } from "react";
+import { formatTime } from "@/src/utilities/dateUtils";
 
 interface Props {
    name: string;
    isChecked: boolean;
    taskId: string;
    scheduleId: string;
+   executionTime?: Date | null;
 }
 
 const styles = {
@@ -46,9 +48,12 @@ export function Task({
    name,
    isChecked,
    taskId,
-   scheduleId
+   scheduleId,
+   executionTime
 }: Props) {
    const [checked, setChecked] = useState<boolean>(false);
+
+   console.log("Execution time: ", executionTime)
 
    const handleCheck = () => {
       setChecked(prev => !prev);
@@ -76,7 +81,7 @@ export function Task({
             <Icon size={"md"}>
                <Clock />
             </Icon>
-            <Text>12:00</Text>
+            <Text>{executionTime ? formatTime(executionTime) : "--:--"}</Text>
          </Flex>
 
       </Flex>

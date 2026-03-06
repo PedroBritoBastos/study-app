@@ -21,6 +21,12 @@ export function CreateScheduleTaskButton({ scheduleId }: Props) {
       setPresent(true);
    }
 
+   const handleCancel = () => {
+      setName("");
+      setTime("");
+      setPresent(false);
+   }
+
    const handleSave = async () => {
       if (name.length === 0) return;
 
@@ -32,6 +38,8 @@ export function CreateScheduleTaskButton({ scheduleId }: Props) {
       try {
          const response = await createScheduleTask(data, scheduleId);
          router.refresh();
+         setName("");
+         setTime("");
          setPresent(false);
       } catch (error) {
          console.log("erro do service: " + error);
@@ -81,7 +89,9 @@ export function CreateScheduleTaskButton({ scheduleId }: Props) {
                      </Field.Root>
 
                      <Flex gap={3} justifyContent="flex-end">
-                        <Button variant="outline" onClick={() => setPresent(false)}>
+                        <Button variant="outline"
+                           onClick={handleCancel}
+                        >
                            Cancelar
                         </Button>
 
