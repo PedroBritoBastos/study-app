@@ -13,6 +13,8 @@ import { Task } from "@/src/components/schedulePage/scheduleIdPage/Task";
 
 import { formatDate } from "@/src/utilities/dateUtils";
 
+import ScrollStyles from "@/styles/sidebar/scroll.module.css";
+
 interface Props {
   params: {
     scheduleId: string;
@@ -42,7 +44,6 @@ export default async function ScheduleIdPage({ params }: Props) {
 
   return <>
     <Navbar />
-
     <Box
       py={6}
       px={12}
@@ -50,7 +51,6 @@ export default async function ScheduleIdPage({ params }: Props) {
       display={"flex"}
       flexDirection={"column"}
     >
-
       <Flex
         alignItems={"center"}
         gap={5}
@@ -80,35 +80,33 @@ export default async function ScheduleIdPage({ params }: Props) {
       </Flex>
 
       {/* tarefas */}
-      <Flex
-        flex={1}
-        gap={5}
+      <Text
+        fontSize={"md"}
+        color={"purple.800"}
+        mb={6}
+        ml={5}
       >
-        {/* em andamento */}
-        <Stack
-          flex={1}
-          gap={4}
-          px={6}
-        >
-          <Text
-            fontSize={"md"}
-            color={"purple.800"}
-          >
-            Tarefas
-          </Text>
-          {
-            scheduleTasks.map((task) => (
-              <Task
-                key={task.id}
-                name={task.title}
-                isChecked={task.isChecked}
-              />
-            ))
-          }
-        </Stack>
-
-
-      </Flex>
+        Tarefas
+      </Text>
+      {/* em andamento */}
+      <Stack
+        flex={1}
+        gap={4}
+        px={6}
+        minH={0}
+        overflowY={"auto"}
+        className={ScrollStyles["scrollbar"]}
+      >
+        {
+          scheduleTasks.map((task) => (
+            <Task
+              key={task.id}
+              name={task.title}
+              isChecked={task.isChecked}
+            />
+          ))
+        }
+      </Stack>
     </Box>
   </>
 }
