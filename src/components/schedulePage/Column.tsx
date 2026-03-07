@@ -91,7 +91,7 @@ export function Column({
 }: Props) {
   const router = useRouter();
 
-  const [tasks, setTasks] = useState<ScheduleTaskProps[]>();
+  const [tasks, setTasks] = useState<ScheduleTaskProps[]>([]);
   const [openCreateSchedule, setOpenCreateSchedule] = useState(false);
 
   const handleOpenDialog = () => {
@@ -105,9 +105,13 @@ export function Column({
   // faz o fetch para buscar as tarefas 
   // atualiza sempre que addedScheduleTask é atualizado
   useEffect(() => {
-    if (!schedule) return;
 
     const fetchTasks = async () => {
+      if (!schedule) {
+        setTasks([]);
+        return;
+      }
+
       try {
         const response = await getTasks(schedule.id);
         setTasks(response);
@@ -126,9 +130,10 @@ export function Column({
       router.push(`/schedule/${schedule.id}`);
       return;
     }
-
     handleOpenDialog();
   }
+
+  console.log(`mês da coluna: ${date}, schedule da coluna: ${schedule}`)
 
   return (
     <Stack {...styles.container} onClick={handleColumnClick}>
