@@ -1,5 +1,12 @@
+"use client"
+
 import { IconButton, Dialog, Portal, Button, Flex, Text } from "@chakra-ui/react"
-import { Trash2 } from "lucide-react"
+import { Trash2 } from "lucide-react";
+
+import { useState } from "react";
+import { useRouter } from "next/navigation";
+
+import { deleteSchedule } from "@/src/services/scheduleService";
 
 const styles = {
    container: {
@@ -17,17 +24,43 @@ const styles = {
 
 interface Props {
    scheduleDate: string;
+   scheduleId: string;
    quantityOfTasks: number;
 }
 
-export function DeleteScheduleButton({ scheduleDate, quantityOfTasks }: Props) {
+export function DeleteScheduleButton({ scheduleDate, quantityOfTasks, scheduleId }: Props) {
+   const [present, setPresent] = useState(false);
+
+   const router = useRouter();
+
+   const handleOpenDialog = (e) => {
+      e.stopPropagation();
+      setPresent(true);
+   }
+
+   const handleCancel = (e) => {
+      e.stopPropagation();
+      setPresent(false);
+   }
+
+   const handleDelete = async (e) => {
+      e.stopPropagation();
+      if (!scheduleId) return;
+
+      try {
+         const response = await deleteSchedule(scheduleId);
+         router.refresh();
+         setPresent(false);
+      } catch (error) {
+         console.log(error);
+      }
+   }
+
    return (
-      <Dialog.Root>
-         <Dialog.Trigger asChild>
-            <IconButton {...styles.container} size={"md"} onMouseEnter={(e) => e.stopPropagation()} onClick={(e) => e.stopPropagation()}>
-               <Trash2 />
-            </IconButton>
-         </Dialog.Trigger>
+      <Dialog.Root open={present}>
+         <IconButton {...styles.container} size={"md"} onClick={handleOpenDialog}>
+            <Trash2 />
+         </IconButton>
          <Portal>
             <Dialog.Backdrop />
             <Dialog.Positioner>
@@ -39,10 +72,8 @@ export function DeleteScheduleButton({ scheduleDate, quantityOfTasks }: Props) {
                      <Text textAlign={"center"} my={1}>{`Cronograma do dia ${scheduleDate}`}</Text>
                      <Text textAlign={"center"} my={5}>{`Serão excluídas: ${quantityOfTasks} tarefas`}</Text>
                      <Flex justifyContent={"flex-end"} gap={3}>
-                        <Dialog.ActionTrigger asChild>
-                           <Button variant={"outline"} size={"sm"}>Cancelar</Button>
-                        </Dialog.ActionTrigger>
-                        <Button colorPalette={"purple"} size={"sm"}>Excluir</Button>
+                        <Button variant={"outline"} size={"sm"} onClick={handleCancel}>Cancelar</Button>
+                        <Button colorPalette={"purple"} size={"sm"} onClick={handleDelete}>Excluir</Button>
                      </Flex>
                   </Dialog.Body>
                </Dialog.Content>

@@ -185,6 +185,7 @@ export function Column({
             <Flex {...styles.numberOfTasksIndicatorContainer}>
               <DeleteScheduleButton
                 scheduleDate={date}
+                scheduleId={schedule.id}
                 quantityOfTasks={tasks.length}
               />
               <Center {...styles.numberOfTasksIndicator}>

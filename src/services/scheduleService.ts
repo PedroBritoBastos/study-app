@@ -83,3 +83,20 @@ export async function deleteScheduleTask(
 
   return responseApi;
 }
+
+// deleta uma schedule pelo id
+export async function deleteSchedule(scheduleId: string) {
+  const response = await fetch(`/api/schedules/${scheduleId}`, {
+    method: "DELETE",
+    headers: { "Content-Type": "application/json" },
+  });
+
+  const responseApi = await response.json();
+  console.log(responseApi);
+
+  if (!response.ok) {
+    throw new Error("Erro ao deletar schedule: " + responseApi.error);
+  }
+
+  return responseApi;
+}

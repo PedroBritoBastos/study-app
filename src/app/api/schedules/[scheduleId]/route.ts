@@ -44,10 +44,10 @@ export async function GET(
 // api/schedules/:id delete
 export async function DELETE(
   request: Request,
-  { params }: { params: { id: string } },
+  { params }: { params: { scheduleId: string } },
 ) {
   try {
-    const { id } = await params;
+    const { scheduleId } = await params;
     const user = await getUserFromToken();
 
     // valida o usuário
@@ -58,7 +58,7 @@ export async function DELETE(
     // procura a schedule no banco
     const schedule = await prisma.schedule.findFirst({
       where: {
-        id: id,
+        id: scheduleId,
         userId: user.id,
       },
     });
@@ -74,7 +74,7 @@ export async function DELETE(
     // deleta a schedule do banco
     await prisma.schedule.delete({
       where: {
-        id: id,
+        id: scheduleId,
       },
     });
 
