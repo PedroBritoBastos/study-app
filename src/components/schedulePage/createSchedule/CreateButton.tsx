@@ -34,12 +34,21 @@ export function CreateButton({
 }: Props) {
   const router = useRouter();
 
-  const [scheduleDate, setScheduleDate] = useState(columnDate && formatDateForInput(columnDate)); // data do cronograma
+  const [scheduleDate, setScheduleDate] = useState(""); // data do cronograma
   const [tasks, setTasks] = useState<{ name: string, endTime: string }[]>([]); // lista de tarefas
   const [taskName, setTaskName] = useState(""); // nome da tarefa a ser criada
   const [taskEndTime, setTaskEndTime] = useState(""); // horário de término da tarefa a ser criada
   const [openSaveScheduleWarning, setOpenSaveScheduleWarning] = useState(false); // abre o warning
   const [emptyTaskNameInputWarning, setEmptyTaskNameInputWarning] = useState(false);
+
+  useEffect(() => {
+    const updateColumnDate = async () => {
+      if (columnDate) {
+        await setScheduleDate(formatDateForInput(columnDate));
+      }
+    }
+    updateColumnDate();
+  }, [columnDate]);
 
   const handleAddTask = () => {
     if (taskName.length === 0) {

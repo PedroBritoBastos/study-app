@@ -133,8 +133,6 @@ export function Column({
     handleOpenDialog();
   }
 
-  console.log(`mês da coluna: ${date}, schedule da coluna: ${schedule}`)
-
   return (
     <Stack {...styles.container} onClick={handleColumnClick}>
       {/* date container */}
