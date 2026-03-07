@@ -1,7 +1,8 @@
 "use client"
 
-import { Stack, Text, Box, Separator } from "@chakra-ui/react"
+import { Stack, Text, Box, Separator, Center, Flex } from "@chakra-ui/react"
 import { ScheduleTask } from "./ScheduleTask";
+import { DeleteScheduleButton } from "./deleteSchedule/DeleteScheduleButton";
 
 import { ScheduleProps } from "@/src/types/schedule";
 import { ScheduleTaskProps } from "@/src/types/scheduleTask";
@@ -60,7 +61,10 @@ const styles = {
     mr: 1.5,
     bg: "rgba(255, 255, 255, 0.7)",
     borderRadius: "md",
-    p: 4
+    p: 4,
+    position: "relative",
+    overflowY: "auto",
+    minH: 0
   },
   dayOfWeek: {
     textAlign: "center",
@@ -75,6 +79,24 @@ const styles = {
     mr: 1.5,
     mb: 3,
     mt: 3
+  },
+  numberOfTasksIndicator: {
+    bg: "white",
+    width: "fit-content",
+    px: 4,
+    py: 2,
+    rounded: "full",
+    color: "purple.800",
+    boxShadow: "md",
+    fontWeight: "semibold"
+  },
+  numberOfTasksIndicatorContainer: {
+    position: "absolute",
+    bottom: 4,
+    right: 4,
+    left: 4,
+    justifyContent: "space-between",
+    zIndex: 20
   }
 }
 
@@ -156,6 +178,20 @@ export function Column({
             title={task.title}
           />
         ))}
+
+        {/* indicador de quantidade de tasks */}
+        {
+          schedule && (
+            <Flex {...styles.numberOfTasksIndicatorContainer}>
+              <DeleteScheduleButton />
+              <Center {...styles.numberOfTasksIndicator}>
+                {tasks.length}
+              </Center>
+            </Flex>
+
+          )
+        }
+
       </Stack>
 
       <CreateButton
@@ -163,6 +199,7 @@ export function Column({
         handleCloseDialog={handleCloseDialog}
         columnDate={date}
       />
+
     </Stack>
   )
 }
