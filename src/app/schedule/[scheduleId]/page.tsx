@@ -63,7 +63,7 @@ export default async function ScheduleIdPage({ params }: Props) {
           fontWeight={"bold"}
           color={"gray.700"}
         >
-          {formatDate(schedule ? schedule?.scheduleDay.toLocaleString() : "")}
+          {formatDate(schedule.scheduleDay.toISOString())}
         </Text>
         <Text
           mt={2}

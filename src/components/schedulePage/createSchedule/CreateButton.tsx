@@ -19,7 +19,7 @@ import { SaveScheduleWarning } from "./SaveScheduleWarning"
 
 import { createSchedule } from "@/src/services/scheduleService"
 import { ScheduleProps } from "@/src/types/schedule"
-import { formatDateForInput } from "@/src/utilities/dateUtils"
+import { formatDateForInput, parseDateToDatabase } from "@/src/utilities/dateUtils"
 
 interface Props {
   open: boolean;
@@ -85,9 +85,10 @@ export function CreateButton({
 
       try {
         const response: ScheduleProps = await createSchedule({
-          scheduleDay: scheduleDate,
+          scheduleDay: parseDateToDatabase(scheduleDate),
           tasks: formattedTasks
         });
+
         router.refresh()
         handleClose();
       } catch (error) {

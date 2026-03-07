@@ -4,7 +4,7 @@ type Task = {
 };
 
 type ScheduleData = {
-  scheduleDay: string;
+  scheduleDay: Date | undefined;
   tasks?: Task[];
 };
 

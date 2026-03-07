@@ -93,3 +93,10 @@ export function parseTimeToDate(time: string): Date | null {
 
   return date;
 }
+
+export function parseDateToDatabase(inputDate: string | undefined) {
+  if (!inputDate) return;
+
+  const [year, month, day] = inputDate.split("-").map(Number);
+  return new Date(year, month - 1, day);
+}
