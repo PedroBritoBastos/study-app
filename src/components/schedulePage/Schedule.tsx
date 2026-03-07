@@ -1,9 +1,9 @@
 "use client"
 
-import { Stack, Grid, Flex, Button } from "@chakra-ui/react"
+import { Stack, Grid, Flex, Button, Text, IconButton } from "@chakra-ui/react"
 import { Column } from "./Column"
 import { CreateButton } from "./createSchedule/CreateButton"
-import { Plus } from "lucide-react"
+import { Plus, ChevronLeft, ChevronRight } from "lucide-react"
 
 import { getDaysOfMonth, formatDate } from "@/src/utilities/dateUtils"
 
@@ -30,6 +30,14 @@ const styles = {
     overflowX: "auto",
     pt: 4,
     pb: 4
+  },
+  monthControlContainer: {
+    alignItems: "center",
+    gap: 5
+  },
+  headerContainer: {
+    justifyContent: "space-between",
+    pr: 35
   }
 }
 
@@ -43,7 +51,10 @@ export function Schedule({ schedules }: Props) {
 
   const {
     year,
-    month
+    month,
+    monthName,
+    handleNextMonth,
+    handlePreviousMonth
   } = useSchedule();
 
   const [openCreateSchedule, setOpenCreateSchedule] = useState(false);
@@ -59,21 +70,36 @@ export function Schedule({ schedules }: Props) {
   return (
     <Stack {...styles.container}>
       {/* Criar Schedule */}
-      <Flex>
-        <Button
-          bg={"purple.600"}
-          _hover={{ bg: "purple.500" }}
-          mb={5}
-          onClick={handleOpenDialog}
-        >
-          <Plus />
-          Criar cronograma
-        </Button>
+      <Flex {...styles.headerContainer}>
+        {/* create actions */}
+        <Flex>
+          <Button
+            bg={"purple.600"}
+            _hover={{ bg: "purple.500" }}
+            mb={5}
+            onClick={handleOpenDialog}
+          >
+            <Plus />
+            Criar cronograma
+          </Button>
 
-        <CreateButton
-          open={openCreateSchedule}
-          handleCloseDialog={handleCloseDialog}
-        />
+          <CreateButton
+            open={openCreateSchedule}
+            handleCloseDialog={handleCloseDialog}
+          />
+        </Flex>
+
+        {/* month control */}
+        <Flex {...styles.monthControlContainer}>
+          <IconButton size={"xs"} rounded={"full"} colorPalette={"purple"} onClick={(e) => handlePreviousMonth()}>
+            <ChevronLeft />
+          </IconButton>
+          <Text fontSize={"2xl"}>{monthName}</Text>
+          <IconButton size={"xs"} rounded={"full"} colorPalette={"purple"} onClick={(e) => handleNextMonth()}>
+            <ChevronRight />
+          </IconButton>
+        </Flex>
+
       </Flex>
 
       <Grid {...styles.grid} className={scrollStyles["scrollbar"]}>
