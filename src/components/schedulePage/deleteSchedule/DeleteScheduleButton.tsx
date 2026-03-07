@@ -1,4 +1,4 @@
-import { IconButton } from "@chakra-ui/react"
+import { IconButton, Dialog, Portal, Button, Flex, Text } from "@chakra-ui/react"
 import { Trash2 } from "lucide-react"
 
 const styles = {
@@ -9,15 +9,46 @@ const styles = {
       color: "purple.800",
       boxShadow: "md",
       _hover: {
-         bg: "gray.100"
+         bg: "purple.600",
+         color: "white"
       }
    }
 }
 
-export function DeleteScheduleButton() {
+interface Props {
+   scheduleDate: string;
+   quantityOfTasks: number;
+}
+
+export function DeleteScheduleButton({ scheduleDate, quantityOfTasks }: Props) {
    return (
-      <IconButton {...styles.container} size={"md"}>
-         <Trash2 />
-      </IconButton>
+      <Dialog.Root>
+         <Dialog.Trigger asChild>
+            <IconButton {...styles.container} size={"md"} onMouseEnter={(e) => e.stopPropagation()} onClick={(e) => e.stopPropagation()}>
+               <Trash2 />
+            </IconButton>
+         </Dialog.Trigger>
+         <Portal>
+            <Dialog.Backdrop />
+            <Dialog.Positioner>
+               <Dialog.Content>
+                  <Dialog.Header justifyContent={"center"}>
+                     <Dialog.Title>Excluir cronograma?</Dialog.Title>
+                  </Dialog.Header>
+                  <Dialog.Body>
+                     <Text textAlign={"center"} my={1}>{`Cronograma do dia ${scheduleDate}`}</Text>
+                     <Text textAlign={"center"} my={5}>{`Serão excluídas: ${quantityOfTasks} tarefas`}</Text>
+                     <Flex justifyContent={"flex-end"} gap={3}>
+                        <Dialog.ActionTrigger asChild>
+                           <Button variant={"outline"} size={"sm"}>Cancelar</Button>
+                        </Dialog.ActionTrigger>
+                        <Button colorPalette={"purple"} size={"sm"}>Excluir</Button>
+                     </Flex>
+                  </Dialog.Body>
+               </Dialog.Content>
+            </Dialog.Positioner>
+         </Portal>
+      </Dialog.Root>
+
    )
 }
