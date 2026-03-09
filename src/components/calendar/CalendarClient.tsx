@@ -4,7 +4,7 @@
 import { styles } from "@/src/styles/calendar/calendarClient.styles"
 
 // types
-import { SubjectType } from "../../types/subject"
+import { SubjectType } from "@/src/types/subject"
 
 // components
 import { Flex, Text, Grid, Stack } from "@chakra-ui/react"
