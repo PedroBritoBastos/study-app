@@ -52,7 +52,6 @@ export function HomeClient({ subjects }: Props) {
       <ReviewsAccordion subjects={subjects} />
     </Flex>
 
-
     {/* grid de conteudos */}
     <Grid {...styles.grid} className={scrollStyles["scrollbar"]}>
       {subjects.map((subject) => <Subject key={subject.id} subject={subject} openSidebar={sidebarHook.openSidebar} setSelectedSubject={setSelectedSubject} />)}
@@ -71,7 +70,6 @@ export function HomeClient({ subjects }: Props) {
       openDeleteModal={deleteModalHook.openModal}
       isSidebarOpen={sidebarHook.isSidebarOpen}
     />
-
 
     {/* modal de criar */}
     {createModalHook.isModalOpen && <CreateSubjectModal closeModal={createModalHook.closeModal} />}

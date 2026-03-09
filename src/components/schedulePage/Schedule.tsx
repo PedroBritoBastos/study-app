@@ -94,12 +94,12 @@ export function Schedule({ schedules }: Props) {
           <IconButton size={"xs"} rounded={"full"} colorPalette={"purple"} onClick={(e) => handlePreviousMonth()}>
             <ChevronLeft />
           </IconButton>
-          <Text fontSize={"2xl"}>{monthName}</Text>
+          <Text fontSize={"2xl"}>{`${monthName}, ${year}`}</Text>
           <IconButton size={"xs"} rounded={"full"} colorPalette={"purple"} onClick={(e) => handleNextMonth()}>
             <ChevronRight />
           </IconButton>
         </Flex>
-
+        {/* ///// */}
       </Flex>
 
       <Grid {...styles.grid} className={scrollStyles["scrollbar"]}>

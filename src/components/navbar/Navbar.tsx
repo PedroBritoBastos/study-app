@@ -35,11 +35,8 @@ export function Navbar() {
       <NavbarOption name="Metas" url="/goals">
         <Goal />
       </NavbarOption>
-      <NavbarOption name="Cronograma" url="/test/cronograma">
+      <NavbarOption name="Cronograma" url="/schedule">
         <Calendar />
-      </NavbarOption>
-      <NavbarOption name="Dashboards" url="/test/dashboards-page">
-        <ChartColumnDecreasing />
       </NavbarOption>
     </Stack>
 
