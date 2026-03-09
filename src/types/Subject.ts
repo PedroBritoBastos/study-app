@@ -2,7 +2,7 @@ export type SubjectType = {
   id: string;
   title: string;
   content: string;
-  currentDate: Date;
+  currentDate: string | Date;
   userId: string;
 };
 

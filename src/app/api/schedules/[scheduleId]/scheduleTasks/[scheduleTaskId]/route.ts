@@ -5,7 +5,9 @@ import { getUserFromToken } from "../../../../_helpers/getUserByToken";
 // api/schedules/:scheduleId/scheduleTasks/:taskId delete
 export async function DELETE(
   request: Request,
-  { params }: { params: { scheduleId: string; scheduleTaskId: string } },
+  {
+    params,
+  }: { params: Promise<{ scheduleId: string; scheduleTaskId: string }> },
 ) {
   try {
     const { scheduleId, scheduleTaskId } = await params;

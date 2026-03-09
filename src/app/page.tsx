@@ -17,6 +17,7 @@ export default async function Home() {
   if (!auth) redirect("/login");
 
   const user = await getUserFromToken();
+  if (!user) return null;
 
   const subjects = await prisma.subject.findMany({
     where: { userId: user.id },

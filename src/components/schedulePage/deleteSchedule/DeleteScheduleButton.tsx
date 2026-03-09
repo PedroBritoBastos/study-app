@@ -33,17 +33,17 @@ export function DeleteScheduleButton({ scheduleDate, quantityOfTasks, scheduleId
 
    const router = useRouter();
 
-   const handleOpenDialog = (e) => {
+   const handleOpenDialog = (e: React.MouseEvent<HTMLButtonElement>) => {
       e.stopPropagation();
       setPresent(true);
    }
 
-   const handleCancel = (e) => {
+   const handleCancel = (e: React.MouseEvent<HTMLButtonElement>) => {
       e.stopPropagation();
       setPresent(false);
    }
 
-   const handleDelete = async (e) => {
+   const handleDelete = async (e: React.MouseEvent<HTMLButtonElement>) => {
       e.stopPropagation();
       if (!scheduleId) return;
 

@@ -41,13 +41,11 @@ export async function POST(request: NextRequest) {
     const body = await request.json();
     const { title, deadline } = body;
 
-    const formatedDeadline = new Date(deadline);
-
     const goal = await prisma.goal.create({
       data: {
         title,
         userId: user.id,
-        deadline: formatedDeadline,
+        deadline: deadline,
       },
     });
 

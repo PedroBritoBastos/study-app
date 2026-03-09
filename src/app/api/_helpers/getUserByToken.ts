@@ -1,7 +1,11 @@
 import jwt from "jsonwebtoken";
 import { cookies } from "next/headers";
 
-export async function getUserFromToken() {
+interface TokenPayload {
+  id: string;
+}
+
+export async function getUserFromToken(): Promise<TokenPayload | null> {
   const cookieStore = await cookies();
   const token = cookieStore.get("token")?.value;
 
@@ -12,7 +16,11 @@ export async function getUserFromToken() {
 
     if (!secret) throw new Error("Não existe secret.");
 
-    return jwt.verify(token, secret);
+    const decoded = jwt.verify(token, secret);
+
+    if (typeof decoded === "string") return null;
+
+    return decoded as TokenPayload;
   } catch {
     return null;
   }

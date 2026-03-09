@@ -4,7 +4,7 @@ import { getUserFromToken } from "../../../_helpers/getUserByToken";
 
 export async function GET(
   request: NextRequest,
-  { params }: { params: { id: string } },
+  { params }: { params: Promise<{ id: string }> },
 ) {
   try {
     const user = await getUserFromToken();

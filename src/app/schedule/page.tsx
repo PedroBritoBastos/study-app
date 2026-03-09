@@ -14,6 +14,7 @@ export default async function SchedulePage() {
   if (!auth) redirect("/login");
 
   const user = await getUserFromToken();
+  if (!user) return null;
 
   const schedules: ScheduleProps[] = await prisma.schedule.findMany({
     where: { userId: user.id },

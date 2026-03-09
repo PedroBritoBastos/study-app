@@ -6,9 +6,10 @@ export function useReviews() {
   function verifyIfSubjectHasReviewsInTheCurrentDate(
     subject: SubjectType,
     currentDate: Date,
-  ): boolean {
+  ): boolean | null {
     // verifica quantos dias se passaram desde a data de criacao
     const days = daysSinceCreation(new Date(subject.currentDate), currentDate);
+    if (!days) return null;
 
     // verifica se a quantidade de dias condiz com as condições necessárias para se ter revisão neste dia
     const fixedReviewDays = [1, 4, 11, 25, 55];

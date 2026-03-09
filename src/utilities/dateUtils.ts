@@ -35,7 +35,9 @@ type DaysSinceCreationProps = {
 export function daysSinceCreation(
   createdAt: Date | null,
   currentDate: Date,
-): number {
+): number | null {
+  if (!createdAt) return null;
+
   const start = new Date(
     createdAt.getFullYear(),
     createdAt.getMonth(),
@@ -53,7 +55,7 @@ export function daysSinceCreation(
   return Math.floor((end.getTime() - start.getTime()) / msPerDay);
 }
 
-export function formatDate(fullDate: string): string {
+export function formatDate(fullDate: string | Date): string {
   const date = new Date(fullDate);
   return date.toLocaleDateString("pt-BR", {
     timeZone: "UTC",

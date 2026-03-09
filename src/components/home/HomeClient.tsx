@@ -34,7 +34,7 @@ export function HomeClient({ subjects }: Props) {
   const deleteModalHook = useModal();
 
   // state de materia selecionada
-  const [selectedSubject, setSelectedSubject] = useState<SubjectType>({ id: "", title: "", content: "", currentDate: "", userId: "" });
+  const [selectedSubject, setSelectedSubject] = useState<SubjectType>({ id: "", title: "", content: "", currentDate: new Date(), userId: "" });
 
   return <Flex {...styles.container}>
     {/* header e botao criar */}

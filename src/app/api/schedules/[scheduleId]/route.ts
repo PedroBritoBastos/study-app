@@ -5,7 +5,7 @@ import { getUserFromToken } from "../../_helpers/getUserByToken";
 // api/schedules/:id get
 export async function GET(
   request: Request,
-  { params }: { params: { scheduleId: string } },
+  { params }: { params: Promise<{ scheduleId: string }> },
 ) {
   try {
     const { scheduleId } = await params;
@@ -44,7 +44,7 @@ export async function GET(
 // api/schedules/:id delete
 export async function DELETE(
   request: Request,
-  { params }: { params: { scheduleId: string } },
+  { params }: { params: Promise<{ scheduleId: string }> },
 ) {
   try {
     const { scheduleId } = await params;

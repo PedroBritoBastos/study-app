@@ -26,6 +26,7 @@ export default async function ScheduleIdPage({ params }: Props) {
   if (!auth) redirect("/login");
 
   const user = await getUserFromToken();
+  if (!user) return null;
 
   const { scheduleId } = await params;
 
@@ -63,7 +64,7 @@ export default async function ScheduleIdPage({ params }: Props) {
           fontWeight={"bold"}
           color={"gray.700"}
         >
-          {formatDate(schedule.scheduleDay.toISOString())}
+          {schedule && formatDate(schedule.scheduleDay.toISOString())}
         </Text>
         <Text
           mt={2}

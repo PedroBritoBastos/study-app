@@ -32,7 +32,11 @@ export function CreateTaskButton({ goalId, updateAddedTask, refreshGoal }: Props
       refreshGoal(response.id, "create");
       setOpen(!open);
     } catch (error) {
-      console.log(error.message);
+      if (error instanceof Error) {
+        console.log(error.message);
+      } else {
+        console.log("Erro desconhecido ao criar tarefa");
+      }
     }
   }
 

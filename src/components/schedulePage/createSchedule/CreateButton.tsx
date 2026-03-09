@@ -73,7 +73,7 @@ export function CreateButton({
     setTasks([]);
     setTaskName("");
     setTaskEndTime("");
-    setScheduleDate(columnDate && formatDateForInput(columnDate));
+    setScheduleDate(columnDate ? formatDateForInput(columnDate) : "");
     setEmptyTaskNameInputWarning(false);
     handleCloseDialog();
   }
@@ -111,7 +111,7 @@ export function CreateButton({
     setOpenSaveScheduleWarning(false);
   }
 
-  const onScheduleDateInputChange = (e) => {
+  const onScheduleDateInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setScheduleDate(e.target.value);
     setTasks([]);
     setTaskName("");

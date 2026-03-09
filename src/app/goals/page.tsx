@@ -16,6 +16,7 @@ export default async function GoalsPage() {
   if (!auth) redirect("/login");
 
   const user = await getUserFromToken();
+  if (!user) return null;
 
   const goals: GoalType[] = await prisma.goal.findMany({
     where: { userId: user.id },

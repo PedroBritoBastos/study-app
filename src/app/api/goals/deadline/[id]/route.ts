@@ -5,7 +5,7 @@ import { getUserFromToken } from "../../../_helpers/getUserByToken";
 // api/goals/deadline/:id - GET
 export async function GET(
   request: Request,
-  { params }: { params: { id: string } },
+  { params }: { params: Promise<{ id: string }> },
 ) {
   try {
     const { id } = await params;
@@ -47,7 +47,7 @@ export async function GET(
 // api/goals/deadline/:id - PUT
 export async function PUT(
   request: Request,
-  { params }: { params: { id: string } },
+  { params }: { params: Promise<{ id: string }> },
 ) {
   try {
     const { id } = await params;

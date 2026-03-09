@@ -28,9 +28,12 @@ export default function RegisterPage() {
       router.push("/");
       router.refresh();
     } catch (error) {
-      setError(error.message);
+      if (error instanceof Error) {
+        setError(error.message);
+      } else {
+        setError("Erro inesperado ao registrar.");
+      }
     }
-
   };
 
   return <Stack {...styles.container}>

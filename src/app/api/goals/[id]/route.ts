@@ -4,19 +4,17 @@ import { getUserFromToken } from "../../_helpers/getUserByToken";
 
 // api/goals/:id delete
 export async function DELETE(
-  request: Request,
-  { params }: { params: { id: string } },
+  request: NextRequest,
+  { params }: { params: Promise<{ id: string }> },
 ) {
   try {
     const { id } = await params;
     const user = await getUserFromToken();
 
-    // valida o usuário
     if (!user || !user.id) {
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }
 
-    // procura a goal no banco
     const goal = await prisma.goal.findFirst({
       where: {
         id: id,
@@ -24,7 +22,6 @@ export async function DELETE(
       },
     });
 
-    // valida se a goal existe e pertence ao usuário
     if (!goal) {
       return NextResponse.json(
         { error: "Goal não encontrado ou não pertence ao usuário" },
@@ -32,7 +29,6 @@ export async function DELETE(
       );
     }
 
-    // deleta a goal do banco
     await prisma.goal.delete({
       where: {
         id: id,
